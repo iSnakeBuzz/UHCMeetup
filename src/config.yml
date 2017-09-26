@@ -16,13 +16,18 @@ Lobby: Hub
 MaxPlayers: 16
 MinPlayers: 6
 MinVotes: 2
+GameFull: '&cGame Full'
+GameStarted: '&cGame started'
 StartMSG: '&8[&aUHCMeetup&8]&6 Starting in &e%time%s'
 StartedMSG: '&8[&aUHCMeetup&8]&6 Good lock!'
+Restarting: '&8[&aUHCMeetup&8]&6 Game restarting in &e%time%s'
 Border: '&8[&aUHCMeetup&8]&6 Border shrinking to &e%coords% &6in &e%time%s'
 BorderNow: '&8[&aUHCMeetup&8]&6 Border is now at &e%coords%'
 NextUpdate: '&cThis function will be coming soon'
 WinMSG: '&8[&aUHCMeetup&8]&a %player%&6 has win the UHCMeetup'
 MlgMSG: '&8[&aUHCMeetup&8]&e Use &a/mlg&e to test yourself in the Waterdrop'
+QuitMessage: '&8[&aUHCMeetup&8] &a%player%&e has quit&6. &a%online%&7/&a%max%'
+JoinMessage: '&8[&aUHCMeetup&8] &a%player%&e has joined&6. &a%online%&7/&a%max%'
 Items:
   Hub: '&aLeave'
   Options: '&aOptions'

@@ -53,9 +53,15 @@ public class PlayerListeners implements Listener{
                 Border.setWorldBoder18(p);
             }
         }, 2);
-        //Border.teleport(p, 120);
-        need--;
-        e.setJoinMessage("§6Faltan §e" + need + " personas §6 para iniciar el UHCMeetup 2.0");
+        if (States.state == States.LOBBY){
+            e.setJoinMessage(c(Main.plugin.getConfig().getString("JoinMessage")
+                    .replaceAll("%player%", e.getPlayer().getName())
+                    .replaceAll("%online%", ""+Bukkit.getOnlinePlayers().size())
+                    .replaceAll("%max%", ""+Main.plugin.getConfig().getInt("MaxPlayers"))
+                    .replaceAll("%min%", ""+Main.plugin.getConfig().getInt("MinPlayers"))
+            ));
+            need--;
+        }
         
         if (Bukkit.getOnlinePlayers().size() >= 2){
             for (Player all : Bukkit.getOnlinePlayers()){
@@ -73,6 +79,15 @@ public class PlayerListeners implements Listener{
     
     @EventHandler
     public void PlayerLeave(PlayerQuitEvent e){
+        if (States.state == States.LOBBY){
+            e.setQuitMessage(c(Main.plugin.getConfig().getString("QuitMessage")
+                    .replaceAll("%player%", e.getPlayer().getName())
+                    .replaceAll("%online%", ""+Bukkit.getOnlinePlayers().size())
+                    .replaceAll("%max%", ""+Main.plugin.getConfig().getInt("MaxPlayers"))
+                    .replaceAll("%min%", ""+Main.plugin.getConfig().getInt("MinPlayers"))
+            ));
+            need++;
+        }
         plugin.getServer().getScheduler().runTaskLater(plugin, () -> {
             if (Bukkit.getOnlinePlayers().size() <= 1){
                 for (Player all : Bukkit.getOnlinePlayers()){
