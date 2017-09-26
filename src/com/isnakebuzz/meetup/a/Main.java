@@ -32,6 +32,8 @@ public class Main extends JavaPlugin{
     @Override
     public void onEnable() {
         super.onEnable();
+        getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
+        saveDefaultConfig();
         Main.plugin = this;
         gl.init();
         pl.init();

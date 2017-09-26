@@ -5,6 +5,7 @@ import com.isnakebuzz.meetup.b.Kits;
 import com.isnakebuzz.meetup.b.States;
 import com.isnakebuzz.meetup.d.Border;
 import com.isnakebuzz.meetup.e.API;
+import static com.isnakebuzz.meetup.e.API.c;
 import com.isnakebuzz.meetup.g.ScoreboardManager;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -21,7 +22,7 @@ public class Starting extends BukkitRunnable {
         this.plugin = plugin;
     }
     
-    int time = 15;
+    public static int time = 15;
     
     @Override
     public void run() {
@@ -48,11 +49,16 @@ public class Starting extends BukkitRunnable {
                 ScoreboardManager.getManager().ScoreBoard(all);
             }
         }else if (time == 10){
-            Bukkit.broadcastMessage("§6UHCMeetup2.0 Iniciando en §a10s");
+            Bukkit.broadcastMessage(c(Main.plugin.getConfig().getString("StartMSG")
+                    .replaceAll("%time%", ""+Starting.time)
+            ));
         }else if (time <= 5 && time >= 1){
-            Bukkit.broadcastMessage("§6UHCMeetup2.0 Iniciando en §a"+time+"s");
+            Bukkit.broadcastMessage(c(Main.plugin.getConfig().getString("StartMSG")
+                    .replaceAll("%time%", ""+Starting.time)
+            ));
         }else if (time == 0){
-            Bukkit.broadcastMessage("§6UHCMeetup2.0 El juego a iniciado");
+            Bukkit.broadcastMessage(c(Main.plugin.getConfig().getString("StartedMSG")
+            ));
             States.state = States.IN_GAME;
             new InGame(Main.plugin).runTaskTimer(Main.plugin, 02L, 20L);
             this.cancel();

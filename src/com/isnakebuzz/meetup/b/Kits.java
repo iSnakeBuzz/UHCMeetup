@@ -1,5 +1,7 @@
 package com.isnakebuzz.meetup.b;
 
+import com.isnakebuzz.meetup.a.Main;
+import static com.isnakebuzz.meetup.e.API.c;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -24,7 +26,7 @@ public class Kits {
         ItemStack ggaps = new ItemStack(Material.GOLDEN_APPLE, 3);
         ItemStack steak = new ItemStack(Material.COOKED_BEEF, 16);
         ItemStack water = new ItemStack(Material.WATER_BUCKET);
-        ItemStack blocks = new ItemStack(Material.STONE, 64);
+        ItemStack blocks = new ItemStack(Material.COBBLESTONE, 64);
         
         ItemStack arrow = new ItemStack(Material.ARROW, 64);
         ItemStack pico = new ItemStack(Material.DIAMOND_PICKAXE);
@@ -118,11 +120,11 @@ public class Kits {
         ItemMeta st = settigns.getItemMeta();
         ItemMeta lv = leave.getItemMeta();
         
-        pl.setDisplayName("§aJugadores");
+        pl.setDisplayName(c(Main.plugin.getConfig().getString("Items.Players")));
         
-        st.setDisplayName("§aOpciones");
+        st.setDisplayName(c(Main.plugin.getConfig().getString("Items.Options")));
         
-        lv.setDisplayName("§aSalir");
+        lv.setDisplayName(c(Main.plugin.getConfig().getString("Items.Hub")));
         
         players.setItemMeta(pl);
         settigns.setItemMeta(st);
@@ -135,7 +137,7 @@ public class Kits {
         if (Bukkit.getOnlinePlayers().size() >= 2 && States.state == States.LOBBY){
             ItemStack start = new ItemStack(Material.PAPER);
             ItemMeta srt = start.getItemMeta();
-            srt.setDisplayName("§a[Voto] Iniciar");
+            srt.setDisplayName(c(Main.plugin.getConfig().getString("Items.Vote")));
             start.setItemMeta(srt);
             p.getInventory().setItem(1, start);
         }

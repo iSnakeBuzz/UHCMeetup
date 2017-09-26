@@ -1,37 +1,30 @@
 package com.isnakebuzz.meetup.e;
 
-import com.comphenix.protocol.ProtocolLib;
 import com.isnakebuzz.meetup.a.Main;
 import com.isnakebuzz.meetup.b.States;
 import com.isnakebuzz.meetup.f.Starting;
+import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import net.minecraft.server.v1_8_R3.BiomeBase;
-import net.minecraft.server.v1_8_R3.EntityArmorStand;
-import net.minecraft.server.v1_8_R3.NBTTagCompound;
-import net.minecraft.server.v1_8_R3.PacketPlayOutEntity;
-import net.minecraft.server.v1_8_R3.PacketPlayOutSpawnEntityLiving;
-import net.minecraft.server.v1_8_R3.WorldServer;
 import org.apache.commons.io.FileUtils;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
-import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
-import org.bukkit.craftbukkit.v1_8_R3.entity.CraftEntity;
-import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
-import org.bukkit.util.permissions.BroadcastPermissions;
 
 public class API {
     
@@ -50,15 +43,17 @@ public class API {
     
     public static ArrayList<Player> Teleported = new ArrayList<>();
     
-    public static int need = 6;
-    public static int votos = 2;
+    public static int need = Main.plugin.getConfig().getInt("MinPlayers");
+    public static int votos = Main.plugin.getConfig().getInt("MinVotes");
     public static int nextborder = 60;
     
     
     public static void CheckStart(){
         if (need == 0){
             new Starting(Main.plugin).runTaskTimer(Main.plugin, 02L, 20L);
-            Bukkit.broadcastMessage("§6UHCMeetup2.0 Iniciando en §a15s");
+            Bukkit.broadcastMessage(c(Main.plugin.getConfig().getString("StartMSG")
+                    .replaceAll("%time%", ""+Starting.time)
+            ));
             started = true;
         }
     }
@@ -69,6 +64,19 @@ public class API {
         }else{
             return API.Kills.get(p);
         }
+    }
+    
+    public static void sendLobby(Player player) {
+        ByteArrayOutputStream b = new ByteArrayOutputStream();
+        DataOutputStream out = new DataOutputStream(b);
+        try {
+            out.writeUTF("Connect");
+            out.writeUTF(Main.plugin.getConfig().getString("Lobby"));
+
+        } catch (IOException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        player.sendPluginMessage(Main.plugin, "BungeeCord", b.toByteArray());
     }
     
     public static void CheckWin(Player p){
@@ -126,6 +134,10 @@ public class API {
         catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException localException) {
         }
         Bukkit.getConsoleSender().sendMessage("§aBiomas injectados correctamente");
+    }
+    
+    public static String c(String c){
+        return ChatColor.translateAlternateColorCodes('&', c);
     }
     
     public static void DeleteWorld(String world) {

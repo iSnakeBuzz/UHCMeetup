@@ -6,6 +6,7 @@ import com.isnakebuzz.meetup.b.States;
 import com.isnakebuzz.meetup.d.Border;
 import com.isnakebuzz.meetup.e.API;
 import static com.isnakebuzz.meetup.e.API.Voted;
+import static com.isnakebuzz.meetup.e.API.c;
 import static com.isnakebuzz.meetup.e.API.need;
 import static com.isnakebuzz.meetup.e.API.started;
 import static com.isnakebuzz.meetup.e.API.votos;
@@ -147,19 +148,19 @@ public class PlayerListeners implements Listener{
                 if (e.getItem() == null){
                     return;
                 }
-                if ("§aJugadores".equals(e.getItem().getItemMeta().getDisplayName())){
+                if (c(Main.plugin.getConfig().getString("Items.Players")).equals(e.getItem().getItemMeta().getDisplayName())){
                     e.getPlayer().openInventory(API.getAlive());
                 }
-                if ("§aOpciones".equals(e.getItem().getItemMeta().getDisplayName())){
-                    e.getPlayer().sendMessage("§cProximamente estaran disponibles las opciones de juego");
+                if (c(Main.plugin.getConfig().getString("Items.Options")).equals(e.getItem().getItemMeta().getDisplayName())){
+                    e.getPlayer().sendMessage(c(Main.plugin.getConfig().getString("NextUpdate")));
                 }
-                if ("§aSalir".equals(e.getItem().getItemMeta().getDisplayName())){
+                if (c(Main.plugin.getConfig().getString("Items.Hub")).equals(e.getItem().getItemMeta().getDisplayName())){
                     e.getPlayer().sendMessage("§eEnviandote al lobby...");
                     plugin.getServer().getScheduler().runTaskLater(plugin, () -> {
-                        
+                        API.sendLobby(e.getPlayer());
                     }, 10);
                 }
-                if ("§a[Voto] Iniciar".equals(e.getItem().getItemMeta().getDisplayName()) && !Voted.contains(e.getPlayer()) && started == false){
+                if (c(Main.plugin.getConfig().getString("Items.Vote")).equals(e.getItem().getItemMeta().getDisplayName()) && !Voted.contains(e.getPlayer()) && started == false){
                     Voted.add(e.getPlayer());
                     votos--;
                     Bukkit.broadcastMessage("§6Se necesitan §e" + votos + " votos§6 para iniciar el juego");
