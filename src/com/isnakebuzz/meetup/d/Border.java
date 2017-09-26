@@ -14,7 +14,7 @@ import org.bukkit.entity.Player;
 
 public class Border {
     
-    public static int walls = Main.plugin.getConfig().getInt("Border");
+    public static int walls = 125;
     
     public static void teleport(final Player p, int locs) {
         final Random r = new Random();

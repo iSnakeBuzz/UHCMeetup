@@ -81,8 +81,10 @@ public class API {
     
     public static void CheckWin(Player p){
         if (API.ALivePs.size() == 1){
-            Bukkit.broadcastMessage("§a§lGanador del juego §e"+p.getName());
-            p.sendMessage("§ePuedes usar §c/mlg§e para probarte en WaterDrops :D");
+            Bukkit.broadcastMessage(c(Main.plugin.getConfig().getString("WinMSG")
+                    .replaceAll("%player%", p.getName())
+            ));
+            p.sendMessage(c(Main.plugin.getConfig().getString("MlgMSG")));
             States.state = States.FINISH;
         }
     }
@@ -156,7 +158,9 @@ public class API {
     public static void CheckStartVote(){
         if (votos == 0){
             new Starting(Main.plugin).runTaskTimer(Main.plugin, 02L, 20L);
-            Bukkit.broadcastMessage("§6UHCMeetup2.0 Iniciando en §a15s");
+            Bukkit.broadcastMessage(c(Main.plugin.getConfig().getString("StartMSG")
+                    .replaceAll("%time%", ""+Starting.time)
+            ));
             started = true;
         }
     }

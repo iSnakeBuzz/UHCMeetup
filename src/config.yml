@@ -13,7 +13,6 @@ ScoreBoard:
       - '&e&l@MicPixel'
       - '&7&m-------------------'
 Lobby: Hub
-Border: 125
 MaxPlayers: 16
 MinPlayers: 6
 MinVotes: 2
@@ -22,6 +21,8 @@ StartedMSG: '&8[&aUHCMeetup&8]&6 Good lock!'
 Border: '&8[&aUHCMeetup&8]&6 Border shrinking to &e%coords% &6in &e%time%s'
 BorderNow: '&8[&aUHCMeetup&8]&6 Border is now at &e%coords%'
 NextUpdate: '&cThis function will be coming soon'
+WinMSG: '&8[&aUHCMeetup&8]&a %player%&6 has win the UHCMeetup'
+MlgMSG: '&8[&aUHCMeetup&8]&e Use &a/mlg&e to test yourself in the Waterdrop'
 Items:
   Hub: '&aLeave'
   Options: '&aOptions'
