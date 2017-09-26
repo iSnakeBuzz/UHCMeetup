@@ -43,6 +43,7 @@ public class Main extends JavaPlugin{
         w.setAutoSave(false);
         w.setSpawnLocation(0, w.getHighestBlockYAt(0, 0) + 10, 0);
         getServer().getScheduler().runTaskLater(this, () -> {
+            w.setGameRuleValue("naturalRegeneration", "false");
             Border.buildWalls(Border.walls, Material.BEDROCK, 5, w);
         }, 30);
         States.state = States.LOBBY;

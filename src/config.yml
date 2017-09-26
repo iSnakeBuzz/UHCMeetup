@@ -16,6 +16,7 @@ Lobby: Hub
 MaxPlayers: 16
 MinPlayers: 6
 MinVotes: 2
+VotesMSG: '&8[&aUHCMeetup&8]&6 Need &a%votes%&6 more votes for start game'
 GameFull: '&cGame Full'
 GameStarted: '&cGame started'
 StartMSG: '&8[&aUHCMeetup&8]&6 Starting in &e%time%s'

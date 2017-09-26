@@ -2,6 +2,7 @@ package com.isnakebuzz.meetup.e;
 
 import com.isnakebuzz.meetup.a.Main;
 import com.isnakebuzz.meetup.b.States;
+import com.isnakebuzz.meetup.f.Finish;
 import com.isnakebuzz.meetup.f.Starting;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
@@ -84,7 +85,8 @@ public class API {
             Bukkit.broadcastMessage(c(Main.plugin.getConfig().getString("WinMSG")
                     .replaceAll("%player%", p.getName())
             ));
-            p.sendMessage(c(Main.plugin.getConfig().getString("MlgMSG")));
+            new Finish(Main.plugin).runTaskTimer(Main.plugin, 02L, 20L);
+            //p.sendMessage(c(Main.plugin.getConfig().getString("MlgMSG")));
             States.state = States.FINISH;
         }
     }
@@ -162,6 +164,10 @@ public class API {
                     .replaceAll("%time%", ""+Starting.time)
             ));
             started = true;
+        }else if (votos > 0){
+            Bukkit.broadcastMessage(c(Main.plugin.getConfig().getString("VotesMSG")
+                    .replaceAll("%votes%", ""+votos)
+            ));
         }
     }
     

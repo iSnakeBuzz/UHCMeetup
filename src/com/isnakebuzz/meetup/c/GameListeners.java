@@ -6,6 +6,7 @@ import com.isnakebuzz.meetup.d.Border;
 import com.isnakebuzz.meetup.e.API;
 import static com.isnakebuzz.meetup.e.API.c;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -13,9 +14,13 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntitySpawnEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
+import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
+import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 public class GameListeners implements Listener{
     
@@ -58,6 +63,21 @@ public class GameListeners implements Listener{
     @EventHandler
     public void CancelRain(WeatherChangeEvent e){
         e.setCancelled(true);
+    }
+    
+    @EventHandler
+    public void Consume(final PlayerItemConsumeEvent e) {
+        final Player p = e.getPlayer();
+        if (e.getItem() == null){
+            return;
+        } else if (e.getItem().getItemMeta().getDisplayName() == null){
+            return;
+        }
+        final ItemMeta pm = e.getItem().getItemMeta();
+        if (pm.getDisplayName().equalsIgnoreCase(ChatColor.GOLD + "Golden Heads")) {
+            p.addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION, 3400, 0));
+            p.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 200, 1));
+        }
     }
     
     /*@EventHandler(priority = EventPriority.HIGHEST)

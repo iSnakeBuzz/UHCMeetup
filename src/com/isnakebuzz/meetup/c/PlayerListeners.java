@@ -178,7 +178,6 @@ public class PlayerListeners implements Listener{
                 if (c(Main.plugin.getConfig().getString("Items.Vote")).equals(e.getItem().getItemMeta().getDisplayName()) && !Voted.contains(e.getPlayer()) && started == false){
                     Voted.add(e.getPlayer());
                     votos--;
-                    Bukkit.broadcastMessage("§6Se necesitan §e" + votos + " votos§6 para iniciar el juego");
                     API.CheckStartVote();
                 }
             }
