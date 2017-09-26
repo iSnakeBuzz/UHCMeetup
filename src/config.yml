@@ -1,0 +1,14 @@
+ScoreBoard:
+    Title: '&6&lUHC Meetup'
+    Lines:
+      - '&7&m-------------------'
+      - '&6&lJugadores:&f %online%'
+      - '&6&lEspectadores:&f %specs%'
+      - ''
+      - '&2&lTus Kills:&f %kills%'
+      - ''
+      - '&a&lBorde:&f %border%'
+      - '&a&lSe achica en:&f %time%'
+      - ''
+      - '&e&l@MicPixel'
+      - '&7&m-------------------'
