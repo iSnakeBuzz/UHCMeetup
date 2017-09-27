@@ -34,6 +34,7 @@ public class Starting extends BukkitRunnable {
                     return;
                 }
                 API.Teleported.add(all);
+                API.CleanPlayer(all);
                 Border.teleport(all, Border.walls - 5);
                 plugin.getServer().getScheduler().runTaskLater(plugin, () -> {
                     all.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 20 * 14, 1, true, false));

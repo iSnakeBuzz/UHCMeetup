@@ -5,7 +5,9 @@ import com.isnakebuzz.meetup.c.GameListeners;
 import com.isnakebuzz.meetup.c.PlayerListeners;
 import com.isnakebuzz.meetup.d.Border;
 import com.isnakebuzz.meetup.e.API;
+import com.isnakebuzz.meetup.f.InGame;
 import com.isnakebuzz.meetup.g.ScoreboardAPI;
+import com.isnakebuzz.meetup.h.CheckBorder;
 import java.util.HashMap;
 import java.util.logging.Level;
 import org.bukkit.Bukkit;
@@ -45,6 +47,7 @@ public class Main extends JavaPlugin{
         getServer().getScheduler().runTaskLater(this, () -> {
             w.setGameRuleValue("naturalRegeneration", "false");
             Border.buildWalls(Border.walls, Material.BEDROCK, 5, w);
+            new CheckBorder(Main.plugin).runTaskTimer(Main.plugin, 30L, 15L);
         }, 30);
         States.state = States.LOBBY;
     }

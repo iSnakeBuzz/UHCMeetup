@@ -29,6 +29,7 @@ WinMSG: '&8[&aUHCMeetup&8]&a %player%&6 has win the UHCMeetup'
 MlgMSG: '&8[&aUHCMeetup&8]&e Use &a/mlg&e to test yourself in the Waterdrop'
 QuitMessage: '&8[&aUHCMeetup&8] &a%player%&e has quit&6. &a%online%&7/&a%max%'
 JoinMessage: '&8[&aUHCMeetup&8] &a%player%&e has joined&6. &a%online%&7/&a%max%'
+MenuName: '&aPlayers:'
 Items:
   Hub: '&aLeave'
   Options: '&aOptions'

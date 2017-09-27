@@ -11,6 +11,8 @@ import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
+import protocolsupport.api.ProtocolSupportAPI;
+import protocolsupport.api.ProtocolVersion;
 
 public class Border {
     
@@ -28,6 +30,11 @@ public class Border {
     
     public static void buildWalls(final int current, final Material type, final int altura, final World world) {
         final Location location = new Location(world, 0.0, 59.0, 0.0);
+        for (Player all : Bukkit.getOnlinePlayers()){
+            if (ProtocolSupportAPI.getProtocolVersion(all) == ProtocolVersion.MINECRAFT_1_8 ||ProtocolSupportAPI.getProtocolVersion(all) == ProtocolVersion.MINECRAFT_FUTURE){
+                setWorldBoder18(all);
+            }
+        }
         for (int i = altura; i < altura + altura; ++i) {
             for (int j = location.getBlockX() - current; j <= location.getBlockX() + current; ++j) {
                 for (int k = 58; k <= 58; ++k) {
@@ -64,28 +71,24 @@ public class Border {
             paramPlayer.teleport(new Location(localWorld, i - 2, paramPlayer.getLocation().getBlockY(), paramPlayer.getLocation().getBlockZ()));
             if (paramPlayer.getLocation().getBlockY() < localWorld.getHighestBlockYAt(paramPlayer.getLocation().getBlockX(), paramPlayer.getLocation().getBlockZ())){
                 paramPlayer.teleport(new Location(localWorld, paramPlayer.getLocation().getBlockX(), localWorld.getHighestBlockYAt(paramPlayer.getLocation().getBlockX(), paramPlayer.getLocation().getBlockZ()) + 2, paramPlayer.getLocation().getBlockZ()));
-                paramPlayer.sendMessage("You have reached the edge of this world!");
             }
         }
         if (paramPlayer.getLocation().getBlockZ() > i){
             paramPlayer.teleport(new Location(localWorld, paramPlayer.getLocation().getBlockX(), paramPlayer.getLocation().getBlockY(), i - 2));
             if (paramPlayer.getLocation().getBlockY() < localWorld.getHighestBlockYAt(paramPlayer.getLocation().getBlockX(), paramPlayer.getLocation().getBlockZ())){
                 paramPlayer.teleport(new Location(localWorld, paramPlayer.getLocation().getBlockX(), localWorld.getHighestBlockYAt(paramPlayer.getLocation().getBlockX(), paramPlayer.getLocation().getBlockZ()) + 2, paramPlayer.getLocation().getBlockZ()));
-                paramPlayer.sendMessage("You have reached the edge of this world!");
             }
         }
         if (paramPlayer.getLocation().getBlockX() < -i){
             paramPlayer.teleport(new Location(localWorld, -i + 2, paramPlayer.getLocation().getBlockY(), paramPlayer.getLocation().getBlockZ()));
             if (paramPlayer.getLocation().getBlockY() < localWorld.getHighestBlockYAt(paramPlayer.getLocation().getBlockX(), paramPlayer.getLocation().getBlockZ())){
                 paramPlayer.teleport(new Location(localWorld, paramPlayer.getLocation().getBlockX(), localWorld.getHighestBlockYAt(paramPlayer.getLocation().getBlockX(), paramPlayer.getLocation().getBlockZ()) + 2, paramPlayer.getLocation().getBlockZ()));
-                paramPlayer.sendMessage("You have reached the edge of this world!");
             }
         }
         if (paramPlayer.getLocation().getBlockZ() < -i){
             paramPlayer.teleport(new Location(localWorld, paramPlayer.getLocation().getBlockX(), paramPlayer.getLocation().getBlockY(), -i + 2));
             if (paramPlayer.getLocation().getBlockY() < localWorld.getHighestBlockYAt(paramPlayer.getLocation().getBlockX(), paramPlayer.getLocation().getBlockZ())){
                 paramPlayer.teleport(new Location(localWorld, paramPlayer.getLocation().getBlockX(), localWorld.getHighestBlockYAt(paramPlayer.getLocation().getBlockX(), paramPlayer.getLocation().getBlockZ()) + 2, paramPlayer.getLocation().getBlockZ()));
-                paramPlayer.sendMessage("You have reached the edge of this world!");
             }
         }
     }

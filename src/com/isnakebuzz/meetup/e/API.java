@@ -67,6 +67,16 @@ public class API {
         }
     }
     
+    public static void CleanPlayer(Player p){
+        p.setLevel(0);
+        p.setExp(0);
+        p.setHealth(p.getMaxHealth());
+        p.setFoodLevel(40);
+        p.setFlying(false);
+        p.setAllowFlight(false);
+        p.setFireTicks(0);
+    }
+    
     public static void sendLobby(Player player) {
         ByteArrayOutputStream b = new ByteArrayOutputStream();
         DataOutputStream out = new DataOutputStream(b);
@@ -185,7 +195,7 @@ public class API {
         }
     }
     
-    public static final Inventory alive = Bukkit.createInventory(null, Online(), "§aJugadores:");
+    public static final Inventory alive = Bukkit.createInventory(null, Online(), c(Main.plugin.getConfig().getString("MenuName")));
   
     public static Inventory getAlive(){
         API.alive.clear();

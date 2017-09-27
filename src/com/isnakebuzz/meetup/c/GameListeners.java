@@ -39,11 +39,11 @@ public class GameListeners implements Listener{
         }
     }
     
-    @EventHandler
+    /*@EventHandler
     public void NoLeave(PlayerMoveEvent e){
         Player p = e.getPlayer();
         Border.checkBorder(p);
-    }
+    }*/
     
     @EventHandler
     public void onMove(PlayerMoveEvent event) {
