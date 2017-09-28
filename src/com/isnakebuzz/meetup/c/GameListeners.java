@@ -13,6 +13,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntitySpawnEvent;
+import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.event.player.PlayerChatEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
@@ -36,6 +38,43 @@ public class GameListeners implements Listener{
             e.setKickMessage(c(Main.plugin.getConfig().getString("GameFull")));
         }else if(States.state != States.LOBBY){
             e.setKickMessage(c(Main.plugin.getConfig().getString("GameStarted")));
+        }
+    }
+    
+    @EventHandler
+    public void ChatEvent(AsyncPlayerChatEvent e){
+        String msg = e.getMessage();
+        String name = e.getPlayer().getDisplayName();
+        Player p = e.getPlayer();
+        if (Main.plugin.getConfig().getBoolean("Chats.Alive") == true){
+            if (API.ALivePs.contains(p)){
+                for (Player alive : API.ALivePs){
+                    alive.sendMessage(c(Main.plugin.getConfig().getString("Chats.AliveFormat")
+                            .replaceAll("%player%", name)
+                    ) + msg);
+                }
+                e.setCancelled(true);
+            }else{
+                for (Player all : Bukkit.getOnlinePlayers()){
+                    all.sendMessage(c(Main.plugin.getConfig().getString("Chats.AliveFormat")
+                            .replaceAll("%player%", name)
+                    ) + msg);
+                }
+                e.setCancelled(true);
+            }
+            e.setCancelled(true);
+        }
+        
+        if (Main.plugin.getConfig().getBoolean("Chats.Spect") == true){
+            if (API.Specs.contains(p)){
+                for (Player specs : API.Specs){
+                    specs.sendMessage(c(Main.plugin.getConfig().getString("Chats.SpectFormat")
+                            .replaceAll("%player%", name)
+                    ) + msg);
+                }
+                e.setCancelled(true);
+            }
+            e.setCancelled(true);
         }
     }
     

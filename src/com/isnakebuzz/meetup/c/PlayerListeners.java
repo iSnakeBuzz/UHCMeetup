@@ -52,6 +52,7 @@ public class PlayerListeners implements Listener{
             if (ProtocolSupportAPI.getProtocolVersion(p) == ProtocolVersion.MINECRAFT_1_8 || ProtocolSupportAPI.getProtocolVersion(p) == ProtocolVersion.MINECRAFT_FUTURE){
                 Border.setWorldBoder18(p);
             }
+            API.JoinClean(p);
         }, 2);
         if (States.state == States.LOBBY){
             e.setJoinMessage(c(Main.plugin.getConfig().getString("JoinMessage")
@@ -79,6 +80,10 @@ public class PlayerListeners implements Listener{
     
     @EventHandler
     public void PlayerLeave(PlayerQuitEvent e){
+        API.ALivePs.remove(e.getPlayer());
+        for (Player p : API.ALivePs){
+            API.CheckWin(p);
+        }
         if (States.state == States.LOBBY){
             e.setQuitMessage(c(Main.plugin.getConfig().getString("QuitMessage")
                     .replaceAll("%player%", e.getPlayer().getName())
@@ -87,14 +92,14 @@ public class PlayerListeners implements Listener{
                     .replaceAll("%min%", ""+Main.plugin.getConfig().getInt("MinPlayers"))
             ));
             need++;
-        }
-        plugin.getServer().getScheduler().runTaskLater(plugin, () -> {
+            plugin.getServer().getScheduler().runTaskLater(plugin, () -> {
             if (Bukkit.getOnlinePlayers().size() <= 1){
-                for (Player all : Bukkit.getOnlinePlayers()){
-                    Kits.Spectador(all);
+                    for (Player all : Bukkit.getOnlinePlayers()){
+                        Kits.Spectador(all);
+                    }
                 }
-            }
-        }, 10);
+            }, 10);
+        }
     }
     
     @EventHandler
@@ -148,7 +153,21 @@ public class PlayerListeners implements Listener{
     public void Menus(InventoryClickEvent e){
         if (States.state == States.LOBBY || API.Specs.contains((Player) e.getWhoClicked())){
             e.setCancelled(true);
-            e.getWhoClicked().closeInventory();
+            if (e.getInventory().getName() == null||e.getInventory() == null){
+                return;
+            }
+            Player p = (Player) e.getWhoClicked();
+            if (c(Main.plugin.getConfig().getString("OptionsMenu")).equals(e.getInventory().getName())){
+                if (p.getItemOnCursor() == null || p.getItemOnCursor().getItemMeta() == null){
+                    return;
+                }else{
+                    if (c(Main.plugin.getConfig().getString("Items.BorderI")).equals(p.getItemOnCursor().getItemMeta().getDisplayName())){
+                        
+                    }
+                }
+            }else{
+                e.getWhoClicked().closeInventory();
+            }
         }
     }
     
@@ -167,7 +186,8 @@ public class PlayerListeners implements Listener{
                     e.getPlayer().openInventory(API.getAlive());
                 }
                 if (c(Main.plugin.getConfig().getString("Items.Options")).equals(e.getItem().getItemMeta().getDisplayName())){
-                    e.getPlayer().sendMessage(c(Main.plugin.getConfig().getString("NextUpdate")));
+                    //e.getPlayer().sendMessage(c(Main.plugin.getConfig().getString("NextUpdate")));
+                    API.SendOptionMenu(e.getPlayer());
                 }
                 if (c(Main.plugin.getConfig().getString("Items.Hub")).equals(e.getItem().getItemMeta().getDisplayName())){
                     e.getPlayer().sendMessage("§eEnviandote al lobby...");

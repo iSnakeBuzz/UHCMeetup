@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,12 +26,14 @@ import org.bukkit.WorldCreator;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 
 public class API {
     
     public static ArrayList<Player> ALivePs = new ArrayList<>();
     public static ArrayList<Player> Specs = new ArrayList<>();
+    public static ArrayList<Player> NoBorder = new ArrayList<>();
     
     public static ArrayList<Player> MLG = new ArrayList<>();
     
@@ -75,6 +78,21 @@ public class API {
         p.setFlying(false);
         p.setAllowFlight(false);
         p.setFireTicks(0);
+        p.getActivePotionEffects().stream().forEach((effect) -> {
+            p.removePotionEffect(effect.getType());
+        });
+    }
+    
+    public static void JoinClean(Player p){
+        p.setLevel(0);
+        p.setExp(0);
+        p.setHealth(p.getMaxHealth());
+        p.setFoodLevel(40);
+        p.setFireTicks(0);
+        p.getInventory().setArmorContents(null);
+        p.getActivePotionEffects().stream().forEach((effect) -> {
+            p.removePotionEffect(effect.getType());
+        });
     }
     
     public static void sendLobby(Player player) {
@@ -193,6 +211,37 @@ public class API {
         }else{
             return 9;
         }
+    }
+    
+    private static List<String> benable = Main.plugin.getConfig().getStringList("Items.Border.Enable");
+    private static List<String> bdisable = Main.plugin.getConfig().getStringList("Items.Border.Disable");
+    
+    public static void SendOptionMenu(Player p){
+        Inventory menu = Bukkit.createInventory(null, Online(), c(Main.plugin.getConfig().getString("OptionsMenu")));
+        if (!NoBorder.contains(p)){
+            ItemStack border = new ItemStack(351, 1, (short)10);
+            ItemMeta b = border.getItemMeta();
+            b.setDisplayName(c(Main.plugin.getConfig().getString("Items.BorderI")));
+            final List<String> lore = new ArrayList<>();
+            benable.stream().map((s) -> c(s).replaceAll("&", "§")).forEach((ss) -> {
+                lore.add(ss);
+            });
+            b.setLore(lore);
+            border.setItemMeta(b);
+            menu.setItem(0, border);
+        }else{
+            ItemStack border = new ItemStack(351, 1, (short)8);
+            ItemMeta b = border.getItemMeta();
+            b.setDisplayName(c(Main.plugin.getConfig().getString("Items.Border")));
+            final List<String> lore = new ArrayList<>();
+            bdisable.stream().map((s) -> c(s).replaceAll("&", "§")).forEach((ss) -> {
+                lore.add(ss);
+            });
+            b.setLore(lore);
+            border.setItemMeta(b);
+            menu.setItem(0, border);
+        }
+        p.openInventory(menu);
     }
     
     public static final Inventory alive = Bukkit.createInventory(null, Online(), c(Main.plugin.getConfig().getString("MenuName")));

@@ -30,8 +30,20 @@ MlgMSG: '&8[&aUHCMeetup&8]&e Use &a/mlg&e to test yourself in the Waterdrop'
 QuitMessage: '&8[&aUHCMeetup&8] &a%player%&e has quit&6. &a%online%&7/&a%max%'
 JoinMessage: '&8[&aUHCMeetup&8] &a%player%&e has joined&6. &a%online%&7/&a%max%'
 MenuName: '&aPlayers:'
+OptionsMenu: '&aOptions'
+Chats:
+  Alive: true
+  AliveFormat: '&e%player%&f:&7 '
+  Spect: true
+  SpectFormat: '&b[Spec] &e%player%&f:&7 '
 Items:
   Hub: '&aLeave'
   Options: '&aOptions'
   Players: '&aPlayers'
   Vote: '&aVote for start'
+  BorderI: '&aBorder in 1.8?'
+  Border:
+    Enable:
+      - '&eFeature enabled'
+    Disable:
+      - '&cFeature disabled'

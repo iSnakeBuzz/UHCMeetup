@@ -22,12 +22,12 @@ public class Starting extends BukkitRunnable {
         this.plugin = plugin;
     }
     
-    public static int time = 15;
+    public static int time = 35;
     
     @Override
     public void run() {
         
-        if (time == 15){
+        if (time == 35){
             States.state = States.STARTING;
             for (Player all : Bukkit.getOnlinePlayers()){
                 if (API.Teleported.contains(all)){
@@ -49,6 +49,14 @@ public class Starting extends BukkitRunnable {
                 }
                 ScoreboardManager.getManager().ScoreBoard(all);
             }
+        }else if (time == 25){
+            Bukkit.broadcastMessage(c(Main.plugin.getConfig().getString("StartMSG")
+                    .replaceAll("%time%", ""+Starting.time)
+            ));
+        }else if (time == 15){
+            Bukkit.broadcastMessage(c(Main.plugin.getConfig().getString("StartMSG")
+                    .replaceAll("%time%", ""+Starting.time)
+            ));
         }else if (time == 10){
             Bukkit.broadcastMessage(c(Main.plugin.getConfig().getString("StartMSG")
                     .replaceAll("%time%", ""+Starting.time)
