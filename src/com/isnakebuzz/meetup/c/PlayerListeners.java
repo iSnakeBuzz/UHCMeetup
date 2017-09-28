@@ -157,12 +157,20 @@ public class PlayerListeners implements Listener{
                 return;
             }
             Player p = (Player) e.getWhoClicked();
-            if (c(Main.plugin.getConfig().getString("OptionsMenu")).equals(e.getInventory().getName())){
-                if (p.getItemOnCursor() == null || p.getItemOnCursor().getItemMeta() == null){
+            if (c(Main.plugin.getConfig().getString("OptionsMenu")).equals(e.getInventory().getTitle())){
+                if (e.getCurrentItem()== null || e.getCurrentItem().getItemMeta() == null){
                     return;
                 }else{
-                    if (c(Main.plugin.getConfig().getString("Items.BorderI")).equals(p.getItemOnCursor().getItemMeta().getDisplayName())){
-                        
+                    if (c(Main.plugin.getConfig().getString("Items.BorderI")).equals(e.getCurrentItem().getItemMeta().getDisplayName())){
+                        if (!API.NoBorder.contains(p)){
+                            API.NoBorder.add(p);
+                            API.SendOptionMenu(p);
+                            Border.setWorldBoder182(p, 2000);
+                        }else{
+                            API.NoBorder.remove(p);
+                            API.SendOptionMenu(p);
+                            Border.setWorldBoder18(p);
+                        }
                     }
                 }
             }else{

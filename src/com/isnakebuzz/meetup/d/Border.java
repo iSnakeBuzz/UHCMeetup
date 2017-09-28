@@ -1,6 +1,7 @@
 package com.isnakebuzz.meetup.d;
 
 import com.isnakebuzz.meetup.a.Main;
+import com.isnakebuzz.meetup.e.API;
 import java.util.Random;
 import net.minecraft.server.v1_8_R3.PacketPlayOutWorldBorder;
 import net.minecraft.server.v1_8_R3.PacketPlayOutWorldBorder.EnumWorldBorderAction;
@@ -32,7 +33,9 @@ public class Border {
         final Location location = new Location(world, 0.0, 59.0, 0.0);
         for (Player all : Bukkit.getOnlinePlayers()){
             if (ProtocolSupportAPI.getProtocolVersion(all) == ProtocolVersion.MINECRAFT_1_8 ||ProtocolSupportAPI.getProtocolVersion(all) == ProtocolVersion.MINECRAFT_FUTURE){
-                setWorldBoder18(all);
+                if (API.NoBorder.contains(all)){
+                    setWorldBoder18(all);
+                }
             }
         }
         for (int i = altura; i < altura + altura; ++i) {
@@ -53,6 +56,16 @@ public class Border {
     public static void setWorldBoder18(Player p){
         WorldBorder wb = new WorldBorder();
         wb.setSize(walls*2);
+        final World world = Bukkit.getWorld(Main.world);
+        Location l = world.getSpawnLocation();
+        wb.setCenter(l.getX(),l.getZ());
+        PacketPlayOutWorldBorder ppowb = new PacketPlayOutWorldBorder(wb, EnumWorldBorderAction.INITIALIZE);
+        ((CraftPlayer) p).getHandle().playerConnection.sendPacket(ppowb);
+    }
+    
+    public static void setWorldBoder182(Player p, int size){
+        WorldBorder wb = new WorldBorder();
+        wb.setSize(size*2);
         final World world = Bukkit.getWorld(Main.world);
         Location l = world.getSpawnLocation();
         wb.setCenter(l.getX(),l.getZ());

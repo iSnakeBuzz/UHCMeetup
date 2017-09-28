@@ -232,7 +232,7 @@ public class API {
         }else{
             ItemStack border = new ItemStack(351, 1, (short)8);
             ItemMeta b = border.getItemMeta();
-            b.setDisplayName(c(Main.plugin.getConfig().getString("Items.Border")));
+            b.setDisplayName(c(Main.plugin.getConfig().getString("Items.BorderI")));
             final List<String> lore = new ArrayList<>();
             bdisable.stream().map((s) -> c(s).replaceAll("&", "§")).forEach((ss) -> {
                 lore.add(ss);
