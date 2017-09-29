@@ -5,6 +5,7 @@ import com.isnakebuzz.meetup.b.Kits;
 import com.isnakebuzz.meetup.e.API;
 import java.io.IOException;
 import net.md_5.bungee.api.ChatColor;
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -19,6 +20,7 @@ public class Cmds implements CommandExecutor{
 
     public void init() {
         plugin.getCommand("meetup").setExecutor(this);
+        plugin.getCommand("reroll").setExecutor(this);
     }
 
     @Override
@@ -32,6 +34,22 @@ public class Cmds implements CommandExecutor{
         
         if (!p.hasPermission("meetup.admin")){
             return true;
+        }
+        
+        if (cmd.getName().equalsIgnoreCase("reroll")){
+            if (!p.hasPermission("meetup.reroll")){
+                return true;
+            }
+            if (API.ReRoll.get(p) >= Main.plugin.getConfig().getInt("MaxRerrolls")){
+                return true;
+            }else{
+                p.getInventory().setArmorContents(null);
+                p.getInventory().clear();
+                plugin.getServer().getScheduler().runTaskLater(plugin, () -> {
+                    Kits.RandomKit(p);
+                }, 5);
+                p.sendMessage(c(Main.plugin.getConfig().getString("ReRollMSG")));
+            }
         }
         
         if (cmd.getName().equalsIgnoreCase("meetup")){
@@ -54,9 +72,9 @@ public class Cmds implements CommandExecutor{
                         break;
                     case "addkit":
                         int kit = Main.plugin.getConfig().getInt("Kits");
+                        kit++;
                         Kits.SaveKit(p, kit);
                         p.sendMessage(c("&6Kit number &a" + kit + "&6 saved"));
-                        kit++;
                         Main.plugin.getConfig().set("Kits", kit);
                         Main.plugin.saveConfig();
                         break;

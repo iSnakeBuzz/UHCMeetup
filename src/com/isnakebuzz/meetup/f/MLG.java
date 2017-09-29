@@ -33,7 +33,6 @@ public class MLG extends BukkitRunnable {
         
         if (ingtime == 100){
             Player p = (Player) API.MLG;
-            Bukkit.broadcastMessage("§aEl jugador §e"+ p.getName() + "§a se paso el §c§lMLG");
             this.cancel();
         }else if (ingtime == 70){
             for (Player p : API.MLG){

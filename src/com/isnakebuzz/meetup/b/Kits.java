@@ -18,8 +18,14 @@ public class Kits {
     
     public static void RandomKit(Player p){
         Random r = new Random();
-        int kit = r.nextInt(Main.plugin.getConfig().getInt("Kits"));
-        LoadKit(p, kit);
+        if (Main.plugin.getConfig().getInt("Kits") == 0){
+            LoadKit(p, 0);
+        }else if (Main.plugin.getConfig().getInt("Kits") > 0){
+            int kit = r.nextInt(Main.plugin.getConfig().getInt("Kits"));
+            LoadKit(p, kit);
+        }else{
+            LoadKit(p, 0);
+        }
     }
     
     public static void DeleteKit(Player p, int kitnumber){

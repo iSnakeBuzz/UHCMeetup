@@ -35,6 +35,8 @@ public class API {
     public static ArrayList<Player> Specs = new ArrayList<>();
     public static ArrayList<Player> NoBorder = new ArrayList<>();
     
+    public static HashMap<Player, Integer> ReRoll = new HashMap<>();
+    
     public static ArrayList<Player> KitMode = new ArrayList<>();
     
     public static ArrayList<Player> MLG = new ArrayList<>();

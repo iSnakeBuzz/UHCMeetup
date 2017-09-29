@@ -20,6 +20,7 @@ Lobby: Hub
 MaxPlayers: 16
 MinPlayers: 6
 MinVotes: 2
+MaxRerrolls: 2
 VotesMSG: '&8[&aUHCMeetup&8]&6 Need &a%votes%&6 more votes for start game'
 GameFull: '&cGame Full'
 GameStarted: '&cGame started'
@@ -33,6 +34,7 @@ WinMSG: '&8[&aUHCMeetup&8]&a %player%&6 has win the UHCMeetup'
 MlgMSG: '&8[&aUHCMeetup&8]&e Use &a/mlg&e to test yourself in the Waterdrop'
 QuitMessage: '&8[&aUHCMeetup&8] &a%player%&e has quit&6. &a%online%&7/&a%max%'
 JoinMessage: '&8[&aUHCMeetup&8] &a%player%&e has joined&6. &a%online%&7/&a%max%'
+ReRollMSG: '&8[&aUHCMeetup&8]&a You has been rerolled :D'
 MenuName: '&aPlayers:'
 OptionsMenu: '&aOptions'
 Chats:
