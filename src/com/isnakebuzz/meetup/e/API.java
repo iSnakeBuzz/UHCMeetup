@@ -35,8 +35,9 @@ public class API {
     public static ArrayList<Player> Specs = new ArrayList<>();
     public static ArrayList<Player> NoBorder = new ArrayList<>();
     
-    public static ArrayList<Player> MLG = new ArrayList<>();
+    public static ArrayList<Player> KitMode = new ArrayList<>();
     
+    public static ArrayList<Player> MLG = new ArrayList<>();
     public static boolean MLGe = false;
     
     public static HashMap<Player, Integer> Kills = new HashMap<>();
@@ -244,7 +245,7 @@ public class API {
         p.openInventory(menu);
     }
     
-    public static final Inventory alive = Bukkit.createInventory(null, Online(), c(Main.plugin.getConfig().getString("MenuName")));
+    private static final Inventory alive = Bukkit.createInventory(null, Online(), c(Main.plugin.getConfig().getString("MenuName")));
   
     public static Inventory getAlive(){
         API.alive.clear();
@@ -288,13 +289,13 @@ public class API {
         p.teleport(randomLoc);
     }
     
-  public static ItemStack newItem(Material paramMaterial, Player paramString, int paramInt){
-    ItemStack localItemStack = new ItemStack(paramMaterial, 1, (short)paramInt);
-    SkullMeta  meta = (SkullMeta) Bukkit.getItemFactory().getItemMeta(Material.SKULL_ITEM);
-    meta.setOwner(paramString.getName());
-    meta.setDisplayName("§a"+paramString.getName());
-    localItemStack.setItemMeta(meta);
+    public static ItemStack newItem(Material paramMaterial, Player paramString, int paramInt){
+        ItemStack localItemStack = new ItemStack(paramMaterial, 1, (short)paramInt);
+        SkullMeta  meta = (SkullMeta) Bukkit.getItemFactory().getItemMeta(Material.SKULL_ITEM);
+        meta.setOwner(paramString.getName());
+        meta.setDisplayName("§a"+paramString.getName());
+        localItemStack.setItemMeta(meta);
 
-    return localItemStack;
-  }
+        return localItemStack;
+    }
 }

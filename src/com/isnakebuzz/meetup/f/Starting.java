@@ -28,6 +28,10 @@ public class Starting extends BukkitRunnable {
     public void run() {
         
         if (time == 35){
+            
+            API.KitMode.clear();
+            API.Kills.clear();
+            
             States.state = States.STARTING;
             for (Player all : Bukkit.getOnlinePlayers()){
                 if (API.Teleported.contains(all)){

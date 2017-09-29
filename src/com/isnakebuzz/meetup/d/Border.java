@@ -33,7 +33,7 @@ public class Border {
         final Location location = new Location(world, 0.0, 59.0, 0.0);
         for (Player all : Bukkit.getOnlinePlayers()){
             if (ProtocolSupportAPI.getProtocolVersion(all) == ProtocolVersion.MINECRAFT_1_8 ||ProtocolSupportAPI.getProtocolVersion(all) == ProtocolVersion.MINECRAFT_FUTURE){
-                if (API.NoBorder.contains(all)){
+                if (!API.NoBorder.contains(all)){
                     setWorldBoder18(all);
                 }
             }

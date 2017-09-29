@@ -85,12 +85,6 @@ public class PlayerListeners implements Listener{
             API.CheckWin(p);
         }
         if (States.state == States.LOBBY){
-            e.setQuitMessage(c(Main.plugin.getConfig().getString("QuitMessage")
-                    .replaceAll("%player%", e.getPlayer().getName())
-                    .replaceAll("%online%", ""+Bukkit.getOnlinePlayers().size())
-                    .replaceAll("%max%", ""+Main.plugin.getConfig().getInt("MaxPlayers"))
-                    .replaceAll("%min%", ""+Main.plugin.getConfig().getInt("MinPlayers"))
-            ));
             need++;
             plugin.getServer().getScheduler().runTaskLater(plugin, () -> {
             if (Bukkit.getOnlinePlayers().size() <= 1){
@@ -98,21 +92,13 @@ public class PlayerListeners implements Listener{
                         Kits.Spectador(all);
                     }
                 }
+                e.setQuitMessage(c(Main.plugin.getConfig().getString("QuitMessage")
+                        .replaceAll("%player%", e.getPlayer().getName())
+                        .replaceAll("%online%", ""+Bukkit.getOnlinePlayers())
+                        .replaceAll("%max%", ""+Main.plugin.getConfig().getInt("MaxPlayers"))
+                        .replaceAll("%min%", ""+Main.plugin.getConfig().getInt("MinPlayers"))
+                ));
             }, 10);
-        }
-    }
-    
-    @EventHandler
-    public void DropItems(PlayerDropItemEvent e){
-        if (States.state == States.LOBBY || States.state == States.STARTING || API.Specs.contains(e.getPlayer())){
-            e.setCancelled(true);
-        }
-    }
-    
-    @EventHandler
-    public void PickUpItems(PlayerPickupItemEvent e){
-        if (States.state == States.LOBBY || States.state == States.STARTING || API.Specs.contains(e.getPlayer())){
-            e.setCancelled(true);
         }
     }
     
@@ -151,6 +137,9 @@ public class PlayerListeners implements Listener{
     
     @EventHandler
     public void Menus(InventoryClickEvent e){
+        if (API.KitMode.contains(e.getWhoClicked())){
+            return;
+        }
         if (States.state == States.LOBBY || API.Specs.contains((Player) e.getWhoClicked())){
             e.setCancelled(true);
             if (e.getInventory().getName() == null||e.getInventory() == null){

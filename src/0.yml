@@ -1,0 +1,72 @@
+armor:
+- ==: org.bukkit.inventory.ItemStack
+  type: DIAMOND_BOOTS
+  meta:
+    ==: ItemMeta
+    meta-type: UNSPECIFIC
+    enchants:
+      PROTECTION_ENVIRONMENTAL: 1
+- ==: org.bukkit.inventory.ItemStack
+  type: IRON_LEGGINGS
+  meta:
+    ==: ItemMeta
+    meta-type: UNSPECIFIC
+    enchants:
+      PROTECTION_ENVIRONMENTAL: 3
+- ==: org.bukkit.inventory.ItemStack
+  type: IRON_CHESTPLATE
+  meta:
+    ==: ItemMeta
+    meta-type: UNSPECIFIC
+    enchants:
+      PROTECTION_ENVIRONMENTAL: 2
+- ==: org.bukkit.inventory.ItemStack
+  type: DIAMOND_HELMET
+  meta:
+    ==: ItemMeta
+    meta-type: UNSPECIFIC
+    enchants:
+      PROTECTION_ENVIRONMENTAL: 3
+inventory:
+- ==: org.bukkit.inventory.ItemStack
+  type: DIAMOND_SWORD
+  meta:
+    ==: ItemMeta
+    meta-type: UNSPECIFIC
+    enchants:
+      DAMAGE_ALL: 2
+- ==: org.bukkit.inventory.ItemStack
+  type: FISHING_ROD
+- ==: org.bukkit.inventory.ItemStack
+  type: LAVA_BUCKET
+- ==: org.bukkit.inventory.ItemStack
+  type: BOW
+  meta:
+    ==: ItemMeta
+    meta-type: UNSPECIFIC
+    enchants:
+      ARROW_DAMAGE: 4
+- ==: org.bukkit.inventory.ItemStack
+  type: GOLDEN_APPLE
+  amount: 8
+- ==: org.bukkit.inventory.ItemStack
+  type: GOLDEN_APPLE
+  damage: 1
+  amount: 3
+- ==: org.bukkit.inventory.ItemStack
+  type: COOKED_BEEF
+  amount: 16
+- ==: org.bukkit.inventory.ItemStack
+  type: WATER_BUCKET
+- ==: org.bukkit.inventory.ItemStack
+  type: COBBLESTONE
+  amount: 64
+- ==: org.bukkit.inventory.ItemStack
+  type: ARROW
+  amount: 64
+- ==: org.bukkit.inventory.ItemStack
+  type: ANVIL
+- ==: org.bukkit.inventory.ItemStack
+  type: DIAMOND_PICKAXE
+- ==: org.bukkit.inventory.ItemStack
+  type: WATER_BUCKET

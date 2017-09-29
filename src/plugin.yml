@@ -1,3 +1,5 @@
 name: Meetup
 version: 0.0.7
 main: com.isnakebuzz.meetup.a.Main
+commands:
+  meetup:

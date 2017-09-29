@@ -12,13 +12,17 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.CreatureSpawnEvent;
+import org.bukkit.event.entity.EntityRegainHealthEvent;
 import org.bukkit.event.entity.EntitySpawnEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerChatEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
+import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffect;
@@ -34,10 +38,30 @@ public class GameListeners implements Listener{
     
     @EventHandler
     public void CheckMax(PlayerLoginEvent e){
-        if (Main.plugin.getConfig().getInt("MaxPlayers") == Bukkit.getOnlinePlayers().size()){
-            e.setKickMessage(c(Main.plugin.getConfig().getString("GameFull")));
+        if (Bukkit.getOnlinePlayers().size() == Main.plugin.getConfig().getInt("MaxPlayers")){
+            e.disallow(PlayerLoginEvent.Result.KICK_FULL, c(Main.plugin.getConfig().getString("GameFull")));
         }else if(States.state != States.LOBBY){
-            e.setKickMessage(c(Main.plugin.getConfig().getString("GameStarted")));
+            e.disallow(PlayerLoginEvent.Result.KICK_OTHER, c(Main.plugin.getConfig().getString("GameStarted")));
+        }
+    }
+    
+    @EventHandler
+    public void DropItems(PlayerDropItemEvent e){
+        if (API.KitMode.contains(e.getPlayer())){
+            return;
+        }
+        if (States.state == States.LOBBY || States.state == States.STARTING || API.Specs.contains(e.getPlayer())){
+            e.setCancelled(true);
+        }
+    }
+    
+    @EventHandler
+    public void PickUpItems(PlayerPickupItemEvent e){
+        if (API.KitMode.contains(e.getPlayer())){
+            return;
+        }
+        if (States.state == States.LOBBY || States.state == States.STARTING || API.Specs.contains(e.getPlayer())){
+            e.setCancelled(true);
         }
     }
     
@@ -55,12 +79,14 @@ public class GameListeners implements Listener{
                 }
                 e.setCancelled(true);
             }else{
-                for (Player all : Bukkit.getOnlinePlayers()){
-                    all.sendMessage(c(Main.plugin.getConfig().getString("Chats.AliveFormat")
-                            .replaceAll("%player%", name)
-                    ) + msg);
+                if (!API.Specs.contains(p)){
+                    for (Player all : Bukkit.getOnlinePlayers()){
+                        all.sendMessage(c(Main.plugin.getConfig().getString("Chats.AliveFormat")
+                                .replaceAll("%player%", name)
+                        ) + msg);
+                    }
+                    e.setCancelled(true);
                 }
-                e.setCancelled(true);
             }
             e.setCancelled(true);
         }
@@ -75,6 +101,13 @@ public class GameListeners implements Listener{
                 e.setCancelled(true);
             }
             e.setCancelled(true);
+        }
+    }
+    
+    @EventHandler
+    public void onPlayerRegainHealth(final EntityRegainHealthEvent event) {
+        if (event.getRegainReason() == EntityRegainHealthEvent.RegainReason.SATIATED || event.getRegainReason() == EntityRegainHealthEvent.RegainReason.REGEN) {
+            event.setCancelled(true);
         }
     }
     
@@ -95,7 +128,7 @@ public class GameListeners implements Listener{
     }
     
     @EventHandler
-    public void MobSpawn(EntitySpawnEvent e){
+    public void MobSpawn(CreatureSpawnEvent e){
         e.setCancelled(true);
     }
     

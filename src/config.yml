@@ -1,3 +1,6 @@
+#Don't touch. This options is for a kits, internal code. Check: 
+Kits: 0
+## ScoreBoard :)
 ScoreBoard:
     Title: '&6&lUHC Meetup'
     Lines:
@@ -12,6 +15,7 @@ ScoreBoard:
       - ''
       - '&e&l@MicPixel'
       - '&7&m-------------------'
+## Lobby server
 Lobby: Hub
 MaxPlayers: 16
 MinPlayers: 6
