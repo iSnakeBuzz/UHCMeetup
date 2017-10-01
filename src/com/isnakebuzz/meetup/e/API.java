@@ -8,14 +8,12 @@ import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import net.minecraft.server.v1_8_R3.BiomeBase;
 import org.apache.commons.io.FileUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -78,6 +76,17 @@ public class API {
         }
     }
     
+    public static String getVersion(){
+        String version = Bukkit.getServer().getClass().getPackage().getName().replace(".",  ",").split(",")[3];
+        if (null != version)switch (version) {
+            case "v1_7_R3":
+                return "1.7.10";
+            case "v1_8_R3":
+                return "1.8.8";
+        }
+        return "none";
+    }
+    
     public static int GetKills(Player p){
         if (API.Kills.get(p) == null){
             return 0;
@@ -135,7 +144,7 @@ public class API {
         }
     }
     
-    public static void Generating(){
+    /*public static void Generating(){
         Bukkit.getConsoleSender().sendMessage("§aInjectando biomas...");
         Field biomesField = null;
         try{
@@ -182,7 +191,7 @@ public class API {
         catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException localException) {
         }
         Bukkit.getConsoleSender().sendMessage("§aBiomas injectados correctamente");
-    }
+    }*/
     
     public static String c(String c){
         return ChatColor.translateAlternateColorCodes('&', c);

@@ -75,7 +75,9 @@ public class PlayerListeners implements Listener{
         p.getInventory().clear();
         p.setGameMode(GameMode.CREATIVE);
         Kits.Spectador(p);
-        Border.setWorldBoder18(p);
+        if ("1.8.8".equals(API.getVersion())){
+            Border.setWorldBoder18(p);
+        }
     }
     
     @EventHandler
@@ -183,8 +185,11 @@ public class PlayerListeners implements Listener{
                     e.getPlayer().openInventory(API.getAlive());
                 }
                 if (c(Main.plugin.getConfig().getString("Items.Options")).equals(e.getItem().getItemMeta().getDisplayName())){
-                    //e.getPlayer().sendMessage(c(Main.plugin.getConfig().getString("NextUpdate")));
-                    API.SendOptionMenu(e.getPlayer());
+                    if ("1.8.8".equals(API.getVersion())){
+                        API.SendOptionMenu(e.getPlayer());
+                    }else if ("1.7.10".equals(API.getVersion())){
+                        e.getPlayer().sendMessage(c(Main.plugin.getConfig().getString("NextUpdate")));
+                    }
                 }
                 if (c(Main.plugin.getConfig().getString("Items.Hub")).equals(e.getItem().getItemMeta().getDisplayName())){
                     e.getPlayer().sendMessage("§eEnviandote al lobby...");

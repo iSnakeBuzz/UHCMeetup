@@ -25,6 +25,7 @@ import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerPickupItemEvent;
+import org.bukkit.event.server.ServerListPingEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
 import org.bukkit.event.world.ChunkLoadEvent;
 import org.bukkit.event.world.ChunkUnloadEvent;
@@ -38,6 +39,17 @@ public class GameListeners implements Listener{
     
     public GameListeners (Main plugin){
         this.plugin = plugin;
+    }
+    
+    @EventHandler
+    public void onMotdChange(ServerListPingEvent e){
+        if(States.state == States.LOBBY){
+            e.setMotd(plugin.getConfig().getString("Motds.Waiting"));
+        } else if(States.state == States.STARTING){
+            e.setMotd(plugin.getConfig().getString("Motds.Starting"));
+        }  else if(States.state == States.IN_GAME){
+            e.setMotd(plugin.getConfig().getString("Motds.InGame"));
+        }
     }
     
     @EventHandler

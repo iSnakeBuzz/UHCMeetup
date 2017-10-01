@@ -2,8 +2,11 @@ package com.isnakebuzz.meetup.d;
 
 import com.isnakebuzz.meetup.a.Main;
 import com.isnakebuzz.meetup.e.API;
+import com.isnakebuzz.meetup.i.NMS_1_7_R3;
+import com.isnakebuzz.meetup.i.NMS_1_8_R3;
 import java.io.File;
 import java.util.Random;
+import java.util.logging.Level;
 import net.minecraft.server.v1_8_R3.PacketPlayOutWorldBorder;
 import net.minecraft.server.v1_8_R3.PacketPlayOutWorldBorder.EnumWorldBorderAction;
 import net.minecraft.server.v1_8_R3.WorldBorder;
@@ -33,10 +36,12 @@ public class Border {
     
     public static void buildWalls(final int current, final Material type, final int altura, final World world) {
         final Location location = new Location(world, 0.0, 59.0, 0.0);
-        for (Player all : Bukkit.getOnlinePlayers()){
+        if ("1.8.8".equals(API.getVersion())){
+            for (Player all : Bukkit.getOnlinePlayers()){
             if (ProtocolSupportAPI.getProtocolVersion(all) == ProtocolVersion.MINECRAFT_1_8 ||ProtocolSupportAPI.getProtocolVersion(all) == ProtocolVersion.MINECRAFT_FUTURE){
-                if (!API.NoBorder.contains(all)){
-                    setWorldBoder18(all);
+                    if (!API.NoBorder.contains(all)){
+                        setWorldBoder18(all);
+                    }
                 }
             }
         }

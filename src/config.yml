@@ -39,6 +39,10 @@ JoinMessage: '&8[&aUHCMeetup&8] &a%player%&e has joined&6. &a%online%&7/&a%max%'
 ReRollMSG: '&8[&aUHCMeetup&8]&a You has been rerolled :D'
 MenuName: '&aPlayers:'
 OptionsMenu: '&aOptions'
+Motds:
+  Waiting: In Lobby
+  Starting: Starting
+  InGame: In Game
 Chats:
   Alive: true
   AliveFormat: '&e%player%&f:&7 '
