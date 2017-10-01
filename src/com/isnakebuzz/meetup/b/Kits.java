@@ -16,15 +16,15 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 public class Kits {
     
+    private static Random r = new Random();
+    public static int kits;
+    
     public static void RandomKit(Player p){
-        Random r = new Random();
-        if (Main.plugin.getConfig().getInt("Kits") == 0){
+        if (kits < 1){
             LoadKit(p, 0);
-        }else if (Main.plugin.getConfig().getInt("Kits") > 0){
-            int kit = r.nextInt(Main.plugin.getConfig().getInt("Kits"));
+        }else if (kits >= 1){
+            int kit = r.nextInt(kits);
             LoadKit(p, kit);
-        }else{
-            LoadKit(p, 0);
         }
     }
     

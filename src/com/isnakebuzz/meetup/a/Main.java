@@ -1,17 +1,19 @@
 package com.isnakebuzz.meetup.a;
 
+import com.isnakebuzz.meetup.b.Kits;
 import com.isnakebuzz.meetup.b.States;
 import com.isnakebuzz.meetup.c.GameListeners;
 import com.isnakebuzz.meetup.c.PlayerListeners;
 import com.isnakebuzz.meetup.d.Border;
+import com.isnakebuzz.meetup.d.WorldGenerator;
 import com.isnakebuzz.meetup.e.API;
 import com.isnakebuzz.meetup.e.LoadKits;
-import com.isnakebuzz.meetup.f.InGame;
+import com.isnakebuzz.meetup.e.Metrics;
 import com.isnakebuzz.meetup.g.ScoreboardAPI;
 import com.isnakebuzz.meetup.h.CheckBorder;
 import com.isnakebuzz.meetup.h.Cmds;
 import java.util.HashMap;
-import java.util.logging.Level;
+import net.minecraft.server.v1_8_R3.WorldBorder;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -38,7 +40,9 @@ public class Main extends JavaPlugin{
     @Override
     public void onEnable() {
         super.onEnable();
+        new Metrics(this);
         States.state = States.LOBBY;
+        Border.walls = 125;
         getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
         saveDefaultConfig();
         Main.plugin = this;
@@ -46,14 +50,19 @@ public class Main extends JavaPlugin{
         pl.init();
         cmds.init();
         API.Generating();
-        API.DeleteWorld(world);
-        World w = Bukkit.getWorld(world);
-        w.setAutoSave(false);
-        w.setSpawnLocation(0, w.getHighestBlockYAt(0, 0) + 10, 0);
-        getServer().getScheduler().runTaskLater(this, () -> {
-            Border.buildWalls(Border.walls, Material.BEDROCK, 5, w);
-            new CheckBorder(Main.plugin).runTaskTimer(Main.plugin, 30L, 15L);
-        }, 30);
+        Kits.kits = Main.plugin.getConfig().getInt("Kits");
+        if (getConfig().getBoolean("NewWorldGenerator") == false){
+            API.DeleteWorld(world);
+            World w = Bukkit.getWorld(world);
+            w.setAutoSave(false);
+            w.setSpawnLocation(0, w.getHighestBlockYAt(0, 0) + 10, 0);
+            getServer().getScheduler().runTaskLater(this, () -> {
+                Border.buildWalls(Border.walls, Material.BEDROCK, 6, w);
+            }, 30);
+        }else{
+            new WorldGenerator().runTaskTimer(plugin, 20, 20);
+        }
+        new CheckBorder(Main.plugin).runTaskTimer(Main.plugin, 30L, 15L);
         LoadKits.get().a(plugin);
     }
 

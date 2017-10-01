@@ -2,6 +2,7 @@ package com.isnakebuzz.meetup.d;
 
 import com.isnakebuzz.meetup.a.Main;
 import com.isnakebuzz.meetup.e.API;
+import java.io.File;
 import java.util.Random;
 import net.minecraft.server.v1_8_R3.PacketPlayOutWorldBorder;
 import net.minecraft.server.v1_8_R3.PacketPlayOutWorldBorder.EnumWorldBorderAction;
@@ -10,6 +11,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.WorldCreator;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import protocolsupport.api.ProtocolSupportAPI;
@@ -17,7 +19,7 @@ import protocolsupport.api.ProtocolVersion;
 
 public class Border {
     
-    public static int walls = 125;
+    public static int walls;
     
     public static void teleport(final Player p, int locs) {
         final Random r = new Random();
@@ -39,10 +41,10 @@ public class Border {
             }
         }
         for (int i = altura; i < altura + altura; ++i) {
-            for (int j = location.getBlockX() - current; j <= location.getBlockX() + current; ++j) {
+            for (int j = location.getBlockX() - current-1; j <= location.getBlockX() + current; ++j) {
                 for (int k = 58; k <= 58; ++k) {
-                    for (int l = location.getBlockZ() - current; l <= location.getBlockZ() + current; ++l) {
-                        if (j == location.getBlockX() - current || j == location.getBlockX() + current || l == location.getBlockZ() - current || l == location.getBlockZ() + current) {
+                    for (int l = location.getBlockZ() - current-1; l <= location.getBlockZ() + current; ++l) {
+                        if (j == location.getBlockX() - current-1 || j == location.getBlockX() + current || l == location.getBlockZ() - current-1 || l == location.getBlockZ() + current) {
                             final Location location2 = new Location(world, (double)j, (double)k, (double)l);
                             location2.setY((double)world.getHighestBlockYAt(location2));
                             location2.getBlock().setType(type);

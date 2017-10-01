@@ -37,12 +37,10 @@ public class Starting extends BukkitRunnable {
                 if (API.Teleported.contains(all)){
                     return;
                 }
+                API.ReRoll.put(all, 0);
                 API.Teleported.add(all);
                 API.CleanPlayer(all);
                 Border.teleport(all, Border.walls - 5);
-                plugin.getServer().getScheduler().runTaskLater(plugin, () -> {
-                    all.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 20 * 14, 1, true, false));
-                }, 5);
             }
             for (Player all : Bukkit.getOnlinePlayers()){
                 Kits.RandomKit(all);

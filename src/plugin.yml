@@ -1,6 +1,7 @@
 name: Meetup
-version: 0.1.0
+version: 0.1.1
 main: com.isnakebuzz.meetup.a.Main
 commands:
   meetup:
   reroll:
+  gaps:

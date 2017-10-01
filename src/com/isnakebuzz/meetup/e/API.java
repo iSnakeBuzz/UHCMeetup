@@ -19,10 +19,23 @@ import net.minecraft.server.v1_8_R3.BiomeBase;
 import org.apache.commons.io.FileUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
+import org.bukkit.WorldType;
+import org.bukkit.block.Beacon;
+import org.bukkit.block.BlockState;
+import org.bukkit.block.BrewingStand;
+import org.bukkit.block.Chest;
+import org.bukkit.block.Dispenser;
+import org.bukkit.block.Furnace;
+import org.bukkit.block.Hopper;
+import org.bukkit.block.Jukebox;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -185,7 +198,12 @@ public class API {
             Bukkit.getConsoleSender().sendMessage("§aMundo borrado");
         } catch (IOException e) {
         }
-        Bukkit.createWorld(WorldCreator.name(world));
+        
+        WorldCreator wc = new WorldCreator("world");
+        wc.type(WorldType.LARGE_BIOMES);
+        wc.createWorld();
+        w2.regenerateChunk(0, 0);
+        API.cleanMap();
     }
     
     public static void CheckStartVote(){
@@ -199,6 +217,55 @@ public class API {
             Bukkit.broadcastMessage(c(Main.plugin.getConfig().getString("VotesMSG")
                     .replaceAll("%votes%", ""+votos)
             ));
+        }
+    }
+    
+    public static void cleanMap() {
+        World w = Bukkit.getWorld(Main.world);
+        Chunk[] chunks = w.getLoadedChunks();
+        for (Chunk chunk : chunks) {
+            BlockState[] tileEntities = chunk.getTileEntities();
+            for (BlockState i : tileEntities) {
+                if (i instanceof Beacon) {
+                    Beacon blockState = ((Beacon) i);
+                    blockState.getInventory().clear();
+                } else if (i instanceof BrewingStand) {
+                    BrewingStand blockState = ((BrewingStand) i);
+                    blockState.getInventory().clear();
+                } else if (i instanceof Chest) {
+                    Chest blockState = ((Chest) i);
+                    blockState.getInventory().clear();
+                } else if (i instanceof Dispenser) {
+                    Dispenser blockState = ((Dispenser) i);
+                    blockState.getInventory().clear();
+                } else if (i instanceof Furnace) {
+                    Furnace blockState = ((Furnace) i);
+                    blockState.getInventory().clear();
+                } else if (i instanceof Hopper) {
+                    Hopper blockState = ((Hopper) i);
+                 blockState.getInventory().clear();
+                } else if (i instanceof Jukebox) {
+                    Jukebox blockState = ((Jukebox) i);
+                    blockState.eject();
+                }
+            }
+        }
+
+        for (Entity entity : w.getEntities()) {
+            if (entity.getType() == EntityType.DROPPED_ITEM) {
+                entity.remove();
+            }
+        }
+
+        clearNonPlayerEntities();
+    }
+
+    private static void clearNonPlayerEntities() {
+        World w = Bukkit.getWorld(Main.world);
+        for (Entity entity : w.getEntities()) {
+            if (entity instanceof LivingEntity && !(entity instanceof Player) && !entity.hasMetadata("CombatLoggerNPC")) {
+                    entity.remove();
+            }
         }
     }
     

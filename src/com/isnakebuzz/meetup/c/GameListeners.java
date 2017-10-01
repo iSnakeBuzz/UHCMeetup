@@ -8,6 +8,8 @@ import static com.isnakebuzz.meetup.e.API.c;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -24,6 +26,8 @@ import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
+import org.bukkit.event.world.ChunkLoadEvent;
+import org.bukkit.event.world.ChunkUnloadEvent;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -43,6 +47,20 @@ public class GameListeners implements Listener{
         }else if(States.state != States.LOBBY){
             e.disallow(PlayerLoginEvent.Result.KICK_OTHER, c(Main.plugin.getConfig().getString("GameStarted")));
         }
+    }
+    
+    @EventHandler
+    public void onChunkLoadEvent(ChunkLoadEvent event) {
+        for (Entity entity : event.getChunk().getEntities()) {
+            if (!(entity instanceof Player) && entity instanceof LivingEntity) {
+                entity.remove();
+            }
+        }
+    }
+
+    @EventHandler
+    public void onChunkUnload(ChunkUnloadEvent event) {
+        event.setCancelled(true);
     }
     
     @EventHandler
