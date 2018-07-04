@@ -7,7 +7,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityRegainHealthEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -29,13 +28,12 @@ public class EventHealth implements Listener {
     @EventHandler
     public void Consume(final PlayerItemConsumeEvent e) {
         final Player p = e.getPlayer();
-        if (e.getItem() == null){
+        if (e.getItem() == null) {
             return;
-        } else if (e.getItem().getItemMeta().getDisplayName() == null){
+        } else if (e.getItem().getItemMeta().getDisplayName() == null) {
             return;
         }
-        final ItemMeta pm = e.getItem().getItemMeta();
-        if (pm.getDisplayName().equalsIgnoreCase(ChatColor.GOLD + "Golden Heads")) {
+        if (e.getItem().getItemMeta().equals(plugin.getWorldUitls().goldenHead(1).getItemMeta())) {
             p.addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION, 3400, 0));
             p.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 200, 1));
         }
