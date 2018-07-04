@@ -1,0 +1,74 @@
+ScoreBoards:
+  Starting:
+    Title: '&5&lLyre'
+    Lines:
+      - ''
+      - '&eScenarios:'
+      - ' FireLess &f%fireless%'
+      - ' TImeBomb &f%timebomb%'
+      - ' NoClean &f%noclean%'
+      - ' NoGames &f%nogames%'
+      - ' RodLess &f%rod%'
+      - ''
+      - '&bLyre.rip'
+  InGame:
+    Title: '&5&lLyre'
+    Lines:
+      - ''
+      - '&ePlayers:&f %online%'
+      - '&eSpectators:&f %specs%'
+      - ''
+      - '&eKills:&f %kills%'
+      - ''
+      - '&eBorder:&f %border%'
+      - ''
+      - '&bLyre.rip'
+  Ended:
+    Title: '&5&lLyre'
+    Lines:
+      - ''
+      - '&aWinner&f: '
+      - '&f %winner%'
+      - ''
+      - '&bLyre.rip'
+MotdStages:
+  Loading: Loading Game
+  Waiting: In Lobby
+  Starting: Starting
+  InGame: In Game
+VoteMessages:
+  NeedVotes: '&8[&aUHCMeetup&8]&6 Need &a%votes%&6 more votes for start game'
+PlayerMessage:
+  JoinMessage: '&8[&aUHCMeetup&8] &a%player%&e has joined&6. &a%online%&7/&a%max%'
+  QuitMessage: '&8[&aUHCMeetup&8] &a%player%&e has quit&6. &a%online%&7/&a%max%'
+  WinMSG: '&8[&aUHCMeetup&8]&a %player%&6 has win the UHCMeetup'
+  NextUpdate: '&cThis function will be coming soon'
+  Restarting: '&8[&aUHCMeetup&8]&6 Game restarting in &e%time%s'
+  StartMSG: '&8[&aUHCMeetup&8]&6 Starting in &e%time%s'
+  StartedMSG: '&8[&aUHCMeetup&8]&6 Good lock!'
+  Rerolled: '&8[&aUHCMeetup&8]&a You has been rerolled :D'
+KickMessages:
+  GameFull: '&cGame Full'
+  GameStarted: '&cGame started'
+  MapLoading: '&cLoading map'
+BorderMessages:
+  Border: '&8[&aUHCMeetup&8]&6 Border shrinking to &e%coords% &6in &e%time%s'
+  BorderNow: '&8[&aUHCMeetup&8]&6 Border is now at &e%coords%'
+ScenariosMessages:
+  TimeBombExplode: "&8[&aUHCMeetup&8]&b %player%'s chest explode"
+  RemovedNoClean: '&cYou loss immunity, you now recibe damage'
+MLGMessages:
+  Started: '&8[&aUHCMeetup&8]&b %player% is going to MLG!'
+  Failed: '&8[&aUHCMeetup&8]&b %player% failed the MLG'
+  Win: '&8[&aUHCMeetup&8]&b %player% is a PRO in the MLG'
+  First: '&8[&aUHCMeetup&8]&6 Winners first MLG in %timer%!'
+  Second: '&8[&aUHCMeetup&8]&6 Winners second MLG in %timer%!'
+  Third: '&8[&aUHCMeetup&8]&6 Winners third MLG in %timer%!'
+Extra:
+  SoonUpdate: '&cSoon :)'
+StatsMessage:
+  - '&c&lEdit in Messages.yml'
+  - '&aWins %wins%'
+  - '&aKills %kills%'
+  - '&aDeaths %deaths%'
+  - 'This fuction is currently unable'

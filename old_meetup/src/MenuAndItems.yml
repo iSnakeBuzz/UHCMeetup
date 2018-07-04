@@ -1,0 +1,131 @@
+SpectatorItems:
+  LobbyItem:
+    enable: true
+    name: '&bReturn to Lobby'
+    lore:
+      - '&f'
+    ## this is item > 355:0 <- this is data
+    item: 421
+    ## this is item > 355:0 <- this is data
+    data: 0
+    ## Slots 0 - 8. 0 = 1, 1 = 2, etc.
+    slot: 8
+  ArenaLobby:
+    enable: true
+    name: '&bReturn to ArenaPvP'
+    lore:
+      - '&f'
+    item: 276
+    data: 0
+    slot: 7
+  PlayersItem:
+    enable: true
+    name: '&aPlayers'
+    lore:
+      - '&f'
+      - '&bClick to view players alive'
+    item: 347
+    data: 0
+    slot: 0
+  SpeedOptions:
+    enable: true
+    name: '&bFly Speed'
+    lore:
+      - '&f'
+      - '&bClick to change your flight speed'
+    item: 373
+    data: 16386
+    slot: 1
+  VoteItem:
+    enable: true
+    name: '&bVote to Start'
+    lore:
+      - '&f'
+    item: 339
+    data: 0
+    slot: 4
+PlayersMenu: '&bPlayers'
+SpeedMenu:
+  name: '&eSpeed options'
+  Raws: 1
+  Speed1:
+    enable: true
+    name: '&aFly Speed 1'
+    lore:
+      - '&f'
+    item: 373
+    data: 8194
+    slot: 0
+  Speed2:
+    enable: true
+    name: '&aFly Speed 2'
+    lore:
+      - '&f'
+    item: 373
+    data: 8194
+    slot: 1
+  Speed3:
+    enable: true
+    name: '&aFly Speed 3'
+    lore:
+      - '&f'
+    item: 373
+    data: 8194
+    slot: 2
+  Speed4:
+    enable: true
+    name: '&aFly Speed 4'
+    lore:
+      - '&f'
+    item: 373
+    data: 8194
+    slot: 3
+  Normal:
+    enable: true
+    name: '&aNormal Fly Speed'
+    lore:
+      - '&f'
+    item: 373
+    data: 8194
+    slot: 8
+Scenarios:
+  MinPorcent: 15.00
+  Menu: '&6Vote for gamemodes!'
+  RodLess:
+    name: '&6Rod'
+    lore:
+      - '&6Chance: %rod%&6%'
+      - ''
+      - '&bFishing rods are not allowed'
+  FireLess:
+    name: '&6Fireless'
+    lore:
+      - '&6Chance: %fire%&6%'
+      - ''
+      - '&bNo fire damage'
+      - '&bNo lava damage'
+  BowLess:
+    name: '&6BowLess'
+    lore:
+      - '&6Chance: %bow%&6%'
+      - ''
+      - '&bBow are not allowed'
+  TimeBomb:
+    name: '&6Time Bomb'
+    lore:
+      - '&6Chance: %timebomb%&6%'
+      - ''
+      - '&bNo fire damage'
+      - '&bNo lava damage'
+  NoClean:
+    name: '&6No Clean'
+    lore:
+      - '&6Chance: %noclean%&6%'
+      - ''
+  NoGamemodes:
+    name: '&6No gamemodes'
+    lore:
+      - '&6Change: %nogames%&6%'
+      - ''
+      - '&bNo gamemodes active this game'
+  SoonItem: '&c&lSoon :)'

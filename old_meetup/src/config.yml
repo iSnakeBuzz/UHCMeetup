@@ -1,0 +1,27 @@
+Kits: 0 
+Lobby: Hub
+ArenaLobby: ArenaPvP
+GameOptions:
+  MinPlayers: 6
+  MaxPlayers: 32
+  MinPlayersItemVote: 2
+  MinVotes: 2
+  MaxRerrolls: 2
+  NoRestart:
+    enabled: true
+    command: 'reload'
+ScenariosTime:
+  TimeBombTime: 15
+  NoCleanTime: 30
+WaitingLobby:
+  enabled: false
+  name: Lobby
+WorldOptions:
+  RandomWorld: true
+  SelectedWorlds:
+    - 'world1'
+    - 'world2'
+Border:
+  1: '50:120:0'
+  2: '30:60:0'
+  3: '20:30:0'

@@ -22,7 +22,7 @@ Start your server, and enjoy the plugin :D!.
 You need a custom spigot for the plugin run.
 Download from:
 ```
-https://www.isnakebuzz.com/spigot/spigot_server.jar
+https://www.isnakebuzz.com/spigots/spigot_server.jar
 ```
 
 ### Images
