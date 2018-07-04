@@ -1,6 +1,7 @@
 package com.isnakebuzz.meetup.m;
 
 import com.isnakebuzz.meetup.a.Main;
+import org.bukkit.configuration.Configuration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -31,10 +32,15 @@ public class CustomKits {
     }
 
     public void setUpKit(Player p) {
-        p.getInventory().clear();
-        String kit = getRandomKit();
-        loadKit(p, kit);
-        p.updateInventory();
+        Configuration config = plugin.getConfigUtils().getConfig(plugin, "Settings");
+        if (config.getBoolean("GameOptions.CustomKit")) {
+            p.getInventory().clear();
+            String kit = getRandomKit();
+            loadKit(p, kit);
+            p.updateInventory();
+        } else {
+            plugin.getAutoKits().setUpKit(p);
+        }
     }
 
     public boolean deleteKit(Player p, String kitname) {

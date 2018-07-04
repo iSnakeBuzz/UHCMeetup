@@ -61,6 +61,12 @@ public class MenuCreator extends Menu {
                 } else if (action.split(":")[0].equalsIgnoreCase("lobby")) {
                     GamePlayer gamePlayer = plugin.getPlayerManager().getUuidGamePlayerMap().get(p.getUniqueId());
                     gamePlayer.sendToLobby();
+                } else if (action.split(":")[0].equalsIgnoreCase("velocity")) {
+                    float speed = Float.valueOf(action.split(":")[1]);
+                    p.setWalkSpeed(speed);
+                } else if (action.split(":")[0].equalsIgnoreCase("flyspeed")) {
+                    float speed = Float.valueOf(action.split(":")[1]);
+                    p.setFlySpeed(speed);
                 }
             }
         }

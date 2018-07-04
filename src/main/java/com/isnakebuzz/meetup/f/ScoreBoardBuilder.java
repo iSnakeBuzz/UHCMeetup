@@ -2,7 +2,10 @@ package com.isnakebuzz.meetup.f;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
@@ -10,14 +13,64 @@ import org.bukkit.scoreboard.Team;
 
 public class ScoreBoardBuilder {
 
-    private Scoreboard scoreboard;
-    private Objective scoreObjective;
     private boolean reset;
 
-    public ScoreBoardBuilder(final String score_name) {
+    private Scoreboard scoreboard;
+    private Objective scoreObjective;
+    private Objective nameHealthObj;
+    private Objective tablistHealthObj;
+
+
+    //Teams
+    private Team spectator;
+    //End Teams
+
+    public ScoreBoardBuilder(final String score_name, boolean health, boolean spect) {
         this.scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
         this.scoreObjective = this.scoreboard.registerNewObjective(score_name, "dummy");
         this.scoreObjective.setDisplaySlot(DisplaySlot.SIDEBAR);
+
+        if (health) {
+            this.tablistHealthObj = this.scoreboard.registerNewObjective("tablife", "dummy");
+            this.tablistHealthObj.setDisplaySlot(DisplaySlot.PLAYER_LIST);
+            this.nameHealthObj = this.scoreboard.registerNewObjective("namelife", "health");
+            this.nameHealthObj.setDisplaySlot(DisplaySlot.BELOW_NAME);
+            this.nameHealthObj.setDisplayName(ChatColor.DARK_RED + "\u2764");
+        }
+
+        if (spect) {
+            this.spectator = this.scoreboard.registerNewTeam("spec");
+            this.spectator.setAllowFriendlyFire(false);
+            this.spectator.setCanSeeFriendlyInvisibles(true);
+        }
+
+    }
+
+    public void updateSpectPlayer(Player p) {
+        if (!spectator.hasPlayer((OfflinePlayer) p)) {
+            spectator.addPlayer((OfflinePlayer) p);
+        }
+        spectator.setPrefix("§7");
+        spectator.setCanSeeFriendlyInvisibles(true);
+    }
+
+    public void updatelife() {
+        for (Player onlinePlayers : Bukkit.getOnlinePlayers()) {
+            final Player player2;
+            final Player player = player2 = onlinePlayers;
+            this.nameHealthObj.getScore(player.getName()).setScore((int) (player2).getHealth() + absorpHearts(player2));
+            this.tablistHealthObj.getScore(player.getName()).setScore((int) (player2).getHealth() + absorpHearts(player2));
+        }
+    }
+
+    private int absorpHearts(Player pl) {
+        for (PotionEffect pe : pl.getActivePotionEffects()) {
+            if (pe.getType().equals(PotionEffectType.ABSORPTION)) {
+                int amt = pe.getAmplifier() * 2 + 2;
+                return amt;
+            }
+        }
+        return 0;
     }
 
     public String color(final String s) {

@@ -20,6 +20,6 @@ MenuCreator:
         name: 'Hello World Item'
         lore:
           - 'Hello World Item Lore'
-        # Actions: CMD:SAY TEST, MENU:TEST, SERVER:LOBBY, LOBBY
+        # Actions: CMD:SAY TEST, MENU:TEST, SERVER:PVP, LOBBY, FLYSPEED:0.5, VELOCITY:0.5
         # Soon actions: VOTE
         action: ''

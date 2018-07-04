@@ -41,7 +41,7 @@ public class StartingTask extends BukkitRunnable {
                 p.setAllowFlight(false);
                 p.setFlying(false);
                 Main.getStates.state = Main.getStates.INGAME;
-                plugin.getScoreBoardAPI().setScoreBoard(p, ScoreBoardAPI.ScoreboardType.INGAME);
+                plugin.getScoreBoardAPI().setScoreBoard(p, ScoreBoardAPI.ScoreboardType.INGAME,true, false);
             }
             this.cancel();
         }

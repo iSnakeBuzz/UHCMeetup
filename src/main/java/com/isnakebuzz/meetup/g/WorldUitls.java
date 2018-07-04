@@ -63,6 +63,8 @@ public class WorldUitls {
         Bukkit.getServer().setBiomeBase(Biome.COLD_TAIGA_MOUNTAINS, Biome.PLAINS, 0);
 
         // DISALLOWED threshold biomes
+        Bukkit.getServer().setBiomeBase(Biome.SWAMPLAND, Biome.PLAINS, 0);
+        Bukkit.getServer().setBiomeBase(Biome.SWAMPLAND_MOUNTAINS, Biome.PLAINS, 0);
         Bukkit.getServer().setBiomeBase(Biome.FLOWER_FOREST, Biome.PLAINS, 0);
         Bukkit.getServer().setBiomeBase(Biome.SUNFLOWER_PLAINS, Biome.PLAINS, 0);
         Bukkit.getServer().setBiomeBase(Biome.ROOFED_FOREST_MOUNTAINS, Biome.PLAINS, 0);

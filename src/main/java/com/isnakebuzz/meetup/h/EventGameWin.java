@@ -46,7 +46,7 @@ public class EventGameWin implements Listener {
         }
 
         for (Player p : Bukkit.getOnlinePlayers()) {
-            plugin.getScoreBoardAPI().setScoreBoard(p, ScoreBoardAPI.ScoreboardType.FINISHED);
+            plugin.getScoreBoardAPI().setScoreBoard(p, ScoreBoardAPI.ScoreboardType.FINISHED, false, false);
         }
 
         new EndTask(plugin, plugin.getConfigUtils().getConfig(plugin, "Settings").getInt("GameOptions.EndTime")).runTaskTimer(plugin, 0l, 20l);

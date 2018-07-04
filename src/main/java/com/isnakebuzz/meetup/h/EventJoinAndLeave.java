@@ -46,7 +46,7 @@ public class EventJoinAndLeave implements Listener {
         if (plugin.getArenaManager().checkStart()) {
             new LobbyTask(plugin, config.getInt("GameOptions.VoteTime")).runTaskTimer(plugin, 0l, 20l);
         }
-        plugin.getScoreBoardAPI().setScoreBoard(p, ScoreBoardAPI.ScoreboardType.LOBBY);
+        plugin.getScoreBoardAPI().setScoreBoard(p, ScoreBoardAPI.ScoreboardType.LOBBY, false, false);
     }
 
     @EventHandler

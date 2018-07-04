@@ -40,7 +40,7 @@ public class LobbyTask extends BukkitRunnable {
                     plugin.getPlayerManager().getPlayersAlive().add(p);
                 }
                 p.setGameMode(GameMode.SURVIVAL);
-                plugin.getScoreBoardAPI().setScoreBoard(p, ScoreBoardAPI.ScoreboardType.STARTING);
+                plugin.getScoreBoardAPI().setScoreBoard(p, ScoreBoardAPI.ScoreboardType.STARTING, false, false);
                 GamePlayer gamePlayer = plugin.getPlayerManager().getUuidGamePlayerMap().get(p.getUniqueId());
                 plugin.getTeleportManager().teleport();
                 gamePlayer.sit();

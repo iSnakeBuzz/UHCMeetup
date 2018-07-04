@@ -31,6 +31,7 @@ GameOptions:
   # End Time
   EndTime: 15
   GAppleName: '&6Golden Head'
+  CustomKit: false
 TeleportOptions:
   # This value is a double, please put the .0
   # Wrong: 20

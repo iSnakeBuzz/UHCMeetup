@@ -21,7 +21,7 @@ public class EventDeath implements Listener {
         this.plugin = plugin;
     }
 
-    @EventHandler (priority = EventPriority.HIGHEST)
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void PlayerDeathEvent(PlayerDeathEvent e) {
         if (e.getEntity() instanceof Player) {
             Player p = e.getEntity().getPlayer();
@@ -30,7 +30,7 @@ public class EventDeath implements Listener {
             if (plugin.getPlayerManager().getPlayersAlive().contains(p)) {
                 plugin.getPlayerManager().getPlayersAlive().remove(p);
             }
-            plugin.getScoreBoardAPI().setScoreBoard(p, ScoreBoardAPI.ScoreboardType.SPECTATOR);
+            plugin.getScoreBoardAPI().setScoreBoard(p, ScoreBoardAPI.ScoreboardType.SPECTATOR, true, true);
             for (Player all : Bukkit.getOnlinePlayers()) {
                 all.hidePlayer(p);
             }

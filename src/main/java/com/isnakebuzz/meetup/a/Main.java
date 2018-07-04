@@ -11,7 +11,9 @@ import com.isnakebuzz.meetup.i.ConfigCreator;
 import com.isnakebuzz.meetup.i.ConfigUtils;
 import com.isnakebuzz.meetup.k.CommandsKits;
 import com.isnakebuzz.meetup.k.CommandsLobby;
+import com.isnakebuzz.meetup.m.AutoKits;
 import com.isnakebuzz.meetup.m.CustomKits;
+import com.isnakebuzz.meetup.m.Metrics;
 import com.isnakebuzz.meetup.worldborder.BorderData;
 import com.isnakebuzz.meetup.worldborder.Config;
 import com.isnakebuzz.meetup.worldborder.WBCommand;
@@ -36,8 +38,10 @@ public class Main extends JavaPlugin {
     private TeleportManager teleportManager;
     private EventManager eventManager;
     private CustomKits customKits;
+    private AutoKits autoKits;
 
     public Main() {
+        this.autoKits = new AutoKits(this);
         this.customKits = new CustomKits(this);
         this.eventManager = new EventManager(this);
         this.teleportManager = new TeleportManager(this);
@@ -62,6 +66,7 @@ public class Main extends JavaPlugin {
         ConfigCreator.get().setup(this, "Utils/SpawnLocs");
         ConfigCreator.get().setup(this, "Extra/ScoreBoard");
         ConfigCreator.get().setup(this, "Extra/Border");
+        ConfigCreator.get().setup(this, "Kits/autokit");
 
         //Register CommandsLobby
         this.getCommand("lb").setExecutor(new CommandsLobby(this));
@@ -81,6 +86,9 @@ public class Main extends JavaPlugin {
 
         //Load Events
         this.loadListeners();
+
+        //Load metrics
+        Metrics metrics = new Metrics(this);
 
         //Set game loading..
         getStates.state = getStates.LOADING;
@@ -150,6 +158,10 @@ public class Main extends JavaPlugin {
 
     public CustomKits getCustomKits() {
         return customKits;
+    }
+
+    public AutoKits getAutoKits() {
+        return autoKits;
     }
 
     private void loadListeners() {

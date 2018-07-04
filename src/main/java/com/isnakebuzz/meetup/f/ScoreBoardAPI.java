@@ -24,10 +24,10 @@ public class ScoreBoardAPI {
 
     }
 
-    public void setScoreBoard(Player p, ScoreboardType scoreboardType) {
+    public void setScoreBoard(Player p, ScoreboardType scoreboardType, boolean health, boolean spect) {
         removeScoreBoard(p);
         p.setScoreboard(Bukkit.getScoreboardManager().getNewScoreboard());
-        ScoreBoardBuilder scoreboard = new ScoreBoardBuilder(randomString(8));
+        ScoreBoardBuilder scoreboard = new ScoreBoardBuilder(randomString(8), health, spect);
         Configuration config2 = plugin.getConfigUtils().getConfig(plugin, "Settings");
         int id = new BukkitRunnable() {
             @Override
@@ -40,6 +40,8 @@ public class ScoreBoardAPI {
                     scoreboard.lines(line, chars(p, config2, s));
                     line--;
                 }
+                if (health) scoreboard.updatelife();
+                if (spect) scoreboard.updateSpectPlayer(p);
             }
         }.runTaskTimer(plugin, 0l, 10l).getTaskId();
         p.setScoreboard(scoreboard.getScoreboard());
