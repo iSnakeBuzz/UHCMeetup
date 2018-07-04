@@ -1,6 +1,6 @@
 name: UHCMeetupV4
 main: com.isnakebuzz.meetup.a.Main
-version: 0.0.1
+version: v0.1-beta.2
 description: The epic MineHQ Meetup..
 author: iSnakeBuzz_
 website: https://www.isnakebuzz.com/

@@ -163,6 +163,7 @@ public class Main extends JavaPlugin {
         registerListener(getEventManager().getEventDeath());
         registerListener(getEventManager().getEventWorld());
         registerListener(getEventManager().getEventGameWin());
+        registerListener(getEventManager().getEventHealth());
     }
 
     private void registerListener(Listener listener) {

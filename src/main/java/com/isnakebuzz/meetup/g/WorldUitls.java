@@ -1,8 +1,11 @@
 package com.isnakebuzz.meetup.g;
 
 import com.isnakebuzz.meetup.a.Main;
+import com.isnakebuzz.meetup.i.ItemBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.block.Biome;
+import org.bukkit.configuration.Configuration;
+import org.bukkit.inventory.ItemStack;
 
 public class WorldUitls {
 
@@ -82,4 +85,10 @@ public class WorldUitls {
         Bukkit.getServer().setBiomeBase(Biome.FROZEN_RIVER, Biome.PLAINS, 0);
         Bukkit.getServer().setBiomeBase(Biome.ICE_MOUNTAINS, Biome.PLAINS, 0);
     }
+
+    public ItemStack goldenHead(int number) {
+        Configuration config = plugin.getConfigUtils().getConfig(plugin, "Settings");
+        return ItemBuilder.crearItem(322, number, 0, config.getString("GameOptions.GAppleName"));
+    }
+
 }

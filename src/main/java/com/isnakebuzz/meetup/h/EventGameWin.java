@@ -1,6 +1,7 @@
 package com.isnakebuzz.meetup.h;
 
 import com.isnakebuzz.meetup.a.Main;
+import com.isnakebuzz.meetup.c.EndTask;
 import com.isnakebuzz.meetup.f.ScoreBoardAPI;
 import com.isnakebuzz.meetup.l.GameWinEvent;
 import org.bukkit.Bukkit;
@@ -47,6 +48,8 @@ public class EventGameWin implements Listener {
         for (Player p : Bukkit.getOnlinePlayers()) {
             plugin.getScoreBoardAPI().setScoreBoard(p, ScoreBoardAPI.ScoreboardType.FINISHED);
         }
+
+        new EndTask(plugin, plugin.getConfigUtils().getConfig(plugin, "Settings").getInt("GameOptions.EndTime")).runTaskTimer(plugin, 0l, 20l);
     }
 
     private String c(String c) {

@@ -26,7 +26,11 @@ GameOptions:
   Lobby: 'hub'
   # Vote time..
   VoteTime: 30
+  # Starting time
   StartingTime: 15
+  # End Time
+  EndTime: 15
+  GAppleName: '&6Golden Head'
 TeleportOptions:
   # This value is a double, please put the .0
   # Wrong: 20

@@ -66,6 +66,14 @@ public class CommandsKits implements CommandExecutor {
                 } else {
                     p.sendMessage(c("&b➠&e The kitname doest exists"));
                 }
+            } else if (args[0].equalsIgnoreCase("gapple")) {
+                if (args.length < 2) {
+                    sendCommands(p);
+                    return false;
+                }
+                int number = Integer.valueOf(args[1]);
+                p.getInventory().addItem(plugin.getWorldUitls().goldenHead(number));
+                p.sendMessage(c("&b➠&e Has been gived &a" + number + "&e GApples."));
             } else if (args[0].equalsIgnoreCase("list")) {
                 p.sendMessage(c("&b➠&e Kits created: "));
                 File dir = new File(plugin.getDataFolder() + "/Kits/");
@@ -88,6 +96,7 @@ public class CommandsKits implements CommandExecutor {
         p.sendMessage(c("&a►►&6 /kit create {name} &b➠&e Add kit."));
         p.sendMessage(c("&a►►&6 /kit delete {name} &b➠&e Remove kit."));
         p.sendMessage(c("&a►►&6 /kit load {name} &b➠&e Load kit."));
+        p.sendMessage(c("&a►►&6 /kit gapple {number} &b➠&e Give GApple."));
         p.sendMessage(c("&a►►&6 /kit list &b➠&e Get list of created kits."));
     }
 
