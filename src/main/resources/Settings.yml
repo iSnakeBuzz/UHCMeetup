@@ -1,0 +1,34 @@
+# # # # # # # # # # # # # # # # # # #
+#                                   #
+# Thanks for use Snake's UHC-Meetup #
+#                                   #
+# # # # # # # # # # # # # # # # # # #
+
+
+# Next feature :)
+Mode: meetup
+
+# Lobby like MineHQ?
+Lobby:
+  enabled: true
+
+# Border Config
+Border:
+  # Default Size.
+  Default: 120
+  # Moved border tasks to Extra/Border.yml
+
+# Game Options, Max players, Min players, etc..
+GameOptions:
+  MinPlayers: 12
+  MaxPlayers: 16
+  RestartCommand: 'stop'
+  Lobby: 'hub'
+  # Vote time..
+  VoteTime: 30
+  StartingTime: 15
+TeleportOptions:
+  # This value is a double, please put the .0
+  # Wrong: 20
+  # Fine: 20.0
+  MinDistance: 20.0

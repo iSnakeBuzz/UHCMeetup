@@ -1,0 +1,53 @@
+# # # # # # # # # # # # # # # # # # #
+#                                   #
+# Thanks for use Snake's UHC-Meetup #
+#                                   #
+# # # # # # # # # # # # # # # # # # #
+
+bTimeFormat: "&7(&c%time%&7)"
+
+LOBBY:
+  title: '&6&lMineHQ &7| &fMeetup'
+  lines:
+    - '&7&m----------------'
+    - 'Players: &6%players%'
+    - ''
+    - '&6&lScenarios Votes:'
+    - ' &7- Bowless:&a %bowless%'
+    - ' &7- Default:&a %default%'
+    - ' &7- Fireless:&a %fireless%'
+    - ' &7- No Clean:&a %noclean%'
+    - ' &7- Time Bomb:&a %timebomb%'
+    - ''
+    - 'Votes Ends: &6%vote_ends%'
+    - '&7&m----------------'
+STARTING:
+  title: '&6&lMineHQ &7| &fMeetup'
+  lines:
+    - '&7&m----------------'
+    - 'Players: &6%players%'
+    - 'Starting in: &6%start_time%'
+    - '&7&m----------------'
+INGAME:
+  title: '&6&lMineHQ &7| &fMeetup'
+  lines:
+    - '&7&m----------------'
+    - 'Game Time: &6%game_time%'
+    - 'Remaining: &6%alive%/%maxplayers%'
+    - 'Kills: &6%kills%'
+    - 'Border: &6%border% &c%border_time%&7'
+    - '&7&m----------------'
+SPECTATOR:
+  title: '&6&lMineHQ &7| &fMeetup'
+  lines:
+    - '&7&m----------------'
+    - 'Game Time: &6%game_time%'
+    - 'Remaining: &6%players%/%maxplayers%'
+    - 'Border: &6%border% &7(&c%border_time%&7)'
+    - '&7&m----------------'
+FINISHED:
+  title: '&6&lMineHQ &7| &fMeetup'
+  lines:
+    - '&7&m----------------'
+    - 'Game Time: &6%game_time%'
+    - '&7&m----------------'

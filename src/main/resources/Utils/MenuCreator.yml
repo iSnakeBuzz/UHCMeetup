@@ -1,0 +1,25 @@
+# # # # # # # # # # # # # # # # # # #
+#                                   #
+# Thanks for use Snake's UHC-Meetup #
+#                                   #
+# # # # # # # # # # # # # # # # # # #
+
+MenuCreator:
+  Menu1:
+    title: '&aHello World'
+    rows: 1
+    update:
+      enabled: false
+      time: 20 # In ticks!
+    items:
+      Server1:
+        # 'ID:DATA'
+        item: '399:0'
+        slot: 4
+        amount: 1
+        name: 'Hello World Item'
+        lore:
+          - 'Hello World Item Lore'
+        # Actions: CMD:SAY TEST, MENU:TEST, SERVER:LOBBY, LOBBY
+        # Soon actions: VOTE
+        action: ''
