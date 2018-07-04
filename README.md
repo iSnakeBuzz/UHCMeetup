@@ -7,6 +7,8 @@ A minigame similar to UHC, but more faster.
 First step:
 ```
 download the plugin and put in your plugins folder
+
+Link to download: https://github.com/iSnakeBuzz/UHCMeetup/releases/download/v0.1-beta.1/UHCMeetupV4.jar
 ```
 Second step:
 ```
@@ -17,7 +19,9 @@ Three step:
 Start your server, and enjoy the plugin :D!.
 ```
 
-### Requisites
+### Dependencies
+
+This dependencies is required.
 
 You need a custom spigot for the plugin run.
 Download from:
