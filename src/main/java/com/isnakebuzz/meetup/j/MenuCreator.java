@@ -2,6 +2,7 @@ package com.isnakebuzz.meetup.j;
 
 import com.isnakebuzz.meetup.a.Main;
 import com.isnakebuzz.meetup.d.GamePlayer;
+import com.isnakebuzz.meetup.d.PlayerInventory;
 import com.isnakebuzz.meetup.i.ItemBuilder;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.Configuration;
@@ -26,7 +27,10 @@ public class MenuCreator extends Menu {
                 @Override
                 public void run() {
                     if (!player.getOpenInventory().getTitle().equalsIgnoreCase(c(config.getString(path + "title")))) {
+                        player.getInventory().clear();
+                        plugin.getInvManager().loadInventory(player);
                         this.cancel();
+                        return;
                     }
                     updateInv(player, _name);
                 }
@@ -67,6 +71,18 @@ public class MenuCreator extends Menu {
                 } else if (action.split(":")[0].equalsIgnoreCase("flyspeed")) {
                     float speed = Float.valueOf(action.split(":")[1]);
                     p.setFlySpeed(speed);
+                } else if (action.split(":")[0].equalsIgnoreCase("kit")) {
+                    String action2 = action.split(":")[1];
+                    PlayerInventory playerInventory = plugin.getPlayerManager().getUuidPlayerInventoryMap().get(p.getUniqueId());
+                    if (action2.equalsIgnoreCase("save")) {
+                        playerInventory.setInventory(plugin.getAutoKits().getPlayerInventory(p));
+                        p.closeInventory();
+                    } else if (action2.equalsIgnoreCase("load")) {
+                        p.getInventory().clear();
+                        p.getInventory().setContents(plugin.getAutoKits().getInventory());
+                    } else if (action2.equalsIgnoreCase("cancel")) {
+                        p.closeInventory();
+                    }
                 }
             }
         }

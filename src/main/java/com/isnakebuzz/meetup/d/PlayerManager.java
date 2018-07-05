@@ -14,10 +14,12 @@ public class PlayerManager {
     private Main plugin;
     private Collection<Player> players_alive;
     private Map<UUID, GamePlayer> uuidGamePlayerMap;
+    private Map<UUID, PlayerInventory> uuidPlayerInventoryMap;
     private HashMap<Player, Integer> sitted = new HashMap<>();
 
     public PlayerManager(Main plugin) {
         this.plugin = plugin;
+        this.uuidPlayerInventoryMap = new HashMap<>();
         this.uuidGamePlayerMap = new HashMap<>();
         this.players_alive = new ArrayList<>();
     }
@@ -25,7 +27,11 @@ public class PlayerManager {
     public void spectator(GamePlayer gamePlayer, boolean spect) {
         if (!gamePlayer.isSpectator()) {
             gamePlayer.setSpectator(spect);
-            plugin.getInvManager().loadInventory(gamePlayer.getPlayer());
+            if (Main.getStates.state != Main.getStates.LOBBY){
+                plugin.getInvManager().loadInventorySpect(gamePlayer.getPlayer());
+            } else {
+                plugin.getInvManager().loadInventory(gamePlayer.getPlayer());
+            }
         } else {
             gamePlayer.setSpectator(spect);
             gamePlayer.getPlayer().getInventory().clear();
@@ -56,5 +62,9 @@ public class PlayerManager {
 
     public Map<UUID, GamePlayer> getUuidGamePlayerMap() {
         return uuidGamePlayerMap;
+    }
+
+    public Map<UUID, PlayerInventory> getUuidPlayerInventoryMap() {
+        return uuidPlayerInventoryMap;
     }
 }

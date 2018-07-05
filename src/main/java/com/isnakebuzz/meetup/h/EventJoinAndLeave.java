@@ -14,6 +14,8 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
+import java.io.IOException;
+
 public class EventJoinAndLeave implements Listener {
 
     private Main plugin;
@@ -23,7 +25,7 @@ public class EventJoinAndLeave implements Listener {
     }
 
     @EventHandler
-    public void PlayerJoinEvent(PlayerJoinEvent e) {
+    public void PlayerJoinEvent(PlayerJoinEvent e) throws IOException {
         e.setJoinMessage(null);
         Player p = e.getPlayer();
         //Set Full
@@ -38,9 +40,13 @@ public class EventJoinAndLeave implements Listener {
             p.setGameMode(GameMode.CREATIVE);
             p.teleport(plugin.getLobbyManager().getWorldLobby());
         }
-        if (!plugin.getPlayerManager().getUuidGamePlayerMap().containsKey(p.getUniqueId())) {
-            GamePlayer gamePlayer = new GamePlayer(plugin, p, p.getUniqueId(), false);
+        if (!config.getBoolean("MongoDB.enabled")) {
+            GamePlayer gamePlayer = new GamePlayer(plugin, p, p.getUniqueId(), false, 0, 0, 0);
             plugin.getPlayerManager().getUuidGamePlayerMap().put(p.getUniqueId(), gamePlayer);
+            plugin.getPlayerManager().spectator(gamePlayer, true);
+        } else {
+            plugin.getPlayerDataManager().loadPlayer(p);
+            GamePlayer gamePlayer = plugin.getPlayerManager().getUuidGamePlayerMap().get(p.getUniqueId());
             plugin.getPlayerManager().spectator(gamePlayer, true);
         }
         if (plugin.getArenaManager().checkStart()) {

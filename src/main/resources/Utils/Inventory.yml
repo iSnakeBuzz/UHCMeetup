@@ -5,22 +5,20 @@
 # # # # # # # # # # # # # # # # # # #
 
 inventory:
-  item1:
+  EditKit:
     item: '340:0'
     slot: 8
-    name: '&e&lDefault Item'
+    name: '&e&lEdit Kit'
     lore:
-      - '&7Lore.'
-    # Actions: CMD:SAY TEST, MENU:TEST, SERVER:LOBBY, LOBBY
+      - '&7Click to edit kit.'
+    # Actions: CMD:SAY TEST, MENU:TEST, SERVER:LOBBY, LOBBY, KIT:{MENU WITH OPTIONS TO EDIT KIT}
     # Soon actions: VOTE
-    action: 'cmd:say test'
-inventory_spect:
+    action: 'kit:KitEditor'
+spectinv:
   yourname:
     item: '340:0'
     slot: 8
     name: '&e&lDefault Item'
     lore:
       - '&7Lore.'
-    # Actions: CMD:SAY TEST, MENU:TEST, SERVER:LOBBY, LOBBY
-    # Soon actions: VOTE
     action: 'cmd:say test'

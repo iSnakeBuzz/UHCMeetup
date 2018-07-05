@@ -2,6 +2,7 @@ package com.isnakebuzz.meetup.h;
 
 import com.isnakebuzz.meetup.a.Main;
 import com.isnakebuzz.meetup.d.GamePlayer;
+import com.isnakebuzz.meetup.d.PlayerInventory;
 import com.isnakebuzz.meetup.i.ItemBuilder;
 import com.isnakebuzz.meetup.j.MenuCreator;
 import org.bukkit.ChatColor;
@@ -63,6 +64,12 @@ public class EventInteract implements Listener {
                     e.setCancelled(true);
                     GamePlayer gamePlayer = plugin.getPlayerManager().getUuidGamePlayerMap().get(p.getUniqueId());
                     gamePlayer.sendToLobby();
+                } else if (_action.split(":")[0].equalsIgnoreCase("kit")) {
+                    PlayerInventory playerInventory = plugin.getPlayerManager().getUuidPlayerInventoryMap().get(p.getUniqueId());
+                    p.getInventory().clear();
+                    p.getInventory().setContents(playerInventory.getInventory());
+                    p.updateInventory();
+                    new MenuCreator(p, plugin, _action.split(":")[1]).o(p);
                 }
             }
         }
@@ -89,6 +96,7 @@ public class EventInteract implements Listener {
             if (e.getItem() == null || e.getItem().getItemMeta().equals(null)) return;
 
             if (e.getItem().equals(itemStack)) {
+                Player p = e.getPlayer();
                 e.setCancelled(true);
                 if (_action.split(":")[0].equalsIgnoreCase("menu")) {
                     e.setCancelled(true);
@@ -105,6 +113,12 @@ public class EventInteract implements Listener {
                     e.setCancelled(true);
                     GamePlayer gamePlayer = plugin.getPlayerManager().getUuidGamePlayerMap().get(e.getPlayer().getUniqueId());
                     gamePlayer.sendToLobby();
+                } else if (_action.split(":")[0].equalsIgnoreCase("kit")) {
+                    PlayerInventory playerInventory = plugin.getPlayerManager().getUuidPlayerInventoryMap().get(p.getUniqueId());
+                    p.getInventory().clear();
+                    p.getInventory().setContents(playerInventory.getInventory());
+                    p.updateInventory();
+                    new MenuCreator(p, plugin, _action.split(":")[1]).o(p);
                 }
             }
         }

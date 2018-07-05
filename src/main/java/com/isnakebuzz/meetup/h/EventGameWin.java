@@ -2,6 +2,7 @@ package com.isnakebuzz.meetup.h;
 
 import com.isnakebuzz.meetup.a.Main;
 import com.isnakebuzz.meetup.c.EndTask;
+import com.isnakebuzz.meetup.d.GamePlayer;
 import com.isnakebuzz.meetup.f.ScoreBoardAPI;
 import com.isnakebuzz.meetup.l.GameWinEvent;
 import org.bukkit.Bukkit;
@@ -23,10 +24,13 @@ public class EventGameWin implements Listener {
     public void onGameWinEvent(GameWinEvent e) {
         Configuration config = plugin.getConfigUtils().getConfig(plugin, "Lang");
         if (e.getPlayers().size() <= 1) {
+            Player p = e.getPlayers().iterator().next();
             for (String msg : config.getStringList("WinMessage")) {
                 e.getPlayers().iterator().hasNext();
-                plugin.broadcast(c(msg.replaceAll("%winners%", e.getPlayers().iterator().next().getName())));
+                plugin.broadcast(c(msg.replaceAll("%winners%", p.getName())));
             }
+            GamePlayer gamePlayer = plugin.getPlayerManager().getUuidGamePlayerMap().get(p.getUniqueId());
+            gamePlayer.addWins(1);
         } else {
             StringBuilder stringBuilder = new StringBuilder();
             int max = 0;
@@ -43,12 +47,14 @@ public class EventGameWin implements Listener {
                 e.getPlayers().iterator().hasNext();
                 plugin.broadcast(c(msg.replaceAll("%winners%", winners)));
             }
+            for (Player p : e.getPlayers()) {
+                GamePlayer gamePlayer = plugin.getPlayerManager().getUuidGamePlayerMap().get(p.getUniqueId());
+                gamePlayer.addWins(1);
+            }
         }
-
         for (Player p : Bukkit.getOnlinePlayers()) {
-            plugin.getScoreBoardAPI().setScoreBoard(p, ScoreBoardAPI.ScoreboardType.FINISHED, false, false);
+            plugin.getScoreBoardAPI().setScoreBoard(p, ScoreBoardAPI.ScoreboardType.FINISHED, true, true);
         }
-
         new EndTask(plugin, plugin.getConfigUtils().getConfig(plugin, "Settings").getInt("GameOptions.EndTime")).runTaskTimer(plugin, 0l, 20l);
     }
 

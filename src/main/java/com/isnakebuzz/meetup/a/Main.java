@@ -3,7 +3,9 @@ package com.isnakebuzz.meetup.a;
 import com.isnakebuzz.meetup.b.EventManager;
 import com.isnakebuzz.meetup.d.ArenaManager;
 import com.isnakebuzz.meetup.d.PlayerManager;
+import com.isnakebuzz.meetup.e.Connection;
 import com.isnakebuzz.meetup.e.InvManager;
+import com.isnakebuzz.meetup.e.PlayerDataManager;
 import com.isnakebuzz.meetup.e.TimerManager;
 import com.isnakebuzz.meetup.f.ScoreBoardAPI;
 import com.isnakebuzz.meetup.g.*;
@@ -39,8 +41,11 @@ public class Main extends JavaPlugin {
     private EventManager eventManager;
     private CustomKits customKits;
     private AutoKits autoKits;
+    private Connection connection;
+    private PlayerDataManager playerDataManager;
 
     public Main() {
+        this.connection = new Connection(this);
         this.autoKits = new AutoKits(this);
         this.customKits = new CustomKits(this);
         this.eventManager = new EventManager(this);
@@ -89,6 +94,10 @@ public class Main extends JavaPlugin {
 
         //Load metrics
         Metrics metrics = new Metrics(this);
+
+        //Load MongoDB
+        this.getConnection().loadMongo();
+        this.playerDataManager = new PlayerDataManager(this);
 
         //Set game loading..
         getStates.state = getStates.LOADING;
@@ -164,6 +173,14 @@ public class Main extends JavaPlugin {
         return autoKits;
     }
 
+    public PlayerDataManager getPlayerDataManager() {
+        return playerDataManager;
+    }
+
+    public Connection getConnection() {
+        return connection;
+    }
+
     private void loadListeners() {
         log("Listener", "Loading listeners..");
         registerListener(getEventManager().getEventInteract());
@@ -211,6 +228,11 @@ public class Main extends JavaPlugin {
     public enum getStates {
         LOADING, LOBBY, STARTING, INGAME, FINISHED;
         public static getStates state;
+    }
+
+    public enum getMode {
+        SOLO, TEAM;
+        public static getMode state;
     }
 
 }

@@ -34,6 +34,13 @@ public class EventDeath implements Listener {
             for (Player all : Bukkit.getOnlinePlayers()) {
                 all.hidePlayer(p);
             }
+            gamePlayer.addDeaths(1);
+            if (e.getEntity().getKiller() != null) {
+                Player killer = e.getEntity().getKiller();
+                GamePlayer gamePlayerk = plugin.getPlayerManager().getUuidGamePlayerMap().get(killer.getUniqueId());
+                gamePlayerk.addLKills(1);
+                gamePlayerk.addKills(1);
+            }
         }
     }
 

@@ -5,21 +5,47 @@
 # # # # # # # # # # # # # # # # # # #
 
 MenuCreator:
-  Menu1:
-    title: '&aHello World'
+  KitEditor:
+    title: 'Editing your kit'
     rows: 1
     update:
-      enabled: false
-      time: 20 # In ticks!
+      enabled: true
+      time: 5 # In ticks!
     items:
-      Server1:
+      save:
         # 'ID:DATA'
-        item: '399:0'
+        item: '35:5'
+        slot: 2
+        amount: 1
+        name: '&a&lSave'
+        lore:
+          - ''
+          - '&eClick this to save your kit.'
+        # Actions: CMD:SAY TEST, MENU:TEST, SERVER:PVP, LOBBY, FLYSPEED:0.5, VELOCITY:0.5, KIT:{save,load,cancel}
+        # Soon actions: VOTE
+        action: 'kit:save'
+      load:
+        # 'ID:DATA'
+        item: '35:7'
         slot: 4
         amount: 1
-        name: 'Hello World Item'
+        name: '&e&lLoad default kit'
         lore:
-          - 'Hello World Item Lore'
-        # Actions: CMD:SAY TEST, MENU:TEST, SERVER:PVP, LOBBY, FLYSPEED:0.5, VELOCITY:0.5
+          - ''
+          - '&eClick this to load the default kit'
+          - '&einto the kit editing menu.'
+        # Actions: CMD:SAY TEST, MENU:TEST, SERVER:PVP, LOBBY, FLYSPEED:0.5, VELOCITY:0.5, KIT:{save,load,cancel}
         # Soon actions: VOTE
-        action: ''
+        action: 'kit:load'
+      cancel:
+        # 'ID:DATA'
+        item: '35:14'
+        slot: 6
+        amount: 1
+        name: '&c&lCancel'
+        lore:
+          - ''
+          - '&eClick this to abort editing your kit'
+        # Actions: CMD:SAY TEST, MENU:TEST, SERVER:PVP, LOBBY, FLYSPEED:0.5, VELOCITY:0.5, KIT:{save,load,cancel}
+        # Soon actions: VOTE
+        action: 'kit:cancel'

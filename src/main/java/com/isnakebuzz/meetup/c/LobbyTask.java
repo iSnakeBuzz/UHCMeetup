@@ -43,7 +43,12 @@ public class LobbyTask extends BukkitRunnable {
                 plugin.getScoreBoardAPI().setScoreBoard(p, ScoreBoardAPI.ScoreboardType.STARTING, false, false);
                 GamePlayer gamePlayer = plugin.getPlayerManager().getUuidGamePlayerMap().get(p.getUniqueId());
                 plugin.getTeleportManager().teleport();
-                gamePlayer.sit();
+                new BukkitRunnable() {
+                    @Override
+                    public void run() {
+                        gamePlayer.sit();
+                    }
+                }.runTaskLater(plugin, 5);
                 gamePlayer.setSpectator(false);
                 p.setAllowFlight(true);
                 p.setFlying(true);

@@ -2,6 +2,7 @@ package com.isnakebuzz.meetup.f;
 
 
 import com.isnakebuzz.meetup.a.Main;
+import com.isnakebuzz.meetup.d.GamePlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.Configuration;
@@ -60,6 +61,7 @@ public class ScoreBoardAPI {
     }
 
     private String chars(Player p, Configuration config, String c) {
+        GamePlayer gamePlayer = plugin.getPlayerManager().getUuidGamePlayerMap().get(p.getUniqueId());
         return ChatColor.translateAlternateColorCodes('&', c)
 
                 .replaceAll("%date%", getDate())
@@ -69,7 +71,7 @@ public class ScoreBoardAPI {
                 .replaceAll("%player%", p.getName())
                 .replaceAll("%border%", String.valueOf(plugin.getBorderManager().getBorder()))
 
-                .replaceAll("%kills%", "0")
+                .replaceAll("%kills%", String.valueOf(gamePlayer.getLKills()))
 
                 //Times
                 .replaceAll("%game_time%", plugin.getTimerManager().transformToDate(plugin.getTimerManager().getGameTime()))

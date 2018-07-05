@@ -1,10 +1,13 @@
 package com.isnakebuzz.meetup.m;
 
 import com.isnakebuzz.meetup.a.Main;
+import com.isnakebuzz.meetup.d.PlayerInventory;
 import org.bukkit.Material;
+import org.bukkit.configuration.Configuration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -39,14 +42,17 @@ public class AutoKits {
         ItemMeta helmetItemMeta = helmet.getItemMeta();
 
         //Random Enchants
-        Enchantment[] enchantments_d = {Enchantment.PROTECTION_ENVIRONMENTAL, Enchantment.DURABILITY, Enchantment.DURABILITY, Enchantment.DURABILITY};
+        Enchantment[] enchantments_d = {Enchantment.PROTECTION_ENVIRONMENTAL, Enchantment.DURABILITY, Enchantment.DURABILITY};
         Enchantment[] enchantments_i = {Enchantment.PROTECTION_ENVIRONMENTAL, Enchantment.PROTECTION_ENVIRONMENTAL, Enchantment.PROTECTION_ENVIRONMENTAL, Enchantment.DURABILITY};
-        Integer[] level1 = {2, 3, 4};
+        Integer[] level1 = {1, 2, 3};
         Integer[] level2 = {1, 2};
         Integer[] level3 = {1, 2, 3};
 
+        int porcentage_iron = 1;
+        int porcentage_diamond = 3;
+
         if (boots.getType().equals(Material.DIAMOND_BOOTS)) {
-            switch (random.nextInt(4)) {
+            switch (random.nextInt(porcentage_diamond)) {
                 case 0:
                     Enchantment enchantment = enchantments_d[random.nextInt(enchantments_d.length)];
                     if (enchantment.equals(enchantments_d[0])) {
@@ -59,7 +65,7 @@ public class AutoKits {
                     break;
             }
         } else {
-            switch (random.nextInt(4)) {
+            switch (random.nextInt(porcentage_iron)) {
                 case 0:
                     Enchantment enchantment = enchantments_i[random.nextInt(enchantments_i.length)];
                     if (enchantment.equals(enchantments_i[0])) {
@@ -72,7 +78,7 @@ public class AutoKits {
         }
 
         if (boots.getType().equals(Material.DIAMOND_LEGGINGS)) {
-            switch (random.nextInt(4)) {
+            switch (random.nextInt(porcentage_diamond)) {
                 case 0:
                     Enchantment enchantment = enchantments_d[random.nextInt(enchantments_d.length)];
                     if (enchantment.equals(enchantments_d[0])) {
@@ -85,7 +91,7 @@ public class AutoKits {
                     break;
             }
         } else {
-            switch (random.nextInt(4)) {
+            switch (random.nextInt(porcentage_iron)) {
                 case 0:
                     Enchantment enchantment = enchantments_i[random.nextInt(enchantments_i.length)];
                     if (enchantment.equals(enchantments_i[0])) {
@@ -98,7 +104,7 @@ public class AutoKits {
         }
 
         if (boots.getType().equals(Material.DIAMOND_CHESTPLATE)) {
-            switch (random.nextInt(4)) {
+            switch (random.nextInt(porcentage_diamond)) {
                 case 0:
                     Enchantment enchantment = enchantments_d[random.nextInt(enchantments_d.length)];
                     if (enchantment.equals(enchantments_d[0])) {
@@ -111,7 +117,7 @@ public class AutoKits {
                     break;
             }
         } else {
-            switch (random.nextInt(4)) {
+            switch (random.nextInt(porcentage_iron)) {
                 case 0:
                     Enchantment enchantment = enchantments_i[random.nextInt(enchantments_i.length)];
                     if (enchantment.equals(enchantments_i[0])) {
@@ -124,7 +130,7 @@ public class AutoKits {
         }
 
         if (boots.getType().equals(Material.DIAMOND_HELMET)) {
-            switch (random.nextInt(4)) {
+            switch (random.nextInt(porcentage_diamond)) {
                 case 0:
                     Enchantment enchantment = enchantments_d[random.nextInt(enchantments_d.length)];
                     if (enchantment.equals(enchantments_d[0])) {
@@ -137,7 +143,7 @@ public class AutoKits {
                     break;
             }
         } else {
-            switch (random.nextInt(4)) {
+            switch (random.nextInt(porcentage_iron)) {
                 case 0:
                     Enchantment enchantment = enchantments_i[random.nextInt(enchantments_i.length)];
                     if (enchantment.equals(enchantments_i[0])) {
@@ -157,7 +163,30 @@ public class AutoKits {
 
         //Collection
         ItemStack[] itemStacks = {boots, leggings, chestplate, helmet};
+        if (!isValidKit(itemStacks)) {
+            return this.getRandomKit(new Random());
+        }
         return itemStacks;
+    }
+
+    private boolean isValidKit(ItemStack[] invs) {
+        int diam = 0;
+        int iron = 0;
+        for (ItemStack i : invs) {
+            if (i.getType().equals(Material.DIAMOND_HELMET) || i.getType().equals(Material.DIAMOND_CHESTPLATE)
+                    || i.getType().equals(Material.DIAMOND_LEGGINGS) || i.getType().equals(Material.DIAMOND_BOOTS)) {
+                diam++;
+            }
+            if (i.getType().equals(Material.IRON_HELMET) || i.getType().equals(Material.IRON_CHESTPLATE)
+                    || i.getType().equals(Material.IRON_LEGGINGS) || i.getType().equals(Material.IRON_BOOTS)) {
+                iron++;
+            }
+        }
+        if (diam == iron) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public void setUpKit(Player p) {
@@ -166,10 +195,32 @@ public class AutoKits {
         File file = new File(plugin.getDataFolder() + File.separator + "Kits" + File.separator + "autokit.yml");
         if (file.exists()) {
             YamlConfiguration inv = YamlConfiguration.loadConfiguration(file);
-            ItemStack[] inv_contents = (ItemStack[]) ((List) inv.get("inventory")).toArray(new ItemStack[0]);
-
+            ItemStack[] inv_contents;
+            Configuration config = plugin.getConfigUtils().getConfig(plugin, "Settings");
+            if (!config.getBoolean("MongoDB.enabled")) {
+                inv_contents = (ItemStack[]) ((List) inv.get("inventory")).toArray(new ItemStack[0]);
+            } else {
+                PlayerInventory playerInventory = plugin.getPlayerManager().getUuidPlayerInventoryMap().get(p.getUniqueId());
+                inv_contents = playerInventory.getInventory();
+            }
             p.getInventory().setContents(inv_contents);
         }
+
+        p.updateInventory();
+    }
+
+    public ItemStack[] getInventory() {
+        File file = new File(plugin.getDataFolder() + File.separator + "Kits" + File.separator + "autokit.yml");
+        if (file.exists()) {
+            YamlConfiguration inv = YamlConfiguration.loadConfiguration(file);
+            ItemStack[] inv_contents = (ItemStack[]) ((List) inv.get("inventory")).toArray(new ItemStack[0]);
+            return inv_contents;
+        }
+        return null;
+    }
+
+    public ItemStack[] getPlayerInventory(Player p) {
+        return p.getInventory().getContents();
     }
 
     private void CheckIfFolderExist() {

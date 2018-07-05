@@ -18,12 +18,68 @@ public class GamePlayer {
     private Player p;
     private UUID uuid;
     private boolean spectator;
+    private int wins = 0;
+    private int kills = 0;
+    private int deaths = 0;
+    private int local_kills = 0;
 
-    public GamePlayer(Main plugin, Player p, UUID uuid, Boolean spectator) {
+    public GamePlayer(Main plugin, Player p, UUID uuid, Boolean spectator, int wins, int kills, int deaths) {
         this.plugin = plugin;
         this.p = p;
         this.uuid = uuid;
         this.spectator = spectator;
+
+        this.wins = wins;
+        this.deaths = deaths;
+        this.kills = kills;
+    }
+
+    public int getDeaths() {
+        return deaths;
+    }
+
+    public void setDeaths(int deaths) {
+        this.deaths = deaths;
+    }
+
+    public int getKills() {
+        return kills;
+    }
+
+    public void setKills(int kills) {
+        this.kills = kills;
+    }
+
+    public int getWins() {
+        return wins;
+    }
+
+    public void setWins(int wins) {
+        this.wins = wins;
+    }
+
+    public void addKills(int number) {
+        setKills(getKills() + number);
+    }
+
+    public void addDeaths(int number) {
+        setDeaths(getDeaths() + number);
+    }
+
+    public void addWins(int number) {
+        setWins(getWins() + number);
+    }
+
+    public int getLKills() {
+        return local_kills;
+    }
+
+    public void setLKills(int local_kills) {
+        this.local_kills = local_kills;
+    }
+
+    public void addLKills(int number) {
+        setLKills(getLKills() + number);
     }
 
     public boolean isSpectator() {
@@ -49,11 +105,11 @@ public class GamePlayer {
 
         EntityBat pig = new EntityBat(((CraftWorld) l.getWorld()).getHandle());
 
-        pig.setLocation(l.getX(), l.getY(), l.getZ(), 0, 0);
+        pig.setLocation(l.getX(), l.getY() + 0.5, l.getZ(), 0, 0);
         pig.setInvisible(true);
         pig.setHealth(6);
 
-        horse.setLocation(l.getX(), l.getY(), l.getZ(), 0, 0);
+        horse.setLocation(l.getX(), l.getY() + 0.5, l.getZ(), 0, 0);
         horse.setInvisible(true);
 
         PacketPlayOutSpawnEntityLiving packet = new PacketPlayOutSpawnEntityLiving(pig);
