@@ -17,9 +17,11 @@ public class EventManager {
     private EventWorld eventWorld;
     private EventGameWin eventGameWin;
     private EventHealth eventHealth;
+    private EventCommand eventCommand;
 
     public EventManager(Main plugin) {
         this.plugin = plugin;
+        this.eventCommand = new EventCommand(plugin);
         this.eventHealth = new EventHealth(plugin);
         this.eventGameWin = new EventGameWin(plugin);
         this.eventWorld = new EventWorld(plugin);
@@ -30,6 +32,10 @@ public class EventManager {
         this.eventSpectator = new EventSpectator(plugin);
         this.eventStarting = new EventStarting(plugin);
         this.eventWorldGen = new EventWorldGen(plugin);
+    }
+
+    public EventCommand getEventCommand() {
+        return eventCommand;
     }
 
     public EventHealth getEventHealth() {

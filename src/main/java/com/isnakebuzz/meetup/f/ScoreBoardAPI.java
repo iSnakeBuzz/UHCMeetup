@@ -81,10 +81,11 @@ public class ScoreBoardAPI {
                 .replaceAll("%border_time%", bTime())
 
                 // Scenarios
-                .replaceAll("%bowless%", "Soon")
-                .replaceAll("%default%", "Soon")
-                .replaceAll("%fireless%", "Soon")
+                .replaceAll("%bowless%", String.valueOf(plugin.getVoteManager().getBowless().size()))
+                .replaceAll("%default%", String.valueOf(plugin.getVoteManager().getDefault().size()))
+                .replaceAll("%fireless%", String.valueOf(plugin.getVoteManager().getFireless().size()))
                 .replaceAll("%noclean%", "Soon")
+                .replaceAll("%rodless%", "Soon")
                 .replaceAll("%timebomb%", "Soon")
                 ;
     }

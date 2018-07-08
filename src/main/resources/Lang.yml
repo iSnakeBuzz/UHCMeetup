@@ -22,4 +22,6 @@ Starting:
   2: 'The game will begin in &6%seconds% seconds&f.'
   1: 'The game will begin in &6%seconds% second&f.'
 WinMessage:
-  - '&a%winners% &ehas won the game. '
+  - '&a%winners% &ehas won the game.'
+VoteMessage: '&aType /vote to vote for a scenario for this game!'
+VoteAnnounce: "&6%type%&f has been chosen as this game's scenario with &6%votes% votes&f."

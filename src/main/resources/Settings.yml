@@ -39,6 +39,9 @@ GameOptions:
   EndTime: 15
   GAppleName: '&6Golden Head'
   CustomKit: false
+  Vote:
+    cmd: 'vote'
+    menu: 'VoteMenu'
 TeleportOptions:
   # This value is a double, please put the .0
   # Wrong: 20

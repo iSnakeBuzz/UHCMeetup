@@ -187,7 +187,7 @@ public class InvManager {
             String _name = config.getString(path + "name");
             List<String> _lore = config.getStringList(path + "lore");
             String _action = config.getString(path + "action");
-            p.getInventory().setItem(_slot, ItemBuilder.crearItem1(Integer.valueOf(_item.split(":")[0]), 1, Integer.valueOf(_item.split(":")[1]), _name, _lore));
+            p.getInventory().setItem(_slot, ItemBuilder.crearItem1(plugin, Integer.valueOf(_item.split(":")[0]), 1, Integer.valueOf(_item.split(":")[1]), _name, _lore));
         }
         p.updateInventory();
     }
@@ -211,7 +211,7 @@ public class InvManager {
             String _name = config.getString(path + "name");
             List<String> _lore = config.getStringList(path + "lore");
             String _action = config.getString(path + "action");
-            p.getInventory().setItem(_slot, ItemBuilder.crearItem1(Integer.valueOf(_item.split(":")[0]), 1, Integer.valueOf(_item.split(":")[1]), _name, _lore));
+            p.getInventory().setItem(_slot, ItemBuilder.crearItem1(plugin, Integer.valueOf(_item.split(":")[0]), 1, Integer.valueOf(_item.split(":")[1]), _name, _lore));
         }
     }
 

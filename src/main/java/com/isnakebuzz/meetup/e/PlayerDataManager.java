@@ -10,7 +10,6 @@ import com.mongodb.client.model.UpdateOptions;
 import org.bson.Document;
 import org.bukkit.configuration.Configuration;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import java.io.IOException;
@@ -55,43 +54,51 @@ public class PlayerDataManager {
             loadPlayerInventory(p);
         }
 
-        if (!isInPlayerSoloStats(p)) {
-            Document player_data_doc = new Document("UUID", p.getUniqueId());
-            Document found = (Document) collection_player_solo_stats.find(player_data_doc).first();
-            if (found == null) {
-                int kills = 0;
-                int deaths = 0;
-                int wins = 0;
-                player_data_doc.append("Wins", wins);
-                player_data_doc.append("Kills", kills);
-                player_data_doc.append("Deaths", deaths);
-                this.collection_player_solo_stats.insertOne(player_data_doc);
-                plugin.getPlayerManager().getUuidGamePlayerMap().put(p.getUniqueId(), new GamePlayer(plugin, p, p.getUniqueId(), false, wins, kills, deaths));
+        if (Main.getMode.state == Main.getMode.SOLO) {
+            if (!isInPlayerSoloStats(p)) {
+                Document player_data_doc = new Document("UUID", p.getUniqueId());
+                Document found = (Document) collection_player_solo_stats.find(player_data_doc).first();
+                if (found == null) {
+                    int kills = 0;
+                    int deaths = 0;
+                    int wins = 0;
+                    player_data_doc.append("Wins", wins);
+                    player_data_doc.append("Kills", kills);
+                    player_data_doc.append("Deaths", deaths);
+                    this.collection_player_solo_stats.insertOne(player_data_doc);
+                    plugin.getPlayerManager().getUuidGamePlayerMap().put(p.getUniqueId(), new GamePlayer(plugin, p, p.getUniqueId(), false, wins, kills, deaths));
+                }
+            } else {
+                loadPlayerSoloStats(p);
             }
-        } else {
-            loadPlayerSoloStats(p);
-        }
-
-        if (!isInPlayerTeamStats(p)) {
-            Document player_data_doc = new Document("UUID", p.getUniqueId());
-            Document found = (Document) collection_player_team_stats.find(player_data_doc).first();
-            if (found == null) {
-                int kills = 0;
-                int deaths = 0;
-                int wins = 0;
-                player_data_doc.append("Wins", wins);
-                player_data_doc.append("Kills", kills);
-                player_data_doc.append("Deaths", deaths);
-                this.collection_player_team_stats.insertOne(player_data_doc);
-                plugin.getPlayerManager().getUuidGamePlayerMap().put(p.getUniqueId(), new GamePlayer(plugin, p, p.getUniqueId(), false, wins, kills, deaths));
+        } else if (Main.getMode.state == Main.getMode.TEAM) {
+            if (!isInPlayerTeamStats(p)) {
+                Document player_data_doc = new Document("UUID", p.getUniqueId());
+                Document found = (Document) collection_player_team_stats.find(player_data_doc).first();
+                if (found == null) {
+                    int kills = 0;
+                    int deaths = 0;
+                    int wins = 0;
+                    player_data_doc.append("Wins", wins);
+                    player_data_doc.append("Kills", kills);
+                    player_data_doc.append("Deaths", deaths);
+                    this.collection_player_team_stats.insertOne(player_data_doc);
+                    plugin.getPlayerManager().getUuidGamePlayerMap().put(p.getUniqueId(), new GamePlayer(plugin, p, p.getUniqueId(), false, wins, kills, deaths));
+                }
+            } else {
+                loadPlayerTeamStats(p);
             }
-        } else {
-            loadPlayerTeamStats(p);
         }
     }
 
     public void savePlayer(Player p) {
+        savePlayerInventory(p);
 
+        if (Main.getMode.state == Main.getMode.SOLO) {
+            savePlayerSoloStats(p);
+        } else if (Main.getMode.state == Main.getMode.TEAM) {
+            savePlayerTeamStats(p);
+        }
     }
 
     private void savePlayerSoloStats(Player p) {

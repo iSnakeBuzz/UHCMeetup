@@ -17,6 +17,7 @@ LOBBY:
     - ' &7- Default:&a %default%'
     - ' &7- Fireless:&a %fireless%'
     - ' &7- No Clean:&a %noclean%'
+    - ' &7- Rodless:&a %rodless%'
     - ' &7- Time Bomb:&a %timebomb%'
     - ''
     - 'Votes Ends: &6%vote_ends%'

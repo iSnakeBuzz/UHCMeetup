@@ -13,6 +13,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.io.IOException;
 
@@ -45,13 +46,25 @@ public class EventJoinAndLeave implements Listener {
             plugin.getPlayerManager().getUuidGamePlayerMap().put(p.getUniqueId(), gamePlayer);
             plugin.getPlayerManager().spectator(gamePlayer, true);
         } else {
-            plugin.getPlayerDataManager().loadPlayer(p);
-            GamePlayer gamePlayer = plugin.getPlayerManager().getUuidGamePlayerMap().get(p.getUniqueId());
-            plugin.getPlayerManager().spectator(gamePlayer, true);
+            new BukkitRunnable(){
+                @Override
+                public void run() {
+                    try {
+                        plugin.getPlayerDataManager().loadPlayer(p);
+                    } catch (IOException e1) {
+                        e1.printStackTrace();
+                    }
+                    GamePlayer gamePlayer = plugin.getPlayerManager().getUuidGamePlayerMap().get(p.getUniqueId());
+                    plugin.getPlayerManager().spectator(gamePlayer, true);
+                }
+            }.runTaskAsynchronously(plugin);
         }
         if (plugin.getArenaManager().checkStart()) {
             new LobbyTask(plugin, config.getInt("GameOptions.VoteTime")).runTaskTimer(plugin, 0l, 20l);
         }
+        Configuration lang = plugin.getConfigUtils().getConfig(plugin, "Lang");
+        p.sendMessage(c(lang.getString("VoteMessage")));
+
         plugin.getScoreBoardAPI().setScoreBoard(p, ScoreBoardAPI.ScoreboardType.LOBBY, false, false);
     }
 
@@ -62,6 +75,7 @@ public class EventJoinAndLeave implements Listener {
         if (plugin.getPlayerManager().getPlayersAlive().contains(e.getPlayer())) {
             plugin.getPlayerManager().getPlayersAlive().remove(e.getPlayer());
         }
+        plugin.getPlayerDataManager().savePlayer(e.getPlayer());
     }
 
     @EventHandler

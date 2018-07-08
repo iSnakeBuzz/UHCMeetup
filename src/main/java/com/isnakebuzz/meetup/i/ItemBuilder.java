@@ -1,5 +1,6 @@
 package com.isnakebuzz.meetup.i;
 
+import com.isnakebuzz.meetup.a.Main;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
@@ -95,7 +96,7 @@ public class ItemBuilder {
     }
 
     @SuppressWarnings({"deprecation", "unchecked", "rawtypes"})
-    public static ItemStack crearItem1(final int n, final int n2, final int n3, final String s, final List<String> list) {
+    public static ItemStack crearItem1(Main plugin, final int n, final int n2, final int n3, final String s, final List<String> list) {
         final ItemStack itemStack = new ItemStack(n, n2, (short) n3);
         final ItemMeta itemMeta = itemStack.getItemMeta();
         itemMeta.setDisplayName(ChatColor.translateAlternateColorCodes('&', s));
@@ -103,6 +104,14 @@ public class ItemBuilder {
         final Iterator<String> iterator = list.iterator();
         while (iterator.hasNext()) {
             lore.add(ChatColor.translateAlternateColorCodes('&', (String) iterator.next())
+
+                    // Scenarios
+                    .replaceAll("%bowless%", String.valueOf(plugin.getVoteManager().getBowless().size()))
+                    .replaceAll("%default%", String.valueOf(plugin.getVoteManager().getDefault().size()))
+                    .replaceAll("%fireless%", String.valueOf(plugin.getVoteManager().getFireless().size()))
+                    .replaceAll("%noclean%", "Soon")
+                    .replaceAll("%rodless%", "Soon")
+                    .replaceAll("%timebomb%", "Soon")
             );
             itemMeta.setLore((List) lore);
         }

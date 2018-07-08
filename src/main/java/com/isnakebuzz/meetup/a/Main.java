@@ -1,12 +1,10 @@
 package com.isnakebuzz.meetup.a;
 
 import com.isnakebuzz.meetup.b.EventManager;
+import com.isnakebuzz.meetup.b.VoteEventManager;
 import com.isnakebuzz.meetup.d.ArenaManager;
 import com.isnakebuzz.meetup.d.PlayerManager;
-import com.isnakebuzz.meetup.e.Connection;
-import com.isnakebuzz.meetup.e.InvManager;
-import com.isnakebuzz.meetup.e.PlayerDataManager;
-import com.isnakebuzz.meetup.e.TimerManager;
+import com.isnakebuzz.meetup.e.*;
 import com.isnakebuzz.meetup.f.ScoreBoardAPI;
 import com.isnakebuzz.meetup.g.*;
 import com.isnakebuzz.meetup.i.ConfigCreator;
@@ -43,8 +41,12 @@ public class Main extends JavaPlugin {
     private AutoKits autoKits;
     private Connection connection;
     private PlayerDataManager playerDataManager;
+    private VoteManager voteManager;
+    private VoteEventManager voteEventManager;
 
     public Main() {
+        this.voteEventManager = new VoteEventManager(this);
+        this.voteManager = new VoteManager(this);
         this.connection = new Connection(this);
         this.autoKits = new AutoKits(this);
         this.customKits = new CustomKits(this);
@@ -101,6 +103,7 @@ public class Main extends JavaPlugin {
 
         //Set game loading..
         getStates.state = getStates.LOADING;
+        getMode.state = getMode.SOLO;
         super.onEnable();
     }
 
@@ -115,6 +118,10 @@ public class Main extends JavaPlugin {
 
     public void broadcast(String log) {
         this.getServer().broadcastMessage(c(log));
+    }
+
+    public VoteManager getVoteManager() {
+        return voteManager;
     }
 
     public BorderData GetWorldBorder(String worldName) {
@@ -173,6 +180,10 @@ public class Main extends JavaPlugin {
         return autoKits;
     }
 
+    public VoteEventManager getVoteEventManager() {
+        return voteEventManager;
+    }
+
     public PlayerDataManager getPlayerDataManager() {
         return playerDataManager;
     }
@@ -193,9 +204,10 @@ public class Main extends JavaPlugin {
         registerListener(getEventManager().getEventWorld());
         registerListener(getEventManager().getEventGameWin());
         registerListener(getEventManager().getEventHealth());
+        registerListener(getEventManager().getEventCommand());
     }
 
-    private void registerListener(Listener listener) {
+    public void registerListener(Listener listener) {
         log("Listener", "&5-&e Loaded listener &b" + listener.getClass().getSimpleName());
         this.getServer().getPluginManager().registerEvents(listener, this);
     }

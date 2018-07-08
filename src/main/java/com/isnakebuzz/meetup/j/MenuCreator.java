@@ -3,6 +3,7 @@ package com.isnakebuzz.meetup.j;
 import com.isnakebuzz.meetup.a.Main;
 import com.isnakebuzz.meetup.d.GamePlayer;
 import com.isnakebuzz.meetup.d.PlayerInventory;
+import com.isnakebuzz.meetup.e.VoteManager;
 import com.isnakebuzz.meetup.i.ItemBuilder;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.Configuration;
@@ -52,7 +53,7 @@ public class MenuCreator extends Menu {
             String name = config.getString(path + "name");
             List<String> lore = config.getStringList(path + "lore");
             String action = config.getString(path + "action");
-            ItemStack itemStack1 = ItemBuilder.crearItem1(Integer.valueOf(item.split(":")[0]), amount, Integer.valueOf(item.split(":")[1]), name, lore);
+            ItemStack itemStack1 = ItemBuilder.crearItem1(plugin, Integer.valueOf(item.split(":")[0]), amount, Integer.valueOf(item.split(":")[1]), name, lore);
             if (itemStack.equals(itemStack1)) {
                 if (action.split(":")[0].equalsIgnoreCase("menu")) {
                     new MenuCreator(p, plugin, action.split(":")[1]).o(p);
@@ -83,6 +84,18 @@ public class MenuCreator extends Menu {
                     } else if (action2.equalsIgnoreCase("cancel")) {
                         p.closeInventory();
                     }
+                } else if (action.split(":")[0].equalsIgnoreCase("vote")) {
+                    GamePlayer gamePlayer = plugin.getPlayerManager().getUuidGamePlayerMap().get(p.getUniqueId());
+                    String vote = action.split(":")[1];
+                    if (vote.equalsIgnoreCase("BOWLESS")) {
+                        plugin.getVoteManager().setVote(gamePlayer, VoteManager.VoteType.BOWLESS);
+                    } else if (vote.equalsIgnoreCase("DEFAULT")) {
+                        plugin.getVoteManager().setVote(gamePlayer, VoteManager.VoteType.DEFAULT);
+                    } else if (vote.equalsIgnoreCase("FIRELESS")) {
+                        plugin.getVoteManager().setVote(gamePlayer, VoteManager.VoteType.FIRELESS);
+                    } else {
+                        p.sendMessage(c("&cSoon.."));
+                    }
                 }
             }
         }
@@ -101,7 +114,7 @@ public class MenuCreator extends Menu {
             String name = config.getString(path + "name");
             List<String> lore = config.getStringList(path + "lore");
             String action = config.getString(path + "action");
-            ItemStack itemStack = ItemBuilder.crearItem1(Integer.valueOf(item.split(":")[0]), amount, Integer.valueOf(item.split(":")[1]), name, lore);
+            ItemStack itemStack = ItemBuilder.crearItem1(plugin, Integer.valueOf(item.split(":")[0]), amount, Integer.valueOf(item.split(":")[1]), name, lore);
             this.s(slot, itemStack);
         }
     }

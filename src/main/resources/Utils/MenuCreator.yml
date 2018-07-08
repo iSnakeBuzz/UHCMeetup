@@ -8,6 +8,7 @@ MenuCreator:
   KitEditor:
     title: 'Editing your kit'
     rows: 1
+    # This menu need this :)
     update:
       enabled: true
       time: 5 # In ticks!
@@ -49,3 +50,46 @@ MenuCreator:
         # Actions: CMD:SAY TEST, MENU:TEST, SERVER:PVP, LOBBY, FLYSPEED:0.5, VELOCITY:0.5, KIT:{save,load,cancel}
         # Soon actions: VOTE
         action: 'kit:cancel'
+  VoteMenu:
+    title: 'Select a scenario'
+    rows: 1
+    update:
+      enabled: true
+      time: 15 # In ticks!
+    items:
+      BOWLESS:
+        # 'ID:DATA'
+        item: '261:0'
+        slot: 0
+        amount: 1
+        name: '&aBowless'
+        lore:
+          - '&9• Bows cannot be crafted or used.'
+          - ''
+          - '&eCurrently has &a%bowless%&e votes.'
+        # Actions: CMD:SAY TEST, MENU:TEST, SERVER:PVP, LOBBY, FLYSPEED:0.5, VELOCITY:0.5, KIT:{save,load,cancel}
+        # Added: VOTE:{BOWLESS, DEFAULT, FIRELESS} (without {})
+        action: 'vote:BOWLESS'
+      DEFAULT:
+        # 'ID:DATA'
+        item: '351:0'
+        slot: 1
+        amount: 1
+        name: '&aDefault'
+        lore:
+          - '&9• Basic game, no scenarios.'
+          - ''
+          - '&eCurrently has &a%default%&e votes.'
+        action: 'vote:DEFAULT'
+      FIRELESS:
+        # 'ID:DATA'
+        item: '51:0'
+        slot: 2
+        amount: 1
+        name: '&aFireless'
+        lore:
+          - "&9• Players don't take fire or lava damage"
+          - '&9   (except in the Nether)'
+          - ''
+          - '&eCurrently has &a%fireless%&e votes.'
+        action: 'vote:FIRELESS'
