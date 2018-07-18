@@ -26,11 +26,7 @@ public class StartingTask extends BukkitRunnable {
         plugin.getTimerManager().setStartingTime(time);
         Configuration config = plugin.getConfigUtils().getConfig(plugin, "Lang");
         Set<String> keys = config.getConfigurationSection("Starting").getKeys(false);
-        for (String time_config : keys) {
-            if (time == Integer.valueOf(time_config)) {
-                plugin.broadcast(config.getString("Starting." + time_config).replaceAll("%seconds%", String.valueOf(plugin.getTimerManager().getStartingTime())));
-            }
-        }
+        for (String time_config : keys) if (time == Integer.valueOf(time_config))plugin.broadcast(config.getString("Starting." + time_config).replaceAll("%seconds%", String.valueOf(plugin.getTimerManager().getStartingTime())));
         time--;
         if (time <= 0) {
             new GameTask(plugin).runTaskTimer(plugin, 20l, 20l);

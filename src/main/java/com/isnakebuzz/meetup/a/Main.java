@@ -4,7 +4,10 @@ import com.isnakebuzz.meetup.b.EventManager;
 import com.isnakebuzz.meetup.b.VoteEventManager;
 import com.isnakebuzz.meetup.d.ArenaManager;
 import com.isnakebuzz.meetup.d.PlayerManager;
-import com.isnakebuzz.meetup.e.*;
+import com.isnakebuzz.meetup.e.Connection;
+import com.isnakebuzz.meetup.e.InvManager;
+import com.isnakebuzz.meetup.e.TimerManager;
+import com.isnakebuzz.meetup.e.VoteManager;
 import com.isnakebuzz.meetup.f.ScoreBoardAPI;
 import com.isnakebuzz.meetup.g.*;
 import com.isnakebuzz.meetup.i.ConfigCreator;
@@ -14,12 +17,22 @@ import com.isnakebuzz.meetup.k.CommandsLobby;
 import com.isnakebuzz.meetup.m.AutoKits;
 import com.isnakebuzz.meetup.m.CustomKits;
 import com.isnakebuzz.meetup.m.Metrics;
+import com.isnakebuzz.meetup.m.SpigotUpdater;
+import com.isnakebuzz.meetup.o.V1_7_10;
+import com.isnakebuzz.meetup.o.V1_8_8;
+import com.isnakebuzz.meetup.o.versionManager;
+import com.isnakebuzz.meetup.p.PlayerDataInterface;
+import com.isnakebuzz.meetup.p.VMongoDB;
+import com.isnakebuzz.meetup.p.VMySQL;
 import com.isnakebuzz.meetup.worldborder.BorderData;
 import com.isnakebuzz.meetup.worldborder.Config;
 import com.isnakebuzz.meetup.worldborder.WBCommand;
 import com.isnakebuzz.meetup.worldborder.WBListener;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.configuration.Configuration;
+import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -40,9 +53,10 @@ public class Main extends JavaPlugin {
     private CustomKits customKits;
     private AutoKits autoKits;
     private Connection connection;
-    private PlayerDataManager playerDataManager;
     private VoteManager voteManager;
     private VoteEventManager voteEventManager;
+    private versionManager versionHandler;
+    private PlayerDataInterface playerDataInterface;
 
     public Main() {
         this.voteEventManager = new VoteEventManager(this);
@@ -73,7 +87,12 @@ public class Main extends JavaPlugin {
         ConfigCreator.get().setup(this, "Utils/SpawnLocs");
         ConfigCreator.get().setup(this, "Extra/ScoreBoard");
         ConfigCreator.get().setup(this, "Extra/Border");
+        ConfigCreator.get().setup(this, "Extra/Database");
         ConfigCreator.get().setup(this, "Kits/autokit");
+
+        //Check version
+        this.checkSpigotVersion();
+        this.checkNewVersion();
 
         //Register CommandsLobby
         this.getCommand("lb").setExecutor(new CommandsLobby(this));
@@ -86,8 +105,8 @@ public class Main extends JavaPlugin {
         this.getTimerManager().setVoteEnds(this.getConfigUtils().getConfig(this, "Settings").getInt("GameOptions.VoteTime"));
 
         //World Creator
+        this.versionHandler.biomeSwapper();
         this.loadBorder();
-        this.getWorldUitls().swapBiomes();
         new WorldGen(this, "uhc").runTaskTimer(this, 0, 20);
         this.getTimerManager().setStartingTime(this.getConfigUtils().getConfig(this, "Settings").getInt("GameOptions.StartingTime"));
 
@@ -97,9 +116,8 @@ public class Main extends JavaPlugin {
         //Load metrics
         Metrics metrics = new Metrics(this);
 
-        //Load MongoDB
-        this.getConnection().loadMongo();
-        this.playerDataManager = new PlayerDataManager(this);
+        //Load Database
+        loadDatabase();
 
         //Set game loading..
         getStates.state = getStates.LOADING;
@@ -184,12 +202,12 @@ public class Main extends JavaPlugin {
         return voteEventManager;
     }
 
-    public PlayerDataManager getPlayerDataManager() {
-        return playerDataManager;
-    }
-
     public Connection getConnection() {
         return connection;
+    }
+
+    public PlayerDataInterface getPlayerDataInterface() {
+        return playerDataInterface;
     }
 
     private void loadListeners() {
@@ -217,8 +235,66 @@ public class Main extends JavaPlugin {
         HandlerList.unregisterAll(listener);
     }
 
+    public void checkVersionPlayer(Player p) {
+        SpigotUpdater spigotUpdater = new SpigotUpdater(this, 47646);
+        try {
+            if (spigotUpdater.checkForUpdates()) {
+                p.sendMessage(c("An update was found! New version: &6" + spigotUpdater.getLatestVersion()));
+                p.sendMessage(c("Download link: &6" + spigotUpdater.getResourceURL()));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public versionManager getVersionHandler() {
+        return versionHandler;
+    }
+
     private String c(String c) {
         return ChatColor.translateAlternateColorCodes('&', c);
+    }
+
+
+    private void checkSpigotVersion() {
+        String version = Bukkit.getServer().getClass().getPackage().getName().replace(".", ",").split(",")[3];
+        boolean isVaild = true;
+        if ("1.7.10".equals(getVersion())) {
+            versionHandler = new V1_7_10();
+            log("Compatibility", "Loading version: " + version);
+        } else if ("1.8.8".equals(getVersion())) {
+            versionHandler = new V1_8_8();
+            log("Compatibility", "Loading version: " + version);
+        } else {
+            isVaild = false;
+        }
+        if (!isVaild) {
+            log("Compatibility", "&4You need Spigot 1.7.10 or Spigot 1.8.8");
+            Bukkit.shutdown();
+        }
+    }
+
+    private String getVersion() {
+        String version = Bukkit.getServer().getClass().getPackage().getName().replace(".", ",").split(",")[3];
+        if (null != version) switch (version) {
+            case "v1_7_R4":
+                return "1.7.10";
+            case "v1_8_R3":
+                return "1.8.8";
+        }
+        return "none";
+    }
+
+    private void checkNewVersion() {
+        SpigotUpdater spigotUpdater = new SpigotUpdater(this, 47646);
+        try {
+            if (spigotUpdater.checkForUpdates()) {
+                this.log("Updater", "An update was found! New version: " + spigotUpdater.getLatestVersion());
+                this.log("Updater", "Download link: " + spigotUpdater.getResourceURL());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void loadBorder() {
@@ -235,6 +311,28 @@ public class Main extends JavaPlugin {
         // Well I for one find this info useful, so...
         Location spawn = getServer().getWorlds().get(0).getSpawnLocation();
         Config.log("For reference, the main world's spawn location is at X: " + Config.coord.format(spawn.getX()) + " Y: " + Config.coord.format(spawn.getY()) + " Z: " + Config.coord.format(spawn.getZ()));
+    }
+
+    public void loadDatabase() {
+        Configuration config = getConfigUtils().getConfig(this, "Extra/Database");
+        String dbType = config.getString("DatabaseType");
+        if (Connection.Database.MONGODB.toString().equalsIgnoreCase(dbType)) {
+            this.getConnection().loadMongo();
+            log("Database", "Loading MongoDB");
+            Connection.Database.database = Connection.Database.MONGODB;
+            playerDataInterface = new VMongoDB(this);
+        } else if (Connection.Database.MYSQL.toString().equalsIgnoreCase(dbType)) {
+            this.getConnection().loadMySQL();
+            log("Database", "Loading MySQL");
+            playerDataInterface = new VMySQL(this);
+            Connection.Database.database = Connection.Database.MYSQL;
+        } else if (Connection.Database.NONE.toString().equalsIgnoreCase(dbType)) {
+            log("Database", "Has disabled");
+            Connection.Database.database = Connection.Database.NONE;
+        } else {
+            log("Database", "Has disabled");
+            Connection.Database.database = Connection.Database.NONE;
+        }
     }
 
     public enum getStates {

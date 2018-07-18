@@ -3,6 +3,7 @@ package com.isnakebuzz.meetup.h;
 import com.isnakebuzz.meetup.a.Main;
 import com.isnakebuzz.meetup.c.LobbyTask;
 import com.isnakebuzz.meetup.d.GamePlayer;
+import com.isnakebuzz.meetup.e.Connection;
 import com.isnakebuzz.meetup.f.ScoreBoardAPI;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
@@ -16,6 +17,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class EventJoinAndLeave implements Listener {
 
@@ -41,23 +43,27 @@ public class EventJoinAndLeave implements Listener {
             p.setGameMode(GameMode.CREATIVE);
             p.teleport(plugin.getLobbyManager().getWorldLobby());
         }
-        if (!config.getBoolean("MongoDB.enabled")) {
+        if (Connection.Database.database.equals(Connection.Database.NONE)) {
             GamePlayer gamePlayer = new GamePlayer(plugin, p, p.getUniqueId(), false, 0, 0, 0);
             plugin.getPlayerManager().getUuidGamePlayerMap().put(p.getUniqueId(), gamePlayer);
             plugin.getPlayerManager().spectator(gamePlayer, true);
+            plugin.getScoreBoardAPI().setScoreBoard(p, ScoreBoardAPI.ScoreboardType.LOBBY, false, false);
         } else {
-            new BukkitRunnable(){
+            new BukkitRunnable() {
                 @Override
                 public void run() {
                     try {
-                        plugin.getPlayerDataManager().loadPlayer(p);
+                        plugin.getPlayerDataInterface().loadPlayer(p);
                     } catch (IOException e1) {
+                        e1.printStackTrace();
+                    } catch (SQLException e1) {
                         e1.printStackTrace();
                     }
                     GamePlayer gamePlayer = plugin.getPlayerManager().getUuidGamePlayerMap().get(p.getUniqueId());
                     plugin.getPlayerManager().spectator(gamePlayer, true);
+                    plugin.getScoreBoardAPI().setScoreBoard(p, ScoreBoardAPI.ScoreboardType.LOBBY, false, false);
                 }
-            }.runTaskAsynchronously(plugin);
+            }.runTask(plugin);
         }
         if (plugin.getArenaManager().checkStart()) {
             new LobbyTask(plugin, config.getInt("GameOptions.VoteTime")).runTaskTimer(plugin, 0l, 20l);
@@ -65,7 +71,7 @@ public class EventJoinAndLeave implements Listener {
         Configuration lang = plugin.getConfigUtils().getConfig(plugin, "Lang");
         p.sendMessage(c(lang.getString("VoteMessage")));
 
-        plugin.getScoreBoardAPI().setScoreBoard(p, ScoreBoardAPI.ScoreboardType.LOBBY, false, false);
+        if (p.hasPermission("meetup.admin")) plugin.checkVersionPlayer(p);
     }
 
     @EventHandler
@@ -75,7 +81,9 @@ public class EventJoinAndLeave implements Listener {
         if (plugin.getPlayerManager().getPlayersAlive().contains(e.getPlayer())) {
             plugin.getPlayerManager().getPlayersAlive().remove(e.getPlayer());
         }
-        plugin.getPlayerDataManager().savePlayer(e.getPlayer());
+        if (!Connection.Database.database.equals(Connection.Database.NONE)) {
+            plugin.getPlayerDataInterface().savePlayer(e.getPlayer());
+        }
     }
 
     @EventHandler

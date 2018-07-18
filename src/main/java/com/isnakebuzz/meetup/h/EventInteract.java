@@ -3,6 +3,7 @@ package com.isnakebuzz.meetup.h;
 import com.isnakebuzz.meetup.a.Main;
 import com.isnakebuzz.meetup.d.GamePlayer;
 import com.isnakebuzz.meetup.d.PlayerInventory;
+import com.isnakebuzz.meetup.e.Connection;
 import com.isnakebuzz.meetup.i.ItemBuilder;
 import com.isnakebuzz.meetup.j.MenuCreator;
 import org.bukkit.ChatColor;
@@ -65,6 +66,10 @@ public class EventInteract implements Listener {
                     GamePlayer gamePlayer = plugin.getPlayerManager().getUuidGamePlayerMap().get(p.getUniqueId());
                     gamePlayer.sendToLobby();
                 } else if (_action.split(":")[0].equalsIgnoreCase("kit")) {
+                    if (Connection.Database.database.equals(Connection.Database.NONE)) {
+                        p.sendMessage(c("&cDatabase is disabled."));
+                        return;
+                    }
                     PlayerInventory playerInventory = plugin.getPlayerManager().getUuidPlayerInventoryMap().get(p.getUniqueId());
                     p.getInventory().clear();
                     p.getInventory().setContents(playerInventory.getInventory());
@@ -114,6 +119,10 @@ public class EventInteract implements Listener {
                     GamePlayer gamePlayer = plugin.getPlayerManager().getUuidGamePlayerMap().get(e.getPlayer().getUniqueId());
                     gamePlayer.sendToLobby();
                 } else if (_action.split(":")[0].equalsIgnoreCase("kit")) {
+                    if (Connection.Database.database.equals(Connection.Database.NONE)) {
+                        p.sendMessage(c("&cDatabase is disabled."));
+                        return;
+                    }
                     PlayerInventory playerInventory = plugin.getPlayerManager().getUuidPlayerInventoryMap().get(p.getUniqueId());
                     p.getInventory().clear();
                     p.getInventory().setContents(playerInventory.getInventory());

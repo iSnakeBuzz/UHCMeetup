@@ -8,7 +8,6 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.BlockStoneFormEvent;
 import org.bukkit.event.world.ChunkLoadEvent;
 import org.bukkit.event.world.ChunkUnloadEvent;
 
@@ -34,11 +33,6 @@ public class EventWorldGen implements Listener {
                 entity.remove();
             }
         }
-    }
-
-    @EventHandler
-    public void CancelStone(BlockStoneFormEvent e) {
-        e.setCancelled(true);
     }
 
     @EventHandler

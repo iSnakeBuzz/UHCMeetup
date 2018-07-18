@@ -1,4 +1,4 @@
-# UHCMeetup - Version 0.2-beta.1
+# UHCMeetup - Version 0.2-beta.2
 
 A minigame similar to UHC, but more faster.
 
@@ -12,21 +12,7 @@ Link to download: https://github.com/iSnakeBuzz/UHCMeetup/releases/download/v0.1
 ```
 Second step:
 ```
-Download the dependencies.
-```
-Three step:
-```
 Start your server, and enjoy the plugin :D!.
-```
-
-### Dependencies
-
-This dependencies is required.
-
-You need a custom spigot for the plugin run.
-Download from:
-```
-https://www.isnakebuzz.com/spigots/spigot_server.jar
 ```
 
 ### Images

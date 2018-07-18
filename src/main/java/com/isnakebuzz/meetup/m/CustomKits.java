@@ -27,6 +27,9 @@ public class CustomKits {
         File file = files[rand.nextInt(files.length)];
 
         String kit = file.getName().split(Pattern.quote("."))[0];
+        if (kit.equalsIgnoreCase("autokit")){
+            return getRandomKit();
+        }
 
         return kit;
     }

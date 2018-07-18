@@ -15,7 +15,6 @@ public class PlayerManager {
     private Collection<Player> players_alive;
     private Map<UUID, GamePlayer> uuidGamePlayerMap;
     private Map<UUID, PlayerInventory> uuidPlayerInventoryMap;
-    private HashMap<Player, Integer> sitted = new HashMap<>();
 
     public PlayerManager(Main plugin) {
         this.plugin = plugin;
@@ -27,7 +26,7 @@ public class PlayerManager {
     public void spectator(GamePlayer gamePlayer, boolean spect) {
         if (!gamePlayer.isSpectator()) {
             gamePlayer.setSpectator(spect);
-            if (Main.getStates.state != Main.getStates.LOBBY){
+            if (Main.getStates.state != Main.getStates.LOBBY) {
                 plugin.getInvManager().loadInventorySpect(gamePlayer.getPlayer());
             } else {
                 plugin.getInvManager().loadInventory(gamePlayer.getPlayer());
@@ -54,10 +53,6 @@ public class PlayerManager {
         out.writeUTF("Connect");
         out.writeUTF(server);
         p.sendPluginMessage(plugin, "BungeeCord", out.toByteArray());
-    }
-
-    public HashMap<Player, Integer> getSitted() {
-        return sitted;
     }
 
     public Map<UUID, GamePlayer> getUuidGamePlayerMap() {
