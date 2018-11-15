@@ -1,4 +1,4 @@
-# UHCMeetup - Version 0.2-beta.2
+# UHCMeetup - Version 0.2-beta.3
 
 A minigame similar to UHC, but more faster.
 
