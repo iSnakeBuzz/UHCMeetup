@@ -1,0 +1,48 @@
+# # # # # # # # # # # # # # # # # # #
+#                                   #
+# Thanks for use Snake's UHC-Meetup #
+#                                   #
+# # # # # # # # # # # # # # # # # # #
+
+
+# Next feature :)
+Mode: meetup
+
+#Database, moved to "Extra/Database.yml"
+
+# Lobby like MineHQ?
+Lobby:
+  enabled: false
+
+# Border Config
+Border:
+  # Default Size.
+  Default: 120
+  # Moved border tasks to Extra/Border.yml
+
+# Game Options, Max players, Min players, etc..
+GameOptions:
+  MinPlayers: 12
+  MaxPlayers: 16
+  RestartCommand: 'stop'
+  Lobby: 'hub'
+  # Vote time..
+  VoteTime: 30
+  # Starting time
+  StartingTime: 15
+  # End Time
+  EndTime: 15
+  GAppleName: '&6Golden Head'
+  CustomKit: false
+  # EnderPearl cooldown?
+  EPearlCD:
+    enabled: true
+    time: 15 # Seconds
+  Vote:
+    cmd: 'vote'
+    menu: 'VoteMenu'
+TeleportOptions:
+  # This value is a double, please put the .0
+  # Wrong: 20
+  # Fine: 20.0
+  MinDistance: 20.0

@@ -5,18 +5,56 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>UHCMeetup</groupId>
     <artifactId>UHCMeetup</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>v0.2-beta.3</version>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
     <build>
+        <defaultGoal>clean package</defaultGoal>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.7.0</version>
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.2.0</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <relocations>
+                                <relocation>
+                                    <pattern>com.mongodb</pattern>
+                                    <shadedPattern>com.isnakebuzz.meetup.depends.mongo</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>org.bson</pattern>
+                                    <shadedPattern>com.isnakebuzz.meetup.depends.bson</shadedPattern>
+                                </relocation>
+                            </relocations>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
     </build>
 
     <repositories>
@@ -32,6 +70,23 @@
             <artifactId>mongodb-driver</artifactId>
             <version>3.6.4</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.spigotmc</groupId>
+            <artifactId>spigot-1.8.8</artifactId>
+            <scope>system</scope>
+            <version>1.8.8</version>
+            <systemPath>${project.basedir}/Lib/Spigot-1.8.8.jar</systemPath>
+        </dependency>
+
+        <dependency>
+            <groupId>org.spigotmc</groupId>
+            <artifactId>spigot-1.7.10</artifactId>
+            <scope>system</scope>
+            <version>1.7.10</version>
+            <systemPath>${project.basedir}/Lib/Spigot-1.7.10.jar</systemPath>
+        </dependency>
+
     </dependencies>
 
 </project>

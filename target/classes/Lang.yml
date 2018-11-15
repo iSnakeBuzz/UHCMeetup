@@ -1,0 +1,29 @@
+Border:
+  Reached: '&cYou have reached the border!'
+VoteEnds:
+  # You can add more..
+  # 15: is the time, and 'is the message'.
+  # Example: 25: '&aVoting will end in 25 seconds.'
+  15: 'Voting will end in &6%seconds% seconds&f.'
+  10: 'Voting will end in &6%seconds% seconds&f.'
+  5: 'Voting will end in &6%seconds% seconds&f.'
+  5: 'Voting will end in &6%seconds% seconds&f.'
+  4: 'Voting will end in &6%seconds% seconds&f.'
+  3: 'Voting will end in &6%seconds% seconds&f.'
+  2: 'Voting will end in &6%seconds% seconds&f.'
+  1: 'Voting will end in &6%seconds% second&f.'
+Starting:
+  15: 'The game will begin in &6%seconds% seconds&f.'
+  10: 'The game will begin in &6%seconds% seconds&f.'
+  5: 'The game will begin in &6%seconds% seconds&f.'
+  5: 'The game will begin in &6%seconds% seconds&f.'
+  4: 'The game will begin in &6%seconds% seconds&f.'
+  3: 'The game will begin in &6%seconds% seconds&f.'
+  2: 'The game will begin in &6%seconds% seconds&f.'
+  1: 'The game will begin in &6%seconds% second&f.'
+WinMessage:
+  - '&a%winners% &ehas won the game.'
+VoteMessage: '&aType /vote to vote for a scenario for this game!'
+VoteAnnounce: "&6%type%&f has been chosen as this game's scenario with &6%votes% votes&f."
+NoClean:
+  now: '&a[NoClean] You have a %time% seconds invicibility timer!'

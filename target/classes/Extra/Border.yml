@@ -1,0 +1,46 @@
+# # # # # # # # # # # # # # # # # # #
+#                                   #
+# Thanks for use Snake's UHC-Meetup #
+#                                   #
+# # # # # # # # # # # # # # # # # # #
+
+Border:
+  1:
+    Size: 45
+    Time: 30
+    Shrunk: '&7&l[&6&lBorder&7&l]&f The border has shrunk to &6%size%&f.'
+    Broadcasts:
+      30: '&7&l[&6&lBorder&7&l]&f The border will shrink to &6%size%&f in &6%seconds% seconds&f.'
+      15: '&7&l[&6&lBorder&7&l]&f The border will shrink to &645&f in &6%seconds% seconds&f.'
+      10: '&7&l[&6&lBorder&7&l]&f The border will shrink to &645&f in &6%seconds% seconds&f.'
+      5: '&7&l[&6&lBorder&7&l]&f The border will shrink to &645&f in &6%seconds% seconds&f.'
+      4: '&7&l[&6&lBorder&7&l]&f The border will shrink to &645&f in &6%seconds% seconds&f.'
+      3: '&7&l[&6&lBorder&7&l]&f The border will shrink to &645&f in &6%seconds% seconds&f.'
+      2: '&7&l[&6&lBorder&7&l]&f The border will shrink to &645&f in &6%seconds% seconds&f.'
+      1: '&7&l[&6&lBorder&7&l]&f The border will shrink to &645&f in &6%seconds% seconds&f.'
+  2:
+    Size: 30
+    Time: 30
+    Shrunk: '&7&l[&6&lBorder&7&l]&f The border has shrunk to &6%size%&f.'
+    Broadcasts:
+      30: '&7&l[&6&lBorder&7&l]&f The border will shrink to &6%size%&f in &6%seconds% seconds&f.'
+      15: '&7&l[&6&lBorder&7&l]&f The border will shrink to &6%size%&f in &6%seconds% seconds&f.'
+      10: '&7&l[&6&lBorder&7&l]&f The border will shrink to &6%size%&f in &6%seconds% seconds&f.'
+      5: '&7&l[&6&lBorder&7&l]&f The border will shrink to &6%size%&f in &6%seconds% seconds&f.'
+      4: '&7&l[&6&lBorder&7&l]&f The border will shrink to &6%size%&f in &6%seconds% seconds&f.'
+      3: '&7&l[&6&lBorder&7&l]&f The border will shrink to &6%size%&f in &6%seconds% seconds&f.'
+      2: '&7&l[&6&lBorder&7&l]&f The border will shrink to &6%size%&f in &6%seconds% seconds&f.'
+      1: '&7&l[&6&lBorder&7&l]&f The border will shrink to &6%size%&f in &6%seconds% seconds&f.'
+  3:
+    Size: 25
+    Time: 30
+    Shrunk: '&7&l[&6&lBorder&7&l]&f The border has shrunk to &6%size%&f.'
+    Broadcasts:
+      30: '&7&l[&6&lBorder&7&l]&f The border will shrink to &6%size%&f in &6%seconds% seconds&f.'
+      15: '&7&l[&6&lBorder&7&l]&f The border will shrink to &6%size%&f in &6%seconds% seconds&f.'
+      10: '&7&l[&6&lBorder&7&l]&f The border will shrink to &6%size%&f in &6%seconds% seconds&f.'
+      5: '&7&l[&6&lBorder&7&l]&f The border will shrink to &6%size%&f in &6%seconds% seconds&f.'
+      4: '&7&l[&6&lBorder&7&l]&f The border will shrink to &6%size%&f in &6%seconds% seconds&f.'
+      3: '&7&l[&6&lBorder&7&l]&f The border will shrink to &6%size%&f in &6%seconds% seconds&f.'
+      2: '&7&l[&6&lBorder&7&l]&f The border will shrink to &6%size%&f in &6%seconds% seconds&f.'
+      1: '&7&l[&6&lBorder&7&l]&f The border will shrink to &6%size%&f in &6%seconds% seconds&f.'

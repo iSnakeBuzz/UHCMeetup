@@ -1,0 +1,95 @@
+name: UHCMeetup
+main: com.isnakebuzz.meetup.Main
+version: v0.2-beta.3
+description: The epic MineHQ Meetup..
+author: iSnakeBuzz_
+website: https://www.isnakebuzz.com/
+commands:
+  lb:
+    description: Get lobby commands.
+    aliases: [lobby]
+  kits:
+    description: Get kits commands.
+    aliases: [kit]
+  wborder:
+    description: Command for WorldBorder.
+    aliases: [WorldBorder, wb]
+permissions:
+  worldborder.*:
+    description: Grants all WorldBorder permissions
+    children:
+      worldborder.bypass: true
+      worldborder.bypasslist: true
+      worldborder.clear: true
+      worldborder.debug: true
+      worldborder.delay: true
+      worldborder.denypearl: true
+      worldborder.dynmap: true
+      worldborder.dynmapmsg: true
+      worldborder.fill: true
+      worldborder.fillautosave: true
+      worldborder.getmsg: true
+      worldborder.help: true
+      worldborder.knockback: true
+      worldborder.list: true
+      worldborder.portal: true
+      worldborder.radius: true
+      worldborder.reload: true
+      worldborder.remount: true
+      worldborder.set: true
+      worldborder.setmsg: true
+      worldborder.shape: true
+      worldborder.trim: true
+      worldborder.whoosh: true
+      worldborder.wrap: true
+      worldborder.wshape: true
+  worldborder.bypass:
+    default: op
+  worldborder.bypasslist:
+    default: op
+  worldborder.clear:
+    default: op
+  worldborder.debug:
+    default: op
+  worldborder.delay:
+    default: op
+  worldborder.denypearl:
+    default: op
+  worldborder.dynmap:
+    default: op
+  worldborder.dynmapmsg:
+    default: op
+  worldborder.fill:
+    default: op
+  worldborder.fillautosave:
+    default: op
+  worldborder.getmsg:
+    default: op
+  worldborder.help:
+    default: op
+  worldborder.knockback:
+    default: op
+  worldborder.list:
+    default: op
+  worldborder.portal:
+    default: op
+  worldborder.radius:
+    default: op
+  worldborder.reload:
+    default: op
+  worldborder.remount:
+    default: op
+  worldborder.set:
+    default: op
+  worldborder.setmsg:
+    default: op
+  worldborder.shape:
+    default: op
+  worldborder.trim:
+    default: op
+  worldborder.whoosh:
+    default: op
+  worldborder.wrap:
+    default: op
+  worldborder.wshape:
+    default: op

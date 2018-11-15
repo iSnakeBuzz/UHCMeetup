@@ -1,0 +1,56 @@
+# # # # # # # # # # # # # # # # # # #
+#                                   #
+# Thanks for use Snake's UHC-Meetup #
+#                                   #
+# # # # # # # # # # # # # # # # # # #
+
+bTimeFormat: "&7(&Tasks%time%&7)"
+
+LOBBY:
+  title: '&6&lMineHQ &7| &fMeetup'
+  lines:
+    - '&7&Inventory----------------'
+    - 'Players: &6%players%'
+    - ''
+    - '&6&lScenarios Votes:'
+    - ' &7- Bowless:&a %bowless%'
+    - ' &7- Default:&a %default%'
+    - ' &7- Fireless:&a %fireless%'
+    - ' &7- No Clean:&a %noclean%'
+    - ' &7- Rodless:&a %rodless%'
+    - ' &7- Time Bomb:&a %timebomb%'
+    - ''
+    - 'Votes Ends: &6%vote_ends%'
+    - '&7&Inventory----------------'
+STARTING:
+  title: '&6&lMineHQ &7| &fMeetup'
+  lines:
+    - '&7&Inventory----------------'
+    - 'Players: &6%players%'
+    - 'Starting in: &6%start_time%'
+    - '&7&Inventory----------------'
+INGAME:
+  title: '&6&lMineHQ &7| &fMeetup'
+  lines:
+    - '&7&Inventory----------------'
+    - 'Game Time: &6%game_time%'
+    - 'Remaining: &6%alive%/%maxplayers%'
+    - 'Kills: &6%kills%'
+    - 'Border: &6%border% &Tasks%border_time%&7'
+    - '<event_epcd>Cooldown: &6%epearlcd%s'
+    - '<event_noclean>NoClean: &6%noclean_time%'
+    - '&7&Inventory----------------'
+SPECTATOR:
+  title: '&6&lMineHQ &7| &fMeetup'
+  lines:
+    - '&7&Inventory----------------'
+    - 'Game Time: &6%game_time%'
+    - 'Remaining: &6%players%/%maxplayers%'
+    - 'Border: &6%border% &Tasks%border_time%'
+    - '&7&Inventory----------------'
+FINISHED:
+  title: '&6&lMineHQ &7| &fMeetup'
+  lines:
+    - '&7&Inventory----------------'
+    - 'Game Time: &6%game_time%'
+    - '&7&Inventory----------------'
