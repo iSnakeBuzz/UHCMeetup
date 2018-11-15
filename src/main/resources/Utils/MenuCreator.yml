@@ -1,0 +1,105 @@
+# # # # # # # # # # # # # # # # # # #
+#                                   #
+# Thanks for use Snake's UHC-Meetup #
+#                                   #
+# # # # # # # # # # # # # # # # # # #
+
+MenuCreator:
+  KitEditor:
+    title: 'Editing your kit'
+    rows: 1
+    # This menu need this :)
+    update:
+      enabled: true
+      time: 5 # In ticks!
+    items:
+      save:
+        # 'ID:DATA'
+        item: '35:5'
+        slot: 2
+        amount: 1
+        name: '&a&lSave'
+        lore:
+          - ''
+          - '&eClick this to save your kit.'
+        # Actions: CMD:SAY TEST, MENU:TEST, SERVER:PVP, LOBBY, FLYSPEED:0.5, VELOCITY:0.5, KIT:{save,load,cancel}
+        # Soon actions: VOTE
+        action: 'kit:save'
+      load:
+        # 'ID:DATA'
+        item: '35:7'
+        slot: 4
+        amount: 1
+        name: '&e&lLoad default kit'
+        lore:
+          - ''
+          - '&eClick this to load the default kit'
+          - '&einto the kit editing menu.'
+        # Actions: CMD:SAY TEST, MENU:TEST, SERVER:PVP, LOBBY, FLYSPEED:0.5, VELOCITY:0.5, KIT:{save,load,cancel}
+        # Soon actions: VOTE
+        action: 'kit:load'
+      cancel:
+        # 'ID:DATA'
+        item: '35:14'
+        slot: 6
+        amount: 1
+        name: '&Tasks&lCancel'
+        lore:
+          - ''
+          - '&eClick this to abort editing your kit'
+        # Actions: CMD:SAY TEST, MENU:TEST, SERVER:PVP, LOBBY, FLYSPEED:0.5, VELOCITY:0.5, KIT:{save,load,cancel}
+        # Soon actions: VOTE
+        action: 'kit:cancel'
+  VoteMenu:
+    title: 'Select a scenario'
+    rows: 1
+    update:
+      enabled: true
+      time: 15 # In ticks!
+    items:
+      BOWLESS:
+        # 'ID:DATA'
+        item: '261:0'
+        slot: 0
+        amount: 1
+        name: '&aBowless'
+        lore:
+          - '&9• Bows cannot be crafted or used.'
+          - ''
+          - '&eCurrently has &a%bowless%&e votes.'
+        # Actions: CMD:SAY TEST, MENU:TEST, SERVER:PVP, LOBBY, FLYSPEED:0.5, VELOCITY:0.5, KIT:{save,load,cancel}
+        # Added: VOTE:{BOWLESS, DEFAULT, FIRELESS, NOCLEAN} (without {})
+        action: 'vote:BOWLESS'
+      DEFAULT:
+        item: '351:0'
+        slot: 1
+        amount: 1
+        name: '&aDefault'
+        lore:
+          - '&9• Basic game, no scenarios.'
+          - ''
+          - '&eCurrently has &a%default%&e votes.'
+        action: 'vote:DEFAULT'
+      FIRELESS:
+        item: '51:0'
+        slot: 2
+        amount: 1
+        name: '&aFireless'
+        lore:
+          - "&9• Players don't take fire or lava damage"
+          - '&9   (except in the Nether)'
+          - ''
+          - '&eCurrently has &a%fireless%&e votes.'
+        action: 'vote:FIRELESS'
+      NOCLEAN:
+        item: '276:0'
+        slot: 3
+        amount: 1
+        name: '&aNo Clean'
+        lore:
+          - "&9• Player get a 20 second invincibility"
+          - '&9timer after killing someone. This timer'
+          - '&9gets removed if they attack someone.'
+          - ''
+          - '&eCurrently has &a%noclean%&e votes.'
+        action: 'vote:NOCLEAN'

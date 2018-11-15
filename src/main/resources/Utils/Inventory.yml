@@ -1,0 +1,24 @@
+# # # # # # # # # # # # # # # # # # #
+#                                   #
+# Thanks for use Snake's UHC-Meetup #
+#                                   #
+# # # # # # # # # # # # # # # # # # #
+
+inventory:
+  EditKit:
+    item: '340:0'
+    slot: 8
+    name: '&e&lEdit Kit'
+    lore:
+      - '&7Click to edit kit.'
+    # Actions: CMD:SAY TEST, MENU:TEST, SERVER:LOBBY, LOBBY, KIT:{MENU WITH OPTIONS TO EDIT KIT}
+    # Soon actions: VOTE
+    action: 'kit:KitEditor'
+spectinv:
+  yourname:
+    item: '340:0'
+    slot: 8
+    name: '&e&lDefault Item'
+    lore:
+      - '&7Lore.'
+    action: 'cmd:say test'

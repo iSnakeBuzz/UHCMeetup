@@ -1,0 +1,12 @@
+# Types: MongoDB, MySQL, NONE
+DatabaseType: NONE
+MongoDB:
+  ips: 127.0.0.1,127.0.0.2
+  user: admin
+  pass: admin123
+MySQL:
+  hostname: "127.0.0.1"
+  port: 3306
+  database: "UHCMeetup"
+  username: "root"
+  password: "password"
