@@ -2,8 +2,8 @@ package com.isnakebuzz.meetup.Database.Types;
 
 import com.isnakebuzz.meetup.Database.PlayerDataInterface;
 import com.isnakebuzz.meetup.Main;
-import com.isnakebuzz.meetup.Utils.GamePlayer;
-import com.isnakebuzz.meetup.Utils.PlayerInventory;
+import com.isnakebuzz.meetup.Player.GamePlayer;
+import com.isnakebuzz.meetup.Player.PlayerInventory;
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;

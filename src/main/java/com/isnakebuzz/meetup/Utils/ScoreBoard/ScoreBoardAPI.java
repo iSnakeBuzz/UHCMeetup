@@ -2,7 +2,7 @@ package com.isnakebuzz.meetup.Utils.ScoreBoard;
 
 
 import com.isnakebuzz.meetup.Main;
-import com.isnakebuzz.meetup.Utils.GamePlayer;
+import com.isnakebuzz.meetup.Player.GamePlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.Configuration;
@@ -148,7 +148,7 @@ public class ScoreBoardAPI {
     }
 
     private String randomString(int length) {
-        String[] randomChars = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "Commands", "L", "N", "M", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
+        String[] randomChars = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "C", "L", "N", "M", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
         int[] randomInteger = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
 
         String AB = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";

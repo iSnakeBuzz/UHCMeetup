@@ -1,30 +1,36 @@
 package com.isnakebuzz.meetup.Utils.WorldBorder;
 
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+
 import com.isnakebuzz.meetup.Main;
-import org.bukkit.ChatColor;
-import org.bukkit.Sound;
+import org.bukkit.*;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
-import java.text.DecimalFormat;
-import java.util.*;
-import java.util.Map.Entry;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 
 public class Config {
-    private static final int currentCfgVersion = 10;
-    public static DecimalFormat coord = new DecimalFormat("0.0");
-    public static WorldFillTask fillTask;
-    public static WorldTrimTask trimTask;
+
     // private stuff used within this class
     private static Main plugin;
     private static FileConfiguration cfg = null;
     private static Logger wbLog = null;
+    public static DecimalFormat coord = new DecimalFormat("0.0");
     private static int borderTask = -1;
+    public static WorldFillTask fillTask;
+    public static WorldTrimTask trimTask;
     private static Runtime rt = Runtime.getRuntime();
+
     // actual configuration values which can be changed
     private static boolean shapeRound = true;
     private static Map<String, BorderData> borders = Collections.synchronizedMap(new LinkedHashMap<String, BorderData>());
@@ -35,22 +41,23 @@ public class Config {
     private static boolean DEBUG = false;
     private static double knockBack = 3.0;
     private static int timerTicks = 4;
-    private static boolean whooshEffect = true;
+    private static boolean whooshEffect = false;
     private static boolean portalRedirection = true;
-    private static boolean dynmapEnable = false;
+    private static boolean dynmapEnable = true;
     private static String dynmapMessage;
     private static int remountDelayTicks = 0;
     private static boolean killPlayer = false;
-    private static boolean denyEnderpearl = true;
+    private static boolean denyEnderpearl = false;
     private static int fillAutosaveFrequency = 30;
+    private static int fillMemoryTolerance = 500;
 
     // for monitoring plugin efficiency
 //	public static long timeUsed = 0;
-    private static int fillMemoryTolerance = 100;
 
     public static long Now() {
         return System.currentTimeMillis();
     }
+
 
     public static void setBorder(String world, BorderData border) {
         borders.put(world, border);
@@ -71,6 +78,7 @@ public class Config {
         setBorder(world, new BorderData(x, z, radiusX, radiusZ, oldShape, oldWrap));
     }
 
+
     // backwards-compatible methods from before elliptical/rectangular shapes were supported
     public static void setBorder(String world, int radius, double x, double z, Boolean shapeRound) {
         setBorder(world, new BorderData(x, z, radius, radius, shapeRound));
@@ -79,6 +87,7 @@ public class Config {
     public static void setBorder(String world, int radius, double x, double z) {
         setBorder(world, radius, radius, x, z);
     }
+
 
     // set border based on corner coordinates
     public static void setBorderCorners(String world, double x1, double z1, double x2, double z2, Boolean shapeRound, boolean wrap) {
@@ -99,6 +108,7 @@ public class Config {
         boolean oldWrap = (old != null) && old.getWrapping();
         setBorderCorners(world, x1, z1, x2, z2, oldShape, oldWrap);
     }
+
 
     public static void removeBorder(String world) {
         borders.remove(world);
@@ -280,6 +290,7 @@ public class Config {
         return fillAutosaveFrequency;
     }
 
+
     public static void setDynmapBorderEnabled(boolean enable) {
         dynmapEnable = enable;
         log("DynMap border display is now " + (enable ? "enabled" : "disabled") + ".");
@@ -321,6 +332,7 @@ public class Config {
         String newString = bypassPlayers.toString();
         return newString.substring(1, newString.length() - 1);
     }
+
 
     public static boolean isBorderTimerRunning() {
         if (borderTask == -1) return false;
@@ -373,10 +385,12 @@ public class Config {
         RestoreFillTask(world, fillDistance, chunksPerRun, tickFrequency, x, z, length, total, false);
     }
 
+
     public static void StopTrimTask() {
         if (trimTask != null && trimTask.valid())
             trimTask.cancel();
     }
+
 
     public static int AvailableMemory() {
         return (int) ((rt.maxMemory() - rt.totalMemory() + rt.freeMemory()) / 1048576);  // 1024*1024 = 1048576 (bytes in 1 MB)
@@ -386,6 +400,7 @@ public class Config {
         return AvailableMemory() < fillMemoryTolerance;
     }
 
+
     public static boolean HasPermission(Player player, String request) {
         return HasPermission(player, request, true);
     }
@@ -394,7 +409,7 @@ public class Config {
         if (player == null)                // console, always permitted
             return true;
 
-        if (player.hasPermission("WorldBorder." + request))    // built-in Bukkit superperms
+        if (player.hasPermission("worldborder." + request))    // built-in Bukkit superperms
             return true;
 
         if (notify)
@@ -402,6 +417,7 @@ public class Config {
 
         return false;
     }
+
 
     public static String replaceAmpColors(String message) {
         return ChatColor.translateAlternateColorCodes('&', message);
@@ -411,6 +427,7 @@ public class Config {
     public static String stripAmpColors(String message) {
         return message.replaceAll("(?i)&([a-fk-or0-9])", "");
     }
+
 
     public static void log(Level lvl, String text) {
         wbLog.log(lvl, text);
@@ -428,6 +445,9 @@ public class Config {
         log(Level.INFO, "[CONFIG] " + text);
     }
 
+
+    private static final int currentCfgVersion = 10;
+
     public static void load(Main master, boolean logIt) {    // load config from file
         plugin = master;
         wbLog = plugin.getLogger();
@@ -440,19 +460,19 @@ public class Config {
         String msg = cfg.getString("message");
         shapeRound = cfg.getBoolean("round-border", true);
         DEBUG = cfg.getBoolean("debug-mode", false);
-        whooshEffect = cfg.getBoolean("whoosh-effect", true);
+        whooshEffect = cfg.getBoolean("whoosh-effect", false);
         portalRedirection = cfg.getBoolean("portal-redirection", true);
         knockBack = cfg.getDouble("knock-back-dist", 3.0);
         timerTicks = cfg.getInt("timer-delay-ticks", 5);
         remountDelayTicks = cfg.getInt("remount-delay-ticks", 0);
-        dynmapEnable = cfg.getBoolean("dynmap-border-enabled", false);
+        dynmapEnable = cfg.getBoolean("dynmap-border-enabled", true);
         dynmapMessage = cfg.getString("dynmap-border-message", "The border of the world.");
         logConfig("Using " + (ShapeName()) + " border, knockback of " + knockBack + " blocks, and timer delay of " + timerTicks + ".");
         killPlayer = cfg.getBoolean("player-killed-bad-spawn", false);
         denyEnderpearl = cfg.getBoolean("deny-enderpearl", true);
         fillAutosaveFrequency = cfg.getInt("fill-autosave-frequency", 30);
         bypassPlayers = Collections.synchronizedSet(new LinkedHashSet<String>(cfg.getStringList("bypass-list")));
-        fillMemoryTolerance = cfg.getInt("fill-memory-tolerance", 100);
+        fillMemoryTolerance = cfg.getInt("fill-memory-tolerance", 500);
 
         StartBorderTimer();
 
@@ -468,7 +488,7 @@ public class Config {
         }
         // if loading older config which didn't support color codes in border message, make sure default red color code is added at start of it
         else if (cfgVersion < 8 && !(msg.substring(0, 1).equals("&")))
-            updateMessage("&Tasks" + msg);
+            updateMessage("&c" + msg);
             // otherwise just set border message
         else
             updateMessage(msg);
@@ -530,7 +550,6 @@ public class Config {
         save(logIt, false);
     }
 
-    @SuppressWarnings("rawtypes")
     public static void save(boolean logIt, boolean storeFillTask) {    // save config to file
         if (cfg == null) return;
 

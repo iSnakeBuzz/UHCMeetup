@@ -32,3 +32,10 @@ Motd:
   ENDED: 'Ended'
 NoClean:
   now: '&a[NoClean] You have a %time% seconds invicibility timer!'
+DeathMessages:
+  Normal: '&c%player%&7[&f%p_kill_count%&7]&e was slain by &c%killer%&7[&f%k_kill_count%&7]&f.'
+  Bow: '&c%player%&7[&f%p_kill_count%&7]&e was shot by &c%killer%&7[&f%k_kill_count%&7]&e from &9%blocks% blocks&f.'
+  EnderPearl: '&c%player%&7[&f%p_kill_count%&7]&e was shot (using EnderPearl) by &c%killer%&7[&f%k_kill_count%&7]&e from &9%blocks% blocks&f.'
+  Fire: '&c%player%&7[&f%p_kill_count%&7]&e was burned&f.'
+  Lava: '&c%player%&7[&f%p_kill_count%&7]&e was burned&f.'
+  Fall: '&c%player%&7[&f%p_kill_count%&7]&e hit the ground too hard&f.'

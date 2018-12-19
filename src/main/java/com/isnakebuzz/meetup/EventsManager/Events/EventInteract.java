@@ -1,8 +1,8 @@
 package com.isnakebuzz.meetup.EventsManager.Events;
 
 import com.isnakebuzz.meetup.Main;
-import com.isnakebuzz.meetup.Utils.GamePlayer;
-import com.isnakebuzz.meetup.Utils.PlayerInventory;
+import com.isnakebuzz.meetup.Player.GamePlayer;
+import com.isnakebuzz.meetup.Player.PlayerInventory;
 import com.isnakebuzz.meetup.Utils.Connection;
 import com.isnakebuzz.meetup.Inventory.Utils.ItemBuilder;
 import com.isnakebuzz.meetup.Inventory.MenuManager.MenuCreator;

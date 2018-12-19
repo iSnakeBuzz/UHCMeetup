@@ -22,7 +22,7 @@ public class EventLogin implements Listener {
         Configuration config = plugin.getConfigUtils().getConfig(plugin, "Settings");
         if (plugin.getArenaManager().getGameStates() == GameStates.LOADING){
             e.disallow(PlayerLoginEvent.Result.KICK_OTHER, "§cLoading Game");
-        } else if (plugin.getArenaManager().getGameStates() == GameStates.LOBBY){
+        } else if (plugin.getArenaManager().getGameStates() != GameStates.LOBBY){
             e.disallow(PlayerLoginEvent.Result.KICK_OTHER, "§cIn Game");
         }
 

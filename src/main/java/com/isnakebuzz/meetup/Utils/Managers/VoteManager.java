@@ -1,7 +1,7 @@
 package com.isnakebuzz.meetup.Utils.Managers;
 
 import com.isnakebuzz.meetup.Main;
-import com.isnakebuzz.meetup.Utils.GamePlayer;
+import com.isnakebuzz.meetup.Player.GamePlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.configuration.Configuration;

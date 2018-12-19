@@ -5,7 +5,7 @@ import com.isnakebuzz.meetup.Main;
 import com.isnakebuzz.meetup.Tasks.EndTask;
 import com.isnakebuzz.meetup.Tasks.LobbyTask;
 import com.isnakebuzz.meetup.Utils.Enums.GameStates;
-import com.isnakebuzz.meetup.Utils.GamePlayer;
+import com.isnakebuzz.meetup.Player.GamePlayer;
 import com.isnakebuzz.meetup.Utils.ScoreBoard.ScoreBoardAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;

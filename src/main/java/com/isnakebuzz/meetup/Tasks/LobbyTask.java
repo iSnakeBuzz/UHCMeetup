@@ -3,7 +3,7 @@ package com.isnakebuzz.meetup.Tasks;
 import com.isnakebuzz.meetup.EventsManager.CustomEvents.GameStartingEvent;
 import com.isnakebuzz.meetup.Main;
 import com.isnakebuzz.meetup.Utils.Enums.StartingType;
-import com.isnakebuzz.meetup.Utils.GamePlayer;
+import com.isnakebuzz.meetup.Player.GamePlayer;
 import com.isnakebuzz.meetup.Utils.ScoreBoard.ScoreBoardAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;

@@ -2,8 +2,7 @@ package com.isnakebuzz.meetup.EventsManager.Events;
 
 import com.isnakebuzz.meetup.EventsManager.CustomEvents.GameStartEvent;
 import com.isnakebuzz.meetup.Main;
-import com.isnakebuzz.meetup.Tasks.LobbyTask;
-import com.isnakebuzz.meetup.Utils.GamePlayer;
+import com.isnakebuzz.meetup.Player.GamePlayer;
 import com.isnakebuzz.meetup.Utils.Connection;
 import com.isnakebuzz.meetup.Utils.ScoreBoard.ScoreBoardAPI;
 import org.bukkit.Bukkit;
@@ -16,7 +15,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.scheduler.BukkitRunnable;
 
 import java.io.IOException;
 import java.sql.SQLException;

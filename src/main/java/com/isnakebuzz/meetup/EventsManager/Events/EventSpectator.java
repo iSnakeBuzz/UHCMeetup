@@ -1,7 +1,7 @@
 package com.isnakebuzz.meetup.EventsManager.Events;
 
 import com.isnakebuzz.meetup.Main;
-import com.isnakebuzz.meetup.Utils.GamePlayer;
+import com.isnakebuzz.meetup.Player.GamePlayer;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

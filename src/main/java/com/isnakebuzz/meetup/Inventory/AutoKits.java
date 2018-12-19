@@ -1,7 +1,7 @@
 package com.isnakebuzz.meetup.Inventory;
 
 import com.isnakebuzz.meetup.Main;
-import com.isnakebuzz.meetup.Utils.PlayerInventory;
+import com.isnakebuzz.meetup.Player.PlayerInventory;
 import com.isnakebuzz.meetup.Utils.Connection;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;

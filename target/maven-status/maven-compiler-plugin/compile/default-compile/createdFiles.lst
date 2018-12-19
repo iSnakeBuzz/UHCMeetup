@@ -1,6 +1,7 @@
 com\isnakebuzz\meetup\EventsManager\Events\EventTemplate.class
 com\isnakebuzz\meetup\Tasks\LobbyTask$1.class
 com\isnakebuzz\meetup\Compatibility\Versions\V1_8_8.class
+com\isnakebuzz\meetup\Utils\PacketHelper\PacketInjector.class
 com\isnakebuzz\meetup\Utils\Managers\BorderManager$1.class
 com\isnakebuzz\meetup\Utils\PluginUtils\Metrics$1.class
 com\isnakebuzz\meetup\Utils\PluginUtils\Metrics$SingleLineChart.class
@@ -38,6 +39,7 @@ com\isnakebuzz\meetup\EventsManager\Events\EventDeath.class
 com\isnakebuzz\meetup\Utils\Managers\VoteManager$VoteType.class
 com\isnakebuzz\meetup\Utils\PluginUtils\Metrics$SimplePie.class
 com\isnakebuzz\meetup\Utils\Managers\TimerManager.class
+com\isnakebuzz\meetup\Player\PlayerInventory.class
 com\isnakebuzz\meetup\Utils\PluginUtils\Metrics$2.class
 com\isnakebuzz\meetup\Utils\PluginUtils\Metrics.class
 com\isnakebuzz\meetup\EventsManager\CustomEvents\GameEndEvent.class
@@ -67,7 +69,6 @@ com\isnakebuzz\meetup\EventsManager\Events\EventInteract.class
 com\isnakebuzz\meetup\EventsManager\VoteEvents\VEventFireless.class
 com\isnakebuzz\meetup\Utils\Connection.class
 com\isnakebuzz\meetup\Tasks\LobbyTask.class
-com\isnakebuzz\meetup\Utils\PlayerInventory.class
 com\isnakebuzz\meetup\Utils\WorldBorder\WorldTrimTask.class
 com\isnakebuzz\meetup\Utils\PluginUtils\Metrics$AdvancedBarChart.class
 com\isnakebuzz\meetup\Utils\PluginUtils\SpigotUpdater.class
@@ -77,17 +78,18 @@ com\isnakebuzz\meetup\Inventory\MenuManager\MenuCreator$1.class
 com\isnakebuzz\meetup\Utils\PluginUtils\Metrics$AdvancedPie.class
 com\isnakebuzz\meetup\EventsManager\VoteEventManager.class
 com\isnakebuzz\meetup\Utils\Managers\TeleportManager$1$1.class
+com\isnakebuzz\meetup\Utils\PacketHelper\PacketHandler.class
 com\isnakebuzz\meetup\Utils\WorldBorder\WBCommand.class
 com\isnakebuzz\meetup\Utils\PluginUtils\Metrics$SimpleBarChart.class
 com\isnakebuzz\meetup\Utils\WorldBorder\BorderCheckTask.class
 com\isnakebuzz\meetup\EventsManager\CustomEvents\GameWinEvent.class
 com\isnakebuzz\meetup\Inventory\MenuManager\MenuCreator.class
 com\isnakebuzz\meetup\EventsManager\Events\EventLogin.class
-com\isnakebuzz\meetup\Utils\GamePlayer.class
 com\isnakebuzz\meetup\Tasks\ExampleTask.class
 com\isnakebuzz\meetup\Utils\Managers\InvManager.class
 com\isnakebuzz\meetup\Utils\WorldBorder\WorldFillTask.class
 com\isnakebuzz\meetup\Compatibility\Versions\V1_7_10.class
+com\isnakebuzz\meetup\Player\GamePlayer.class
 com\isnakebuzz\meetup\Inventory\Utils\EnchantGlow.class
 com\isnakebuzz\meetup\Main.class
 com\isnakebuzz\meetup\Tasks\EndTask.class
@@ -100,4 +102,5 @@ com\isnakebuzz\meetup\EventsManager\Events\EventSpectator.class
 com\isnakebuzz\meetup\Utils\ScoreBoard\ScoreBoardAPI$ScoreboardType.class
 com\isnakebuzz\meetup\Utils\WorldBorder\WorldFillerTaskCompleteEvent.class
 com\isnakebuzz\meetup\Utils\Managers\VoteManager.class
+com\isnakebuzz\meetup\Utils\PacketHelper\Reflection.class
 com\isnakebuzz\meetup\EventsManager\Events\EventWorld.class

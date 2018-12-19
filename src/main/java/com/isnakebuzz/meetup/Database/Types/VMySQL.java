@@ -3,8 +3,8 @@ package com.isnakebuzz.meetup.Database.Types;
 import com.isnakebuzz.meetup.Database.Core.MySQL;
 import com.isnakebuzz.meetup.Database.PlayerDataInterface;
 import com.isnakebuzz.meetup.Main;
-import com.isnakebuzz.meetup.Utils.GamePlayer;
-import com.isnakebuzz.meetup.Utils.PlayerInventory;
+import com.isnakebuzz.meetup.Player.GamePlayer;
+import com.isnakebuzz.meetup.Player.PlayerInventory;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 

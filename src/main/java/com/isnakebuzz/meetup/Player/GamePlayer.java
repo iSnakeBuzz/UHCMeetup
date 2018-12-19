@@ -1,8 +1,9 @@
-package com.isnakebuzz.meetup.Utils;
+package com.isnakebuzz.meetup.Player;
 
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
 import com.isnakebuzz.meetup.Main;
+import com.isnakebuzz.meetup.Utils.PacketHelper.PacketHandler;
 import org.bukkit.configuration.Configuration;
 import org.bukkit.entity.Player;
 

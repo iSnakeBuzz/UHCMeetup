@@ -1,4 +1,4 @@
-package com.isnakebuzz.meetup.Utils;
+package com.isnakebuzz.meetup.Player;
 
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
