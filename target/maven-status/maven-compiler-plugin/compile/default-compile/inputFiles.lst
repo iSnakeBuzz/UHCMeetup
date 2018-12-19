@@ -3,6 +3,7 @@ L:\IntellijIDEA\UHCMeetupV4\src\main\java\com\isnakebuzz\meetup\Utils\WorldBorde
 L:\IntellijIDEA\UHCMeetupV4\src\main\java\com\isnakebuzz\meetup\Compatibility\Versions\V1_7_10.java
 L:\IntellijIDEA\UHCMeetupV4\src\main\java\com\isnakebuzz\meetup\EventsManager\Events\EventLogin.java
 L:\IntellijIDEA\UHCMeetupV4\src\main\java\com\isnakebuzz\meetup\Utils\WorldBorder\BorderData.java
+L:\IntellijIDEA\UHCMeetupV4\src\main\java\com\isnakebuzz\meetup\EventsManager\CustomEvents\GameEndingEvent.java
 L:\IntellijIDEA\UHCMeetupV4\src\main\java\com\isnakebuzz\meetup\EventsManager\Events\EventSpectator.java
 L:\IntellijIDEA\UHCMeetupV4\src\main\java\com\isnakebuzz\meetup\Commands\CommandsLobby.java
 L:\IntellijIDEA\UHCMeetupV4\src\main\java\com\isnakebuzz\meetup\Utils\ScoreBoard\ScoreBoardBuilder.java
@@ -15,8 +16,10 @@ L:\IntellijIDEA\UHCMeetupV4\src\main\java\com\isnakebuzz\meetup\EventsManager\Cu
 L:\IntellijIDEA\UHCMeetupV4\src\main\java\com\isnakebuzz\meetup\Inventory\Utils\ItemBuilder.java
 L:\IntellijIDEA\UHCMeetupV4\src\main\java\com\isnakebuzz\meetup\EventsManager\EventManager.java
 L:\IntellijIDEA\UHCMeetupV4\src\main\java\com\isnakebuzz\meetup\Inventory\MenuManager\MenuCreator.java
+L:\IntellijIDEA\UHCMeetupV4\src\main\java\com\isnakebuzz\meetup\EventsManager\CustomEvents\GameStartingEvent.java
 L:\IntellijIDEA\UHCMeetupV4\src\main\java\com\isnakebuzz\meetup\Tasks\LobbyTask.java
 L:\IntellijIDEA\UHCMeetupV4\src\main\java\com\isnakebuzz\meetup\Utils\WorldBorder\CoordXZ.java
+L:\IntellijIDEA\UHCMeetupV4\src\main\java\com\isnakebuzz\meetup\EventsManager\Events\EventMotd.java
 L:\IntellijIDEA\UHCMeetupV4\src\main\java\com\isnakebuzz\meetup\Inventory\MenuManager\Menu.java
 L:\IntellijIDEA\UHCMeetupV4\src\main\java\com\isnakebuzz\meetup\Utils\Managers\TeleportManager.java
 L:\IntellijIDEA\UHCMeetupV4\src\main\java\com\isnakebuzz\meetup\Utils\ScoreBoard\ScoreBoardAPI.java
@@ -27,7 +30,7 @@ L:\IntellijIDEA\UHCMeetupV4\src\main\java\com\isnakebuzz\meetup\Database\Types\V
 L:\IntellijIDEA\UHCMeetupV4\src\main\java\com\isnakebuzz\meetup\EventsManager\Events\EventCommand.java
 L:\IntellijIDEA\UHCMeetupV4\src\main\java\com\isnakebuzz\meetup\EventsManager\Events\EventWorldGen.java
 L:\IntellijIDEA\UHCMeetupV4\src\main\java\com\isnakebuzz\meetup\Commands\CommandsKits.java
-L:\IntellijIDEA\UHCMeetupV4\src\main\java\com\isnakebuzz\meetup\EventsManager\Events\EventGameWin.java
+L:\IntellijIDEA\UHCMeetupV4\src\main\java\com\isnakebuzz\meetup\EventsManager\CustomEvents\GameEndEvent.java
 L:\IntellijIDEA\UHCMeetupV4\src\main\java\com\isnakebuzz\meetup\EventsManager\VoteEventManager.java
 L:\IntellijIDEA\UHCMeetupV4\src\main\java\com\isnakebuzz\meetup\Utils\Managers\TimerManager.java
 L:\IntellijIDEA\UHCMeetupV4\src\main\java\com\isnakebuzz\meetup\EventsManager\Events\EventWorld.java
@@ -36,8 +39,10 @@ L:\IntellijIDEA\UHCMeetupV4\src\main\java\com\isnakebuzz\meetup\Utils\WorldUtils
 L:\IntellijIDEA\UHCMeetupV4\src\main\java\com\isnakebuzz\meetup\EventsManager\VoteEvents\VEventFireless.java
 L:\IntellijIDEA\UHCMeetupV4\src\main\java\com\isnakebuzz\meetup\Utils\WorldBorder\WorldFillTask.java
 L:\IntellijIDEA\UHCMeetupV4\src\main\java\com\isnakebuzz\meetup\Utils\WorldBorder\WorldBorderFillMessageEvent.java
+L:\IntellijIDEA\UHCMeetupV4\src\main\java\com\isnakebuzz\meetup\EventsManager\Events\EventMeetupChecks.java
 L:\IntellijIDEA\UHCMeetupV4\src\main\java\com\isnakebuzz\meetup\Utils\WorldBorder\Config.java
 L:\IntellijIDEA\UHCMeetupV4\src\main\java\com\isnakebuzz\meetup\Configurations\ConfigUtils.java
+L:\IntellijIDEA\UHCMeetupV4\src\main\java\com\isnakebuzz\meetup\EventsManager\CustomEvents\GameStartEvent.java
 L:\IntellijIDEA\UHCMeetupV4\src\main\java\com\isnakebuzz\meetup\EventsManager\VoteEvents\VEventNoClean.java
 L:\IntellijIDEA\UHCMeetupV4\src\main\java\com\isnakebuzz\meetup\Utils\WorldUtils\EmptyChunk.java
 L:\IntellijIDEA\UHCMeetupV4\src\main\java\com\isnakebuzz\meetup\Database\Core\MySQL.java
@@ -46,6 +51,7 @@ L:\IntellijIDEA\UHCMeetupV4\src\main\java\com\isnakebuzz\meetup\Utils\Managers\I
 L:\IntellijIDEA\UHCMeetupV4\src\main\java\com\isnakebuzz\meetup\Utils\WorldBorder\WorldFileData.java
 L:\IntellijIDEA\UHCMeetupV4\src\main\java\com\isnakebuzz\meetup\Compatibility\Versions\V1_8_8.java
 L:\IntellijIDEA\UHCMeetupV4\src\main\java\com\isnakebuzz\meetup\EventsManager\Events\EventInteract.java
+L:\IntellijIDEA\UHCMeetupV4\src\main\java\com\isnakebuzz\meetup\Utils\Enums\GameStates.java
 L:\IntellijIDEA\UHCMeetupV4\src\main\java\com\isnakebuzz\meetup\Utils\WorldBorder\BorderCheckTask.java
 L:\IntellijIDEA\UHCMeetupV4\src\main\java\com\isnakebuzz\meetup\Utils\GamePlayer.java
 L:\IntellijIDEA\UHCMeetupV4\src\main\java\com\isnakebuzz\meetup\Inventory\Utils\EnchantGlow.java
@@ -55,8 +61,10 @@ L:\IntellijIDEA\UHCMeetupV4\src\main\java\com\isnakebuzz\meetup\Compatibility\Pl
 L:\IntellijIDEA\UHCMeetupV4\src\main\java\com\isnakebuzz\meetup\Tasks\StartingTask.java
 L:\IntellijIDEA\UHCMeetupV4\src\main\java\com\isnakebuzz\meetup\Utils\Managers\LobbyManager.java
 L:\IntellijIDEA\UHCMeetupV4\src\main\java\com\isnakebuzz\meetup\Utils\Managers\PlayerManager.java
+L:\IntellijIDEA\UHCMeetupV4\src\main\java\com\isnakebuzz\meetup\Utils\Enums\StartingType.java
 L:\IntellijIDEA\UHCMeetupV4\src\main\java\com\isnakebuzz\meetup\EventsManager\Events\EventEnderCD.java
 L:\IntellijIDEA\UHCMeetupV4\src\main\java\com\isnakebuzz\meetup\Configurations\ConfigCreator.java
+L:\IntellijIDEA\UHCMeetupV4\src\main\java\com\isnakebuzz\meetup\EventsManager\CustomEvents\GameStartedEvent.java
 L:\IntellijIDEA\UHCMeetupV4\src\main\java\com\isnakebuzz\meetup\EventsManager\Events\EventDeath.java
 L:\IntellijIDEA\UHCMeetupV4\src\main\java\com\isnakebuzz\meetup\Utils\WorldBorder\WBCommand.java
 L:\IntellijIDEA\UHCMeetupV4\src\main\java\com\isnakebuzz\meetup\EventsManager\Events\EventStarting.java

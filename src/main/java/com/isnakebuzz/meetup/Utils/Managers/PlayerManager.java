@@ -3,6 +3,7 @@ package com.isnakebuzz.meetup.Utils.Managers;
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
 import com.isnakebuzz.meetup.Main;
+import com.isnakebuzz.meetup.Utils.Enums.GameStates;
 import com.isnakebuzz.meetup.Utils.GamePlayer;
 import com.isnakebuzz.meetup.Utils.PlayerInventory;
 import org.bukkit.Bukkit;
@@ -45,7 +46,7 @@ public class PlayerManager {
     public void spectator(GamePlayer gamePlayer, boolean spect) {
         if (!gamePlayer.isSpectator()) {
             gamePlayer.setSpectator(spect);
-            if (Main.getStates.state != Main.getStates.LOBBY) {
+            if (plugin.getArenaManager().getGameStates() != GameStates.LOBBY) {
                 plugin.getInvManager().loadInventorySpect(gamePlayer.getPlayer());
             } else {
                 plugin.getInvManager().loadInventory(gamePlayer.getPlayer());

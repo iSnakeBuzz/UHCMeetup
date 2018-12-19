@@ -1,6 +1,8 @@
 package com.isnakebuzz.meetup.Tasks;
 
+import com.isnakebuzz.meetup.EventsManager.CustomEvents.GameStartingEvent;
 import com.isnakebuzz.meetup.Main;
+import com.isnakebuzz.meetup.Utils.Enums.StartingType;
 import com.isnakebuzz.meetup.Utils.GamePlayer;
 import com.isnakebuzz.meetup.Utils.ScoreBoard.ScoreBoardAPI;
 import org.bukkit.Bukkit;
@@ -23,6 +25,8 @@ public class LobbyTask extends BukkitRunnable {
 
     @Override
     public void run() {
+        Bukkit.getPluginManager().callEvent(new GameStartingEvent(plugin.getPlayerManager().getPlayersAlive(), StartingType.LOBBY));
+
         plugin.getTimerManager().setVoteEnds(time);
         Configuration config = plugin.getConfigUtils().getConfig(plugin, "Lang");
         Set<String> keys = config.getConfigurationSection("VoteEnds").getKeys(false);
@@ -55,7 +59,6 @@ public class LobbyTask extends BukkitRunnable {
                 p.getInventory().clear();
                 p.getInventory().setArmorContents(null);
                 plugin.getCustomKits().setUpKit(p);
-                Main.getStates.state = Main.getStates.STARTING;
             }
             plugin.getVoteManager().checkVoteWin();
             plugin.unregisterListener(plugin.getEventManager().getEventInteract());

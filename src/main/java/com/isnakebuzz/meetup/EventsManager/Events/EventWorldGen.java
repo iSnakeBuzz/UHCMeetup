@@ -1,6 +1,7 @@
 package com.isnakebuzz.meetup.EventsManager.Events;
 
 import com.isnakebuzz.meetup.Main;
+import com.isnakebuzz.meetup.Utils.Enums.GameStates;
 import com.isnakebuzz.meetup.Utils.WorldBorder.WorldFillerTaskCompleteEvent;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Entity;
@@ -23,7 +24,7 @@ public class EventWorldGen implements Listener {
     public void onWorldFinishGeneration(WorldFillerTaskCompleteEvent e) {
         plugin.getBorderManager().newBorderGenerator(6, e.getWorldName());
         plugin.getTeleportManager().loadLocations(e.getWorldName());
-        Main.getStates.state = Main.getStates.LOBBY;
+        plugin.getArenaManager().setGameStates(GameStates.LOBBY);
     }
 
     @EventHandler

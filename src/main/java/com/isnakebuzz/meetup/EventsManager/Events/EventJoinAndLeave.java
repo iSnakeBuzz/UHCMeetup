@@ -1,10 +1,12 @@
 package com.isnakebuzz.meetup.EventsManager.Events;
 
+import com.isnakebuzz.meetup.EventsManager.CustomEvents.GameStartEvent;
 import com.isnakebuzz.meetup.Main;
 import com.isnakebuzz.meetup.Tasks.LobbyTask;
 import com.isnakebuzz.meetup.Utils.GamePlayer;
 import com.isnakebuzz.meetup.Utils.Connection;
 import com.isnakebuzz.meetup.Utils.ScoreBoard.ScoreBoardAPI;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.configuration.Configuration;
@@ -28,7 +30,7 @@ public class EventJoinAndLeave implements Listener {
     }
 
     @EventHandler
-    public void PlayerJoinEvent(PlayerJoinEvent e) throws IOException {
+    public void PlayerJoinEvent(PlayerJoinEvent e) {
         e.setJoinMessage(null);
         Player p = e.getPlayer();
         //Set Full
@@ -49,24 +51,22 @@ public class EventJoinAndLeave implements Listener {
             plugin.getPlayerManager().spectator(gamePlayer, true);
             plugin.getScoreBoardAPI().setScoreBoard(p, ScoreBoardAPI.ScoreboardType.LOBBY, false, false, false);
         } else {
-            new BukkitRunnable() {
-                @Override
-                public void run() {
-                    try {
-                        plugin.getPlayerDataInterface().loadPlayer(p);
-                    } catch (IOException e1) {
-                        e1.printStackTrace();
-                    } catch (SQLException e1) {
-                        e1.printStackTrace();
-                    }
-                    GamePlayer gamePlayer = plugin.getPlayerManager().getUuidGamePlayerMap().get(p.getUniqueId());
-                    plugin.getPlayerManager().spectator(gamePlayer, true);
-                    plugin.getScoreBoardAPI().setScoreBoard(p, ScoreBoardAPI.ScoreboardType.LOBBY, false, false, false);
+            Bukkit.getScheduler().scheduleAsyncDelayedTask(plugin, () -> {
+                try {
+                    plugin.getPlayerDataInterface().loadPlayer(p);
+                } catch (IOException | SQLException e1) {
+                    e1.printStackTrace();
                 }
-            }.runTask(plugin);
+                GamePlayer gamePlayer = plugin.getPlayerManager().getUuidGamePlayerMap().get(p.getUniqueId());
+                plugin.getPlayerManager().spectator(gamePlayer, true);
+                Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> {
+                    plugin.getScoreBoardAPI().setScoreBoard(p, ScoreBoardAPI.ScoreboardType.LOBBY, false, false, false);
+
+                });
+            });
         }
         if (plugin.getArenaManager().checkStart()) {
-            new LobbyTask(plugin, config.getInt("GameOptions.VoteTime")).runTaskTimer(plugin, 0l, 20l);
+            Bukkit.getPluginManager().callEvent(new GameStartEvent(plugin.getPlayerManager().getPlayersAlive()));
         }
         Configuration lang = plugin.getConfigUtils().getConfig(plugin, "Lang");
         p.sendMessage(c(lang.getString("VoteMessage")));
@@ -78,20 +78,18 @@ public class EventJoinAndLeave implements Listener {
     public void PlayerLeftEvent(PlayerQuitEvent e) {
         e.setQuitMessage(null);
         plugin.getScoreBoardAPI().removeScoreBoard(e.getPlayer());
-        if (plugin.getPlayerManager().getPlayersAlive().contains(e.getPlayer())) {
-            plugin.getPlayerManager().getPlayersAlive().remove(e.getPlayer());
-        }
+        plugin.getPlayerManager().getPlayersAlive().remove(e.getPlayer());
         if (!Connection.Database.database.equals(Connection.Database.NONE)) {
-            plugin.getPlayerDataInterface().savePlayer(e.getPlayer());
+            Bukkit.getScheduler().scheduleAsyncDelayedTask(plugin, () -> {
+                plugin.getPlayerDataInterface().savePlayer(e.getPlayer());
+            });
         }
     }
 
     @EventHandler
     public void PlayerLeftEvent(PlayerKickEvent e) {
         plugin.getScoreBoardAPI().removeScoreBoard(e.getPlayer());
-        if (plugin.getPlayerManager().getPlayersAlive().contains(e.getPlayer())) {
-            plugin.getPlayerManager().getPlayersAlive().remove(e.getPlayer());
-        }
+        plugin.getPlayerManager().getPlayersAlive().remove(e.getPlayer());
     }
 
     private String c(String c) {

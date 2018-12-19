@@ -1,6 +1,7 @@
 package com.isnakebuzz.meetup.EventsManager.Events;
 
 import com.isnakebuzz.meetup.Main;
+import com.isnakebuzz.meetup.Utils.Enums.GameStates;
 import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -24,63 +25,63 @@ public class EventStarting implements Listener {
 
     @EventHandler
     public void InteractEvent(PlayerInteractEvent e) {
-        if (Main.getStates.state == Main.getStates.STARTING) {
+        if (plugin.getArenaManager().getGameStates() == GameStates.STARTING) {
             e.setCancelled(true);
         }
     }
 
     @EventHandler
     public void DamageToOther(EntityDamageByEntityEvent e) {
-        if (Main.getStates.state == Main.getStates.STARTING) {
+        if (plugin.getArenaManager().getGameStates() == GameStates.STARTING) {
             e.setCancelled(true);
         }
     }
 
     @EventHandler
     public void EntityDamage(EntityDamageEvent e) {
-        if (Main.getStates.state == Main.getStates.STARTING) {
+        if (plugin.getArenaManager().getGameStates() == GameStates.STARTING) {
             e.setCancelled(true);
         }
     }
 
     @EventHandler
     public void ItemDrop(PlayerDropItemEvent e) {
-        if (Main.getStates.state == Main.getStates.STARTING) {
+        if (plugin.getArenaManager().getGameStates() == GameStates.STARTING) {
             e.setCancelled(true);
         }
     }
 
     @EventHandler
     public void BlockBreak(BlockBreakEvent e) {
-        if (Main.getStates.state == Main.getStates.STARTING) {
+        if (plugin.getArenaManager().getGameStates() == GameStates.STARTING) {
             e.setCancelled(true);
         }
     }
 
     @EventHandler
     public void BlockPlace(BlockPlaceEvent e) {
-        if (Main.getStates.state == Main.getStates.STARTING) {
+        if (plugin.getArenaManager().getGameStates() == GameStates.STARTING) {
             e.setCancelled(true);
         }
     }
 
     @EventHandler
     public void InvDrag(InventoryDragEvent e) {
-        if (Main.getStates.state == Main.getStates.STARTING) {
+        if (plugin.getArenaManager().getGameStates() == GameStates.STARTING) {
             e.setCancelled(true);
         }
     }
 
     @EventHandler
     public void FoodLevelChange(FoodLevelChangeEvent e) {
-        if (Main.getStates.state == Main.getStates.STARTING) {
+        if (plugin.getArenaManager().getGameStates() == GameStates.STARTING) {
             e.setCancelled(true);
         }
     }
 
     @EventHandler
     public void ItemPickUp(PlayerPickupItemEvent e) {
-        if (Main.getStates.state == Main.getStates.STARTING) {
+        if (plugin.getArenaManager().getGameStates() == GameStates.STARTING) {
             e.setCancelled(true);
         }
     }

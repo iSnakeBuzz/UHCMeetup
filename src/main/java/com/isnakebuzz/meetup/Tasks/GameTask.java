@@ -2,6 +2,7 @@ package com.isnakebuzz.meetup.Tasks;
 
 import com.isnakebuzz.meetup.Main;
 import com.isnakebuzz.meetup.EventsManager.CustomEvents.GameWinEvent;
+import com.isnakebuzz.meetup.Utils.Enums.GameStates;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.Configuration;
@@ -33,7 +34,7 @@ public class GameTask extends BukkitRunnable {
 
     @Override
     public void run() {
-        if (Main.getStates.state == Main.getStates.FINISHED) {
+        if (plugin.getArenaManager().getGameStates() == GameStates.ENDED || plugin.getArenaManager().getGameStates() == GameStates.ENDING) {
             this.cancel();
         }
 

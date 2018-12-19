@@ -1,6 +1,7 @@
 package com.isnakebuzz.meetup.EventsManager.Events;
 
 import com.isnakebuzz.meetup.Main;
+import com.isnakebuzz.meetup.Utils.Enums.GameStates;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.Configuration;
@@ -19,9 +20,9 @@ public class EventLogin implements Listener {
     @EventHandler
     public void LoginEvent(PlayerLoginEvent e){
         Configuration config = plugin.getConfigUtils().getConfig(plugin, "Settings");
-        if (Main.getStates.state == Main.getStates.LOADING){
+        if (plugin.getArenaManager().getGameStates() == GameStates.LOADING){
             e.disallow(PlayerLoginEvent.Result.KICK_OTHER, "§cLoading Game");
-        } else if (Main.getStates.state != Main.getStates.LOBBY){
+        } else if (plugin.getArenaManager().getGameStates() == GameStates.LOBBY){
             e.disallow(PlayerLoginEvent.Result.KICK_OTHER, "§cIn Game");
         }
 

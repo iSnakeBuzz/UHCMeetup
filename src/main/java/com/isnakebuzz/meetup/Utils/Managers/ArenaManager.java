@@ -1,6 +1,7 @@
 package com.isnakebuzz.meetup.Utils.Managers;
 
 import com.isnakebuzz.meetup.Main;
+import com.isnakebuzz.meetup.Utils.Enums.GameStates;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.Configuration;
 
@@ -9,9 +10,18 @@ public class ArenaManager {
     private Main plugin;
     private boolean started = false;
     private boolean ended = false;
+    private GameStates gameStates;
 
     public ArenaManager(Main plugin) {
         this.plugin = plugin;
+    }
+
+    public GameStates getGameStates() {
+        return gameStates;
+    }
+
+    public void setGameStates(GameStates gameStates) {
+        this.gameStates = gameStates;
     }
 
     public boolean isStarted() {

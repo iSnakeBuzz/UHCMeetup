@@ -1,10 +1,12 @@
 package com.isnakebuzz.meetup.EventsManager.Events;
 
+import com.isnakebuzz.meetup.EventsManager.CustomEvents.*;
 import com.isnakebuzz.meetup.Main;
 import com.isnakebuzz.meetup.Tasks.EndTask;
+import com.isnakebuzz.meetup.Tasks.LobbyTask;
+import com.isnakebuzz.meetup.Utils.Enums.GameStates;
 import com.isnakebuzz.meetup.Utils.GamePlayer;
 import com.isnakebuzz.meetup.Utils.ScoreBoard.ScoreBoardAPI;
-import com.isnakebuzz.meetup.EventsManager.CustomEvents.GameWinEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.Configuration;
@@ -12,16 +14,29 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
-public class EventGameWin implements Listener {
+public class EventMeetupChecks implements Listener {
 
     private Main plugin;
 
-    public EventGameWin(Main plugin) {
+    public EventMeetupChecks(Main plugin) {
         this.plugin = plugin;
     }
 
     @EventHandler
-    public void onGameWinEvent(GameWinEvent e) {
+    public void GameStartEvent(GameStartEvent e) {
+        Configuration config = plugin.getConfigUtils().getConfig(plugin, "Settings");
+
+        plugin.getArenaManager().setGameStates(GameStates.STARTING);
+        new LobbyTask(plugin, config.getInt("GameOptions.VoteTime")).runTaskTimer(plugin, 0l, 20l);
+    }
+
+    @EventHandler
+    public void GameStartingEvent(GameStartingEvent e) {
+        plugin.getArenaManager().setGameStates(GameStates.INGAME);
+    }
+
+    @EventHandler
+    public void GameWinEvent(GameWinEvent e) {
         Configuration config = plugin.getConfigUtils().getConfig(plugin, "Lang");
         if (e.getPlayers().size() <= 1) {
             Player p = e.getPlayers().iterator().next();
@@ -56,6 +71,16 @@ public class EventGameWin implements Listener {
             plugin.getScoreBoardAPI().setScoreBoard(p, ScoreBoardAPI.ScoreboardType.FINISHED, true, true, true);
         }
         new EndTask(plugin, plugin.getConfigUtils().getConfig(plugin, "Settings").getInt("GameOptions.EndTime")).runTaskTimer(plugin, 0l, 20l);
+    }
+
+    @EventHandler
+    public void GameEndingEvent(GameEndingEvent e) {
+        plugin.getArenaManager().setGameStates(GameStates.ENDING);
+    }
+
+    @EventHandler
+    public void GameEndEvent(GameEndEvent e) {
+        plugin.getArenaManager().setGameStates(GameStates.ENDED);
     }
 
     private String c(String c) {

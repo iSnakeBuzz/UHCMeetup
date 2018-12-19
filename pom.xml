@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>UHCMeetup</groupId>
     <artifactId>UHCMeetup</artifactId>
-    <version>v0.2-beta.3</version>
+    <version>v0.2-beta.4</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

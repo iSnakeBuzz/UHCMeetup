@@ -1,6 +1,9 @@
 package com.isnakebuzz.meetup.Tasks;
 
+import com.isnakebuzz.meetup.EventsManager.CustomEvents.GameStartedEvent;
+import com.isnakebuzz.meetup.EventsManager.CustomEvents.GameStartingEvent;
 import com.isnakebuzz.meetup.Main;
+import com.isnakebuzz.meetup.Utils.Enums.StartingType;
 import com.isnakebuzz.meetup.Utils.GamePlayer;
 import com.isnakebuzz.meetup.Utils.ScoreBoard.ScoreBoardAPI;
 import org.bukkit.Bukkit;
@@ -23,6 +26,7 @@ public class StartingTask extends BukkitRunnable {
 
     @Override
     public void run() {
+        Bukkit.getPluginManager().callEvent(new GameStartingEvent(plugin.getPlayerManager().getPlayersAlive(), StartingType.GAME));
         plugin.getTimerManager().setStartingTime(time);
         Configuration config = plugin.getConfigUtils().getConfig(plugin, "Lang");
         Set<String> keys = config.getConfigurationSection("Starting").getKeys(false);
@@ -36,10 +40,11 @@ public class StartingTask extends BukkitRunnable {
                 p.setGameMode(GameMode.SURVIVAL);
                 p.setAllowFlight(false);
                 p.setFlying(false);
-                Main.getStates.state = Main.getStates.INGAME;
                 plugin.getScoreBoardAPI().setScoreBoard(p, ScoreBoardAPI.ScoreboardType.INGAME,true, true, false);
             }
+            Bukkit.getPluginManager().callEvent(new GameStartedEvent(plugin.getPlayerManager().getPlayersAlive()));
             this.cancel();
+            return;
         }
     }
 }

@@ -7,7 +7,6 @@ VoteEnds:
   15: 'Voting will end in &6%seconds% seconds&f.'
   10: 'Voting will end in &6%seconds% seconds&f.'
   5: 'Voting will end in &6%seconds% seconds&f.'
-  5: 'Voting will end in &6%seconds% seconds&f.'
   4: 'Voting will end in &6%seconds% seconds&f.'
   3: 'Voting will end in &6%seconds% seconds&f.'
   2: 'Voting will end in &6%seconds% seconds&f.'
@@ -16,14 +15,20 @@ Starting:
   15: 'The game will begin in &6%seconds% seconds&f.'
   10: 'The game will begin in &6%seconds% seconds&f.'
   5: 'The game will begin in &6%seconds% seconds&f.'
-  5: 'The game will begin in &6%seconds% seconds&f.'
   4: 'The game will begin in &6%seconds% seconds&f.'
   3: 'The game will begin in &6%seconds% seconds&f.'
   2: 'The game will begin in &6%seconds% seconds&f.'
   1: 'The game will begin in &6%seconds% second&f.'
 WinMessage:
-  - '&a%winners% &ehas won the game.'
+- '&a%winners% &ehas won the game.'
 VoteMessage: '&aType /vote to vote for a scenario for this game!'
 VoteAnnounce: "&6%type%&f has been chosen as this game's scenario with &6%votes% votes&f."
+Motd:
+  LOADING: 'Loading uhc data and generating world..'
+  LOBBY: 'Waiting players..'
+  STARTING: 'Starting game..'
+  INGAME: 'Ingame'
+  ENDING: 'Ending game..'
+  ENDED: 'Ended'
 NoClean:
   now: '&a[NoClean] You have a %time% seconds invicibility timer!'

@@ -1,7 +1,9 @@
 package com.isnakebuzz.meetup;
 
 import com.isnakebuzz.meetup.EventsManager.EventManager;
+import com.isnakebuzz.meetup.EventsManager.Events.EventMotd;
 import com.isnakebuzz.meetup.EventsManager.VoteEventManager;
+import com.isnakebuzz.meetup.Utils.Enums.GameStates;
 import com.isnakebuzz.meetup.Utils.Managers.*;
 import com.isnakebuzz.meetup.Utils.Connection;
 import com.isnakebuzz.meetup.Utils.ScoreBoard.ScoreBoardAPI;
@@ -28,6 +30,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.configuration.Configuration;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
@@ -119,7 +122,7 @@ public class Main extends JavaPlugin {
         loadDatabase();
 
         //Set game loading..
-        getStates.state = getStates.LOADING;
+        this.getArenaManager().setGameStates(GameStates.LOADING);
         getMode.state = getMode.SOLO;
         super.onEnable();
     }
@@ -205,6 +208,10 @@ public class Main extends JavaPlugin {
         return connection;
     }
 
+    public FileConfiguration getConfig(String configName) {
+        return this.configUtils.getConfig(this, configName);
+    }
+
     public PlayerDataInterface getPlayerDataInterface() {
         return playerDataInterface;
     }
@@ -222,7 +229,8 @@ public class Main extends JavaPlugin {
         registerListener(getEventManager().getEventGameWin());
         registerListener(getEventManager().getEventHealth());
         registerListener(getEventManager().getEventCommand());
-        if (getConfigUtils().getConfig(this, "Settings").getBoolean("GameOptions.EPearlCD.enabled")){
+        registerListener(new EventMotd(this));
+        if (getConfigUtils().getConfig(this, "Settings").getBoolean("GameOptions.EPearlCD.enabled")) {
             registerListener(getEventManager().getEventEnderCD());
         }
     }
@@ -335,11 +343,6 @@ public class Main extends JavaPlugin {
             log("Database", "Has disabled");
             Connection.Database.database = Connection.Database.NONE;
         }
-    }
-
-    public enum getStates {
-        LOADING, LOBBY, STARTING, INGAME, FINISHED;
-        public static getStates state;
     }
 
     public enum getMode {

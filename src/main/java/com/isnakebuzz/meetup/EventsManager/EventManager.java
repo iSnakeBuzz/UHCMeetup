@@ -15,7 +15,7 @@ public class EventManager {
     private EventWorldGen eventWorldGen;
     private EventDeath eventDeath;
     private EventWorld eventWorld;
-    private EventGameWin eventGameWin;
+    private EventMeetupChecks eventGameWin;
     private EventHealth eventHealth;
     private EventCommand eventCommand;
     private EventEnderCD eventEnderCD;
@@ -25,7 +25,7 @@ public class EventManager {
         this.eventEnderCD = new EventEnderCD(plugin);
         this.eventCommand = new EventCommand(plugin);
         this.eventHealth = new EventHealth(plugin);
-        this.eventGameWin = new EventGameWin(plugin);
+        this.eventGameWin = new EventMeetupChecks(plugin);
         this.eventWorld = new EventWorld(plugin);
         this.eventDeath = new EventDeath(plugin);
         this.eventInteract = new EventInteract(plugin);
@@ -48,7 +48,7 @@ public class EventManager {
         return eventHealth;
     }
 
-    public EventGameWin getEventGameWin() {
+    public EventMeetupChecks getEventGameWin() {
         return eventGameWin;
     }
 
