@@ -4,6 +4,7 @@ version: ${project.version}
 description: The epic MineHQ Meetup..
 author: iSnakeBuzz_
 website: https://www.isnakebuzz.com/
+softdepend: ['ProtocolLib']
 commands:
   lb:
     description: Get lobby commands.

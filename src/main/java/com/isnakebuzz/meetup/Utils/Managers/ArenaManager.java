@@ -1,9 +1,21 @@
 package com.isnakebuzz.meetup.Utils.Managers;
 
+import com.comphenix.protocol.PacketType;
+import com.comphenix.protocol.ProtocolLibrary;
+import com.comphenix.protocol.events.ListenerPriority;
+import com.comphenix.protocol.events.PacketAdapter;
+import com.comphenix.protocol.events.PacketContainer;
+import com.comphenix.protocol.events.PacketEvent;
+import com.comphenix.protocol.reflect.StructureModifier;
+import com.comphenix.protocol.wrappers.WrappedChatComponent;
 import com.isnakebuzz.meetup.Main;
 import com.isnakebuzz.meetup.Utils.Enums.GameStates;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.configuration.Configuration;
+import org.bukkit.plugin.Plugin;
+
+import java.util.List;
 
 public class ArenaManager {
 
@@ -57,6 +69,24 @@ public class ArenaManager {
         } else {
             return true;
         }
+    }
+
+    public void loadProtocol() {
+        ProtocolLibrary.getProtocolManager().addPacketListener(
+                new PacketAdapter(plugin, ListenerPriority.NORMAL, PacketType.Play.Server.CHAT) {
+                    public void onPacketSending(PacketEvent e) {
+                        if (e.getPacketType() == PacketType.Play.Server.CHAT) {
+                            PacketContainer packet = e.getPacket();
+                            List<WrappedChatComponent> components = packet.getChatComponents().getValues();
+
+                            for (WrappedChatComponent component : components) {
+                                component.setJson(component.getJson().replace(e.getPlayer().getName(), ChatColor.GREEN + e.getPlayer().getName()));
+                                packet.getChatComponents().write(components.indexOf(component), component);
+                            }
+                        }
+                    }
+                });
+        plugin.log("Compatibility", "Hooked ProtocolLib");
     }
 
 }

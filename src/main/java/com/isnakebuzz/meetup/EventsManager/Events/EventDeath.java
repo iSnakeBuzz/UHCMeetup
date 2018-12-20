@@ -82,13 +82,34 @@ public class EventDeath implements Listener {
             }
         }
         Configuration lang = plugin.getConfig("Lang");
-        e.setDeathMessage(c(lang.getString("DeathMessages." + getFormatMessage(deathPlayer, killer, damageCause))
-                .replaceAll("%player%", deathPlayer.getName())
-                .replaceAll("%killer%", checkKiller(killer))
-                .replaceAll("%blocks%", String.valueOf(checkDistance(deathPlayer, killer)))
-                .replaceAll("%p_kill_count%", String.valueOf(checkKills(deathPlayer)))
-                .replaceAll("%k_kill_count%", String.valueOf(checkKills((Player) killer)))
-        ));
+        e.setDeathMessage(null);
+        broadcastDeath(deathPlayer, killer, damageCause);
+    }
+
+    private void broadcastDeath(Player deathPlayer, Entity killer, EntityDamageEvent.DamageCause damageCause) {
+        Configuration lang = plugin.getConfig("Lang");
+
+        for (Player allPlayers : Bukkit.getOnlinePlayers()) {
+            if (allPlayers.equals(deathPlayer)) {
+                allPlayers.sendMessage(c(lang.getString("DeathMessages." + getFormatMessage(deathPlayer, killer, damageCause))
+                        .replaceAll("%player%", ChatColor.GREEN + deathPlayer.getName())
+                        .replaceAll("%killer%", ChatColor.RED + checkKiller(killer))
+                        .replaceAll("%blocks%", String.valueOf(checkDistance(deathPlayer, killer)))
+                        .replaceAll("%p_kill_count%", String.valueOf(checkKills(deathPlayer)))
+                        .replaceAll("%k_kill_count%", String.valueOf(checkKills((Player) killer)))));
+            } else if (killer instanceof Player) {
+                Player kPlayer = (Player) killer;
+
+                if (kPlayer.equals(allPlayers)) {
+                    allPlayers.sendMessage(c(lang.getString("DeathMessages." + getFormatMessage(deathPlayer, killer, damageCause))
+                            .replaceAll("%player%", ChatColor.RED + deathPlayer.getName())
+                            .replaceAll("%killer%", ChatColor.GREEN + checkKiller(killer))
+                            .replaceAll("%blocks%", String.valueOf(checkDistance(deathPlayer, killer)))
+                            .replaceAll("%p_kill_count%", String.valueOf(checkKills(deathPlayer)))
+                            .replaceAll("%k_kill_count%", String.valueOf(checkKills((Player) killer)))));
+                }
+            }
+        }
     }
 
     private String getFormatMessage(Player player, Entity killer, EntityDamageEvent.DamageCause damageCause) {

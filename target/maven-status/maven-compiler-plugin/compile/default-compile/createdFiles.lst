@@ -93,6 +93,7 @@ com\isnakebuzz\meetup\Player\GamePlayer.class
 com\isnakebuzz\meetup\Inventory\Utils\EnchantGlow.class
 com\isnakebuzz\meetup\Main.class
 com\isnakebuzz\meetup\Tasks\EndTask.class
+com\isnakebuzz\meetup\Utils\Managers\ArenaManager$1.class
 com\isnakebuzz\meetup\Utils\PluginUtils\Metrics$CustomChart.class
 com\isnakebuzz\meetup\Utils\WorldBorder\WorldFileData.class
 com\isnakebuzz\meetup\Commands\CommandsKits.class

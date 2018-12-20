@@ -4,6 +4,7 @@ version: v0.2-beta.7
 description: The epic MineHQ Meetup..
 author: iSnakeBuzz_
 website: https://www.isnakebuzz.com/
+softdepend: ['ProtocolLib']
 commands:
   lb:
     description: Get lobby commands.
