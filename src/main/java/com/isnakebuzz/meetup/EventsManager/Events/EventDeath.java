@@ -93,7 +93,8 @@ public class EventDeath implements Listener {
 
     private String getFormatMessage(Player player, Entity killer, EntityDamageEvent.DamageCause damageCause) {
         if (killer instanceof Player) {
-            if (killer.getName().equals(player.getName())) {
+            Player pKiller = (Player) killer;
+            if (pKiller.getName().equals(player.getName())) {
                 return "Death";
             }
             if (damageCause.equals(EntityDamageEvent.DamageCause.ENTITY_ATTACK)) {
@@ -125,9 +126,8 @@ public class EventDeath implements Listener {
 
     private String checkKiller(Entity killer) {
         if (killer instanceof Player) {
-            return killer.getName();
-        } else if (killer != null) {
-            return killer.getName();
+            Player kPlayer = (Player) killer;
+            return kPlayer.getName();
         } else {
             return "none";
         }

@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>UHCMeetup</groupId>
   <artifactId>UHCMeetup</artifactId>
-  <version>v0.2-beta.5</version>
+  <version>v0.2-beta.7</version>
   <build>
     <defaultGoal>clean package</defaultGoal>
     <resources>

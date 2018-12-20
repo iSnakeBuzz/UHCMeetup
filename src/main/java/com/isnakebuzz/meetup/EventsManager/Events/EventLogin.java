@@ -18,15 +18,19 @@ public class EventLogin implements Listener {
     }
 
     @EventHandler
-    public void LoginEvent(PlayerLoginEvent e){
+    public void LoginEvent(PlayerLoginEvent e) {
         Configuration config = plugin.getConfigUtils().getConfig(plugin, "Settings");
-        if (plugin.getArenaManager().getGameStates() == GameStates.LOADING){
+        if (plugin.getArenaManager().getGameStates() == GameStates.LOADING) {
             e.disallow(PlayerLoginEvent.Result.KICK_OTHER, "§cLoading Game");
-        } else if (plugin.getArenaManager().getGameStates() != GameStates.LOBBY){
+        }
+
+        if (plugin.getArenaManager().getGameStates() == GameStates.LOBBY || plugin.getArenaManager().getGameStates() == GameStates.STARTING) {
+            e.allow();
+        } else {
             e.disallow(PlayerLoginEvent.Result.KICK_OTHER, "§cIn Game");
         }
 
-        if (Bukkit.getOnlinePlayers().size() >= config.getInt("GameOptions.MaxPlayers")){
+        if (Bukkit.getOnlinePlayers().size() >= config.getInt("GameOptions.MaxPlayers")) {
             e.disallow(PlayerLoginEvent.Result.KICK_FULL, "§cFull");
         }
     }

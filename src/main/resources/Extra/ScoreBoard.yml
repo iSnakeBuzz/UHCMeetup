@@ -4,7 +4,7 @@
 #                                   #
 # # # # # # # # # # # # # # # # # # #
 
-bTimeFormat: "&7(&Tasks%time%&7)"
+bTimeFormat: "&7(&c%time%&7)"
 
 LOBBY:
   title: '&6&lMineHQ &7| &fMeetup'
@@ -46,7 +46,7 @@ SPECTATOR:
     - '&7&m----------------'
     - 'Game Time: &6%game_time%'
     - 'Remaining: &6%players%/%maxplayers%'
-    - 'Border: &6%border% &Tasks%border_time%'
+    - 'Border: &6%border% %border_time%'
     - '&7&m----------------'
 FINISHED:
   title: '&6&lMineHQ &7| &fMeetup'
