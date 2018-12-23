@@ -20,9 +20,9 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Maven: org.mongodb:mongodb-driver:3.6.4" level="project" />
-    <orderEntry type="library" name="Maven: org.mongodb:bson:3.6.4" level="project" />
-    <orderEntry type="library" name="Maven: org.mongodb:mongodb-driver-core:3.6.4" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: org.mongodb:mongodb-driver:3.6.4" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: org.mongodb:bson:3.6.4" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: org.mongodb:mongodb-driver-core:3.6.4" level="project" />
     <orderEntry type="module-library">
       <library name="Maven: org.spigotmc:spigot-1.8.8:1.8.8">
         <CLASSES>
@@ -41,9 +41,5 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="library" scope="PROVIDED" name="Maven: com.comphenix.protocol:ProtocolLib:4.4.0" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: com.comphenix.protocol:ProtocolLib-API:4.4.0" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: cglib:cglib-nodep:3.2.5" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: com.comphenix.executors:BukkitExecutors:1.1-SNAPSHOT" level="project" />
   </component>
 </module>

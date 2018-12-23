@@ -60,14 +60,14 @@ public class VoteManager {
             );
         }
         if (fireless.size() > default_.size() && fireless.size() > bowless.size() && fireless.size() > noclean.size()) {
-            plugin.registerListener(plugin.getVoteEventManager().getEventFireless());
+            plugin.getEventManager().registerListener(plugin.getVoteEventManager().getEventFireless());
             plugin.broadcast(lang.getString("VoteAnnounce")
                     .replaceAll("%votes%", String.valueOf(this.getFireless().size()))
                     .replaceAll("%type%", "Fireless")
             );
         }
         if (noclean.size() > default_.size() && noclean.size() > fireless.size() && noclean.size() > bowless.size()) {
-            plugin.registerListener(plugin.getVoteEventManager().getEventNoClean());
+            plugin.getEventManager().registerListener(plugin.getVoteEventManager().getEventNoClean());
             plugin.broadcast(lang.getString("VoteAnnounce")
                     .replaceAll("%votes%", String.valueOf(this.getNoClean().size()))
                     .replaceAll("%type%", "NoClean")

@@ -26,6 +26,7 @@ public class VMongoDB implements PlayerDataInterface {
         this.plugin = plugin;
         Configuration config = plugin.getConfigUtils().getConfig(plugin, "Extra/Database");
         MongoClient mongoClient = plugin.getConnection().getMongoClient();
+
         MongoDatabase mongoDatabase = mongoClient.getDatabase("UHCMeetup");
 
         if (mongoDatabase.getCollection("player_solo_stats") == null)

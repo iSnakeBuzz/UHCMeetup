@@ -6,7 +6,6 @@ import com.isnakebuzz.meetup.EventsManager.VoteEventManager;
 import com.isnakebuzz.meetup.Utils.Enums.GameStates;
 import com.isnakebuzz.meetup.Utils.Managers.*;
 import com.isnakebuzz.meetup.Utils.Connection;
-import com.isnakebuzz.meetup.Utils.PacketHelper.PacketHandler;
 import com.isnakebuzz.meetup.Utils.ScoreBoard.ScoreBoardAPI;
 import com.isnakebuzz.meetup.Utils.WorldUtils.*;
 import com.isnakebuzz.meetup.Configurations.ConfigCreator;
@@ -57,8 +56,10 @@ public class Main extends JavaPlugin {
     private VoteEventManager voteEventManager;
     private PluginVersion versionHandler;
     private PlayerDataInterface playerDataInterface;
+    private DependManager dependManager;
 
     public Main() {
+        this.dependManager = new DependManager(this);
         this.voteEventManager = new VoteEventManager(this);
         this.voteManager = new VoteManager(this);
         this.connection = new Connection(this);
@@ -114,10 +115,14 @@ public class Main extends JavaPlugin {
         this.getTimerManager().setStartingTime(this.getConfigUtils().getConfig(this, "Settings").getInt("GameOptions.StartingTime"));
 
         //Load EventsManager
-        this.loadListeners();
+        this.getEventManager().loadListeners();
 
         //Load metrics
         Metrics metrics = new Metrics(this);
+
+        //Loading dependencies
+        checkDatabase();
+        this.dependManager.loadDepends();
 
         //Load Database
         loadDatabase();
@@ -217,35 +222,6 @@ public class Main extends JavaPlugin {
         return playerDataInterface;
     }
 
-    private void loadListeners() {
-        log("Listener", "Loading listeners..");
-        registerListener(getEventManager().getEventInteract());
-        registerListener(getEventManager().getEventJoinAndLeave());
-        registerListener(getEventManager().getEventLogin());
-        registerListener(getEventManager().getEventSpectator());
-        registerListener(getEventManager().getEventStarting());
-        registerListener(getEventManager().getEventWorldGen());
-        registerListener(getEventManager().getEventDeath());
-        registerListener(getEventManager().getEventWorld());
-        registerListener(getEventManager().getEventGameWin());
-        registerListener(getEventManager().getEventHealth());
-        registerListener(getEventManager().getEventCommand());
-        registerListener(new EventMotd(this));
-        if (getConfigUtils().getConfig(this, "Settings").getBoolean("GameOptions.EPearlCD.enabled")) {
-            registerListener(getEventManager().getEventEnderCD());
-        }
-    }
-
-    public void registerListener(Listener listener) {
-        log("Listener", "&5-&e Loaded listener &e" + listener.getClass().getSimpleName());
-        this.getServer().getPluginManager().registerEvents(listener, this);
-    }
-
-    public void unregisterListener(Listener listener) {
-        log("Listener", "&5-&e Unloading listener &e" + listener.getClass().getSimpleName());
-        HandlerList.unregisterAll(listener);
-    }
-
     public void checkVersionPlayer(Player p) {
         SpigotUpdater spigotUpdater = new SpigotUpdater(this, 47646);
         try {
@@ -324,25 +300,35 @@ public class Main extends JavaPlugin {
         Config.log("For reference, the main world's spawn location is at X: " + Config.coord.format(spawn.getX()) + " Y: " + Config.coord.format(spawn.getY()) + " Z: " + Config.coord.format(spawn.getZ()));
     }
 
+    public void checkDatabase() {
+        Configuration config = getConfigUtils().getConfig(this, "Extra/Database");
+        String dbType = config.getString("DatabaseType");
+        if (Connection.Database.MONGODB.toString().equalsIgnoreCase(dbType)) {
+            Connection.Database.database = Connection.Database.MONGODB;
+        } else if (Connection.Database.MYSQL.toString().equalsIgnoreCase(dbType)) {
+            Connection.Database.database = Connection.Database.MYSQL;
+        } else if (Connection.Database.NONE.toString().equalsIgnoreCase(dbType)) {
+            Connection.Database.database = Connection.Database.NONE;
+        } else {
+            Connection.Database.database = Connection.Database.NONE;
+        }
+    }
+
     public void loadDatabase() {
         Configuration config = getConfigUtils().getConfig(this, "Extra/Database");
         String dbType = config.getString("DatabaseType");
         if (Connection.Database.MONGODB.toString().equalsIgnoreCase(dbType)) {
             this.getConnection().loadMongo();
             log("Database", "Loading MongoDB");
-            Connection.Database.database = Connection.Database.MONGODB;
             playerDataInterface = new VMongoDB(this);
         } else if (Connection.Database.MYSQL.toString().equalsIgnoreCase(dbType)) {
             this.getConnection().loadMySQL();
             log("Database", "Loading MySQL");
             playerDataInterface = new VMySQL(this);
-            Connection.Database.database = Connection.Database.MYSQL;
         } else if (Connection.Database.NONE.toString().equalsIgnoreCase(dbType)) {
             log("Database", "Has disabled");
-            Connection.Database.database = Connection.Database.NONE;
         } else {
             log("Database", "Has disabled");
-            Connection.Database.database = Connection.Database.NONE;
         }
     }
 

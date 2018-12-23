@@ -35,14 +35,10 @@
                         </goals>
                         <configuration>
                             <relocations>
-                                <relocation>
+                                <!--<relocation>
                                     <pattern>com.mongodb</pattern>
                                     <shadedPattern>com.isnakebuzz.meetup.depends.mongo</shadedPattern>
-                                </relocation>
-                                <relocation>
-                                    <pattern>org.bson</pattern>
-                                    <shadedPattern>com.isnakebuzz.meetup.depends.bson</shadedPattern>
-                                </relocation>
+                                </relocation> -->
                             </relocations>
                         </configuration>
                     </execution>
@@ -74,6 +70,7 @@
             <groupId>org.mongodb</groupId>
             <artifactId>mongodb-driver</artifactId>
             <version>3.6.4</version>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
@@ -90,13 +87,6 @@
             <scope>system</scope>
             <version>1.7.10</version>
             <systemPath>${project.basedir}/Lib/Spigot-1.7.10.jar</systemPath>
-        </dependency>
-
-        <dependency>
-            <groupId>com.comphenix.protocol</groupId>
-            <artifactId>ProtocolLib</artifactId>
-            <version>4.4.0</version>
-            <scope>provided</scope>
         </dependency>
 
     </dependencies>

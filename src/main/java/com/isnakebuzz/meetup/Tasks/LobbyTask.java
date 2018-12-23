@@ -61,7 +61,7 @@ public class LobbyTask extends BukkitRunnable {
                 plugin.getCustomKits().setUpKit(p);
             }
             plugin.getVoteManager().checkVoteWin();
-            plugin.unregisterListener(plugin.getEventManager().getEventInteract());
+            plugin.getEventManager().unregisterListener(plugin.getEventManager().getEventInteract());
             this.cancel();
         }
     }

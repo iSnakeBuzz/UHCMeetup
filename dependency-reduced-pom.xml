@@ -31,16 +31,7 @@
               <goal>shade</goal>
             </goals>
             <configuration>
-              <relocations>
-                <relocation>
-                  <pattern>com.mongodb</pattern>
-                  <shadedPattern>com.isnakebuzz.meetup.depends.mongo</shadedPattern>
-                </relocation>
-                <relocation>
-                  <pattern>org.bson</pattern>
-                  <shadedPattern>com.isnakebuzz.meetup.depends.bson</shadedPattern>
-                </relocation>
-              </relocations>
+              <relocations />
             </configuration>
           </execution>
         </executions>
@@ -59,22 +50,18 @@
   </repositories>
   <dependencies>
     <dependency>
-      <groupId>com.comphenix.protocol</groupId>
-      <artifactId>ProtocolLib</artifactId>
-      <version>4.4.0</version>
+      <groupId>org.mongodb</groupId>
+      <artifactId>mongodb-driver</artifactId>
+      <version>3.6.4</version>
       <scope>provided</scope>
       <exclusions>
         <exclusion>
-          <artifactId>ProtocolLib-API</artifactId>
-          <groupId>com.comphenix.protocol</groupId>
+          <artifactId>bson</artifactId>
+          <groupId>org.mongodb</groupId>
         </exclusion>
         <exclusion>
-          <artifactId>cglib-nodep</artifactId>
-          <groupId>cglib</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>BukkitExecutors</artifactId>
-          <groupId>com.comphenix.executors</groupId>
+          <artifactId>mongodb-driver-core</artifactId>
+          <groupId>org.mongodb</groupId>
         </exclusion>
       </exclusions>
     </dependency>
