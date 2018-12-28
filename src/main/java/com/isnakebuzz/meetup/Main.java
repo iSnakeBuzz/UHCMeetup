@@ -1,7 +1,8 @@
 package com.isnakebuzz.meetup;
 
+import com.isnakebuzz.meetup.Database.Core.MySQL_v2;
+import com.isnakebuzz.meetup.Database.Types.VMySQL_v2;
 import com.isnakebuzz.meetup.EventsManager.EventManager;
-import com.isnakebuzz.meetup.EventsManager.Events.EventMotd;
 import com.isnakebuzz.meetup.EventsManager.VoteEventManager;
 import com.isnakebuzz.meetup.Utils.Enums.GameStates;
 import com.isnakebuzz.meetup.Utils.Managers.*;
@@ -32,8 +33,6 @@ import org.bukkit.Location;
 import org.bukkit.configuration.Configuration;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
-import org.bukkit.event.HandlerList;
-import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class Main extends JavaPlugin {
@@ -57,8 +56,10 @@ public class Main extends JavaPlugin {
     private PluginVersion versionHandler;
     private PlayerDataInterface playerDataInterface;
     private DependManager dependManager;
+    private MySQL_v2 mySQL_v2;
 
     public Main() {
+        this.mySQL_v2 = new MySQL_v2(this);
         this.dependManager = new DependManager(this);
         this.voteEventManager = new VoteEventManager(this);
         this.voteManager = new VoteManager(this);
@@ -136,6 +137,7 @@ public class Main extends JavaPlugin {
     @Override
     public void onDisable() {
         super.onDisable();
+        this.getConnection().disconnect();
     }
 
     public void log(String sender, String log) {
@@ -220,6 +222,10 @@ public class Main extends JavaPlugin {
 
     public PlayerDataInterface getPlayerDataInterface() {
         return playerDataInterface;
+    }
+
+    public MySQL_v2 getMySQL_v2() {
+        return mySQL_v2;
     }
 
     public void checkVersionPlayer(Player p) {
@@ -324,7 +330,7 @@ public class Main extends JavaPlugin {
         } else if (Connection.Database.MYSQL.toString().equalsIgnoreCase(dbType)) {
             this.getConnection().loadMySQL();
             log("Database", "Loading MySQL");
-            playerDataInterface = new VMySQL(this);
+            playerDataInterface = new VMySQL_v2(this);
         } else if (Connection.Database.NONE.toString().equalsIgnoreCase(dbType)) {
             log("Database", "Has disabled");
         } else {

@@ -9,6 +9,7 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.UpdateOptions;
 import org.bson.Document;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.Configuration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -42,66 +43,74 @@ public class VMongoDB implements PlayerDataInterface {
     }
 
     @Override
-    public void loadPlayer(Player p) throws IOException {
-        if (!isInPlayerInvs(p)) {
-            Document player_data_doc = new Document("UUID", p.getUniqueId());
-            Document found = (Document) collection_player_invs.find(player_data_doc).first();
-            if (found == null) {
-                ItemStack[] inventory = plugin.getAutoKits().getInventory();
-                player_data_doc.append("Inventory", plugin.getInvManager().itemStackArrayToBase64(inventory));
-                this.collection_player_invs.insertOne(player_data_doc);
-                plugin.getPlayerManager().getUuidPlayerInventoryMap().put(p.getUniqueId(), new PlayerInventory(p.getUniqueId(), p, inventory));
+    public void loadPlayer(Player p) {
+        Bukkit.getScheduler().scheduleAsyncDelayedTask(plugin, () -> {
+            if (!isInPlayerInvs(p)) {
+                Document player_data_doc = new Document("UUID", p.getUniqueId());
+                Document found = (Document) collection_player_invs.find(player_data_doc).first();
+                if (found == null) {
+                    ItemStack[] inventory = plugin.getAutoKits().getInventory();
+                    player_data_doc.append("Inventory", plugin.getInvManager().itemStackArrayToBase64(inventory));
+                    this.collection_player_invs.insertOne(player_data_doc);
+                    plugin.getPlayerManager().getUuidPlayerInventoryMap().put(p.getUniqueId(), new PlayerInventory(p.getUniqueId(), p, inventory));
+                }
+            } else {
+                try {
+                    loadPlayerInventory(p);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
-        } else {
-            loadPlayerInventory(p);
-        }
 
-        if (Main.getMode.state == Main.getMode.SOLO) {
-            if (!isInPlayerSoloStats(p)) {
-                Document player_data_doc = new Document("UUID", p.getUniqueId());
-                Document found = (Document) collection_player_solo_stats.find(player_data_doc).first();
-                if (found == null) {
-                    int kills = 0;
-                    int deaths = 0;
-                    int wins = 0;
-                    player_data_doc.append("Wins", wins);
-                    player_data_doc.append("Kills", kills);
-                    player_data_doc.append("Deaths", deaths);
-                    this.collection_player_solo_stats.insertOne(player_data_doc);
-                    plugin.getPlayerManager().getUuidGamePlayerMap().put(p.getUniqueId(), new GamePlayer(plugin, p, p.getUniqueId(), false, wins, kills, deaths));
+            if (Main.getMode.state == Main.getMode.SOLO) {
+                if (!isInPlayerSoloStats(p)) {
+                    Document player_data_doc = new Document("UUID", p.getUniqueId());
+                    Document found = (Document) collection_player_solo_stats.find(player_data_doc).first();
+                    if (found == null) {
+                        int kills = 0;
+                        int deaths = 0;
+                        int wins = 0;
+                        player_data_doc.append("Wins", wins);
+                        player_data_doc.append("Kills", kills);
+                        player_data_doc.append("Deaths", deaths);
+                        this.collection_player_solo_stats.insertOne(player_data_doc);
+                        plugin.getPlayerManager().getUuidGamePlayerMap().put(p.getUniqueId(), new GamePlayer(plugin, p, p.getUniqueId(), false, wins, kills, deaths));
+                    }
+                } else {
+                    loadPlayerSoloStats(p);
                 }
-            } else {
-                loadPlayerSoloStats(p);
-            }
-        } else if (Main.getMode.state == Main.getMode.TEAM) {
-            if (!isInPlayerTeamStats(p)) {
-                Document player_data_doc = new Document("UUID", p.getUniqueId());
-                Document found = (Document) collection_player_team_stats.find(player_data_doc).first();
-                if (found == null) {
-                    int kills = 0;
-                    int deaths = 0;
-                    int wins = 0;
-                    player_data_doc.append("Wins", wins);
-                    player_data_doc.append("Kills", kills);
-                    player_data_doc.append("Deaths", deaths);
-                    this.collection_player_team_stats.insertOne(player_data_doc);
-                    plugin.getPlayerManager().getUuidGamePlayerMap().put(p.getUniqueId(), new GamePlayer(plugin, p, p.getUniqueId(), false, wins, kills, deaths));
+            } else if (Main.getMode.state == Main.getMode.TEAM) {
+                if (!isInPlayerTeamStats(p)) {
+                    Document player_data_doc = new Document("UUID", p.getUniqueId());
+                    Document found = (Document) collection_player_team_stats.find(player_data_doc).first();
+                    if (found == null) {
+                        int kills = 0;
+                        int deaths = 0;
+                        int wins = 0;
+                        player_data_doc.append("Wins", wins);
+                        player_data_doc.append("Kills", kills);
+                        player_data_doc.append("Deaths", deaths);
+                        this.collection_player_team_stats.insertOne(player_data_doc);
+                        plugin.getPlayerManager().getUuidGamePlayerMap().put(p.getUniqueId(), new GamePlayer(plugin, p, p.getUniqueId(), false, wins, kills, deaths));
+                    }
+                } else {
+                    loadPlayerTeamStats(p);
                 }
-            } else {
-                loadPlayerTeamStats(p);
             }
-        }
+        });
     }
 
     @Override
     public void savePlayer(Player p) {
-        savePlayerInventory(p);
+        Bukkit.getScheduler().scheduleAsyncDelayedTask(plugin, () -> {
+            savePlayerInventory(p);
 
-        if (Main.getMode.state == Main.getMode.SOLO) {
-            savePlayerSoloStats(p);
-        } else if (Main.getMode.state == Main.getMode.TEAM) {
-            savePlayerTeamStats(p);
-        }
+            if (Main.getMode.state == Main.getMode.SOLO) {
+                savePlayerSoloStats(p);
+            } else if (Main.getMode.state == Main.getMode.TEAM) {
+                savePlayerTeamStats(p);
+            }
+        });
     }
 
     private void savePlayerSoloStats(Player p) {

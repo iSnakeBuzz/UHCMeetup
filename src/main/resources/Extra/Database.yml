@@ -5,8 +5,11 @@ MongoDB:
   user: admin
   pass: admin123
 MySQL:
-  hostname: "127.0.0.1"
-  port: 3306
-  database: "UHCMeetup"
-  username: "root"
-  password: "password"
+  driver-class: 'com.mysql.jdbc.Driver'
+  jdbc-url: 'jdbc:mysql://<host>:<port>/<database>'
+  hostname: '127.0.0.1'
+  port: '3306'
+  database: 'UHCMeetup'
+  username: 'root'
+  password: 'password'
+  checkout-timeout: 5000

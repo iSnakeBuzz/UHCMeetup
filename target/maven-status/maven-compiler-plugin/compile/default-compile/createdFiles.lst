@@ -46,6 +46,7 @@ com\isnakebuzz\meetup\EventsManager\CustomEvents\GameEndEvent.class
 com\isnakebuzz\meetup\Utils\PluginUtils\Metrics$MultiLineChart.class
 com\isnakebuzz\meetup\Configurations\ConfigUtils.class
 com\isnakebuzz\meetup\EventsManager\Events\EventCommand.class
+com\isnakebuzz\meetup\Database\Core\MySQL_v2.class
 com\isnakebuzz\meetup\EventsManager\CustomEvents\GameStartingEvent.class
 com\isnakebuzz\meetup\Utils\WorldUtils\WorldGen.class
 com\isnakebuzz\meetup\Utils\Enums\GameStates.class

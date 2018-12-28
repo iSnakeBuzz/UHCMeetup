@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 public interface PlayerDataInterface {
 
-    public void loadPlayer(Player p) throws IOException, SQLException;
+    public void loadPlayer(Player p) throws SQLException, IOException;
 
     public void savePlayer(Player p);
 

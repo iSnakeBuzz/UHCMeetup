@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>UHCMeetup</groupId>
   <artifactId>UHCMeetup</artifactId>
-  <version>v0.2-beta.7</version>
+  <version>v0.2-beta.10</version>
   <build>
     <defaultGoal>clean package</defaultGoal>
     <resources>
@@ -62,6 +62,30 @@
         <exclusion>
           <artifactId>mongodb-driver-core</artifactId>
           <groupId>org.mongodb</groupId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>com.mchange</groupId>
+      <artifactId>c3p0</artifactId>
+      <version>0.9.5.2</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.mchange</groupId>
+      <artifactId>mchange-commons-java</artifactId>
+      <version>0.2.15</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>8.0.13</version>
+      <scope>provided</scope>
+      <exclusions>
+        <exclusion>
+          <artifactId>protobuf-java</artifactId>
+          <groupId>com.google.protobuf</groupId>
         </exclusion>
       </exclusions>
     </dependency>

@@ -28,17 +28,13 @@ public class Connection {
     }
 
     public void loadMySQL() {
-        FileConfiguration config = plugin.getConfigUtils().getConfig(plugin, "Extra/Database");
-        MySQL.host = config.getString("MySQL.hostname");
-        MySQL.port = config.getInt("MySQL.port");
-        MySQL.database = config.getString("MySQL.database");
-        MySQL.username = config.getString("MySQL.username");
-        MySQL.password = config.getString("MySQL.password");
+        plugin.getMySQL_v2().connect();
+    }
 
-        MySQL.connect();
-        MySQL.update("CREATE TABLE IF NOT EXISTS UHCM_solo_stats (UUID VARCHAR(100), Wins Integer, Kills Integer, Deaths Integer)");
-        MySQL.update("CREATE TABLE IF NOT EXISTS UHCM_team_stats (UUID VARCHAR(100), Wins Integer, Kills Integer, Deaths Integer)");
-        MySQL.update("CREATE TABLE IF NOT EXISTS UHCM_inv (UUID VARCHAR(100), Inventory text)");
+    public void disconnect() {
+        if (Database.database == Database.MYSQL) {
+            plugin.getMySQL_v2().disconnect();
+        }
     }
 
     public MongoClient getMongoClient() {

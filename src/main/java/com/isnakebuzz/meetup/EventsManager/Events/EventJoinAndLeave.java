@@ -28,7 +28,7 @@ public class EventJoinAndLeave implements Listener {
     }
 
     @EventHandler
-    public void PlayerJoinEvent(PlayerJoinEvent e) {
+    public void PlayerJoinEvent(PlayerJoinEvent e) throws IOException, SQLException {
         e.setJoinMessage(null);
         Player p = e.getPlayer();
         //Set Full
@@ -49,12 +49,8 @@ public class EventJoinAndLeave implements Listener {
             plugin.getPlayerManager().spectator(gamePlayer, true);
             plugin.getScoreBoardAPI().setScoreBoard(p, ScoreBoardAPI.ScoreboardType.LOBBY, false, false, false);
         } else {
+            plugin.getPlayerDataInterface().loadPlayer(p);
             Bukkit.getScheduler().scheduleAsyncDelayedTask(plugin, () -> {
-                try {
-                    plugin.getPlayerDataInterface().loadPlayer(p);
-                } catch (IOException | SQLException e1) {
-                    e1.printStackTrace();
-                }
                 GamePlayer gamePlayer = plugin.getPlayerManager().getUuidGamePlayerMap().get(p.getUniqueId());
                 plugin.getPlayerManager().spectator(gamePlayer, true);
                 Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> {
@@ -78,9 +74,7 @@ public class EventJoinAndLeave implements Listener {
         plugin.getScoreBoardAPI().removeScoreBoard(e.getPlayer());
         plugin.getPlayerManager().getPlayersAlive().remove(e.getPlayer());
         if (!Connection.Database.database.equals(Connection.Database.NONE)) {
-            Bukkit.getScheduler().scheduleAsyncDelayedTask(plugin, () -> {
-                plugin.getPlayerDataInterface().savePlayer(e.getPlayer());
-            });
+            plugin.getPlayerDataInterface().savePlayer(e.getPlayer());
         }
     }
 
